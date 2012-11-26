@@ -32,9 +32,9 @@
                 .y0(function(d) { return y(d.y0); })
                 .y1(function(d) { return y(d.y0 + d.y); });
 
-            var svgTime = d3.select("body").append("svgTime")
-                .attr("width", width)
-                .attr("height", height);
+            var svgTime = d3.select("body").append("svg")
+                .attr("width", width + 'px')
+                .attr("height", height + 'px');
 
             svgTime.selectAll("path")
                 .data(layer)
