@@ -1,0 +1,37 @@
+p {
+  font-family: sans-serif;
+  font-size: 14px;
+}
+
+.container {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+#areaMain {
+  background: #0077DF;
+  display: block;
+  height: 600px;
+  margin: 0;
+  padding: 0;
+  width: 1000px;
+}
+
+#areaSearch {
+  background: #DFDFDF;
+  display: block;
+  height: 50px;
+  margin: 0;
+  padding: 0;
+  width: 1000px;
+}
+
+#areaTime {
+  background: #11CC55;
+  display: block;
+  height: 110px;
+  margin: 0;
+  padding: 0;
+  width: 1000px;
+}
