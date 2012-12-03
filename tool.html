@@ -8,7 +8,9 @@
   <script src=
       "http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">
       </script>
+  <script src="lib/crossfilter.min.js"></script>
   <script src="js/donut.js"></script>
+  <script src="js/timeline.js"></script>
 </head>
 <body>
   <div class="container">
@@ -20,7 +22,6 @@
         <p style="margin:0 10px; color: #fff">Main content area</p>
       </div>
       <div id="areaMainDocList">
-
       </div>
     </div>
     <div id="areaTime">
@@ -30,6 +31,9 @@
   <script type="text/javascript">
     $(document).ready(new function() {
       new donutsViz(document.getElementById('areaMainCanvas'))
+    });
+    $(document).ready(new function() {
+      new timelineViz(document.getElementById('areaTime'))
     });
   </script>
 </body>
