@@ -19,6 +19,10 @@ p, text {
   stroke: white;
 }
 
+.timeOVBar.selected {
+  fill: steelblue;
+}
+
 .brush rect.extent {
   fill: steelblue;
   fill-opacity: .125;

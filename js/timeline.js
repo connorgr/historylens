@@ -4,20 +4,49 @@
  * container - the object containing the visualization.
  */
 function timelineViz (container) {
-    var testOverview = [{"x": 0, "y": 4}, {"x": 1, "y": 8}, {"x": 2, "y": 6}, {"x": 3, "y": 5}];
+
     var test = [[{"x": 0, "y": 3}, {"x": 1, "y": 5}, {"x": 2, "y": 1}, {"x": 3, "y": 2}], [{"x": 0, "y": 1}, {"x": 1, "y": 3}, {"x": 2, "y": 5}, {"x": 3, "y": 3}]];
     var numTopic = 2; // number of layers
-    var numSample = 4; // number of samples per layer
+    var numSample = 20; // number of samples per layer
+    var numYear = summary.length;
+    var absoluteScale = false;
+    
     var stack = d3.layout.stack().offset("zero");
-    var layer = stack(test);
 
+
+    /* Create filters */
+    var filteredRecords = crossfilter(records);
+    var recordsByTime = filteredRecords.dimension(function(d) {return d.year;});
+    var recordsByTopic = filteredRecords.dimension(function(d) {return d.topic});
+
+    /* Populate the array for detail view */
+    recordsByTopic.filter("A");
+    var binnedValueA = recordsByTime
+        .group(function(d) { return Math.floor((d - 1812) / (200 / numSample)); })
+        .reduceSum(function(d) { return d.count; })
+        .order(function(d) { return d.key; })
+        .all();
+
+    recordsByTopic.filter("B");
+    var binnedValueB = recordsByTime
+        .group(function(d) { return Math.floor((d - 1812) / (200 / numSample)); })
+        .reduceSum(function(d) { return d.count; })
+        .order(function(d) { return d.key; })
+        .all();
+
+    var layerData = groupsToLayers([binnedValueA, binnedValueB]);
+
+    var layer = stack(layerData);
+    
     var width = 960;
     var oHeight = 50;
     var dHeight = 200;
-
+    var ovBarWidth = width / numYear;
+    
     var x = d3.scale.linear()
         .domain([0, numSample - 1])
         .range([0, width]);
+
 
     var y = d3.scale.linear()
         .domain([0, d3.max(layer, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); })])
@@ -32,7 +61,8 @@ function timelineViz (container) {
         .on("brush", brushMove)
         .on("brushend", brushEnd);
 
-    var area = d3.svg.area()
+    var vizDetail = d3.svg.area()
+        .interpolate("basis")
         .x(function(d) { return x(d.x); })
         .y0(function(d) { return y(d.y0); })
         .y1(function(d) { return y(d.y0 + d.y); });
@@ -44,13 +74,17 @@ function timelineViz (container) {
         .attr("width", width + 'px')
         .attr("transform", "translate (20, 0)");
 
-    svgTimeOverview.selectAll()
-        .data(testOverview)
+    var timeOVBars = svgTimeOverview.selectAll()
+        .data(summary)
         .enter().append("rect")
-        .attr("class", "timeOVBar")
-        .attr("width", width / testOverview.length)
+        .attr("class", "timeOVBar selected")
+        .attr("width", width / numYear)
         .attr("height", oHeight)
-        .attr("x", function(d, i) {return i * width / testOverview.length});
+        .attr("x", function(d, i) {
+            d.x0 = i * ovBarWidth;
+            d.x1 = d.x0 + ovBarWidth;
+            return d.x0;
+         });
 
     var vizBrush = svgTimeOverview.append("g")
         .attr("class", "brush")
@@ -69,7 +103,7 @@ function timelineViz (container) {
     svgTimeDetail.selectAll("path")
         .data(layer)
         .enter().append("path")
-        .attr("d", area)
+        .attr("d", vizDetail)
         .style("fill", function(d, i) { return colorPalette[i]; });
 
     function resizePath(d) {
@@ -92,10 +126,84 @@ function timelineViz (container) {
     }
 
     function brushMove() {
-        console.log("move");
+        var extent = brush.extent();
+        timeOVBars.classed("selected", function(d) {
+            return d.x0 >= extent[0] * width && d.x1 <= extent[1] * width ;
+        });
+        updateDetailView();
     }
 
     function brushEnd() {
-        console.log("end");
+        updateDetailView();
+    }
+
+    function updateDetailView() {
+        var extent = brush.extent();
+
+        // Adjust the extent so that it always covers numSample * x year;
+        var startYear = Math.ceil(extent[0] * width / ovBarWidth) + 1812;
+        var endYear = Math.floor(extent[1] * width / ovBarWidth) - 1 + 1812;
+        var adjustedSpan = Math.round((endYear - startYear + 1) / numSample) * numSample;
+        extent[0] = Math.ceil(extent[0] * width / ovBarWidth) * ovBarWidth / width;
+        extent[1] = (extent[0] * width + adjustedSpan * ovBarWidth) / width;
+        endYear = startYear + adjustedSpan - 1;
+        svgTimeOverview.select(".brush").call(brush.extent(extent));
+        timeOVBars.classed("selected", function(d) {
+            return d.x0 >= extent[0] * width && d.x1 <= extent[1] * width ;
+        });
+
+        // Update the records for the detail view
+        recordsByTime.filter([startYear, endYear+1]);
+        var recordsA = recordsByTopic.filter("A").top(Infinity);
+        var recordsB = recordsByTopic.filter("B").top(Infinity);
+
+        var binFactor = adjustedSpan / numSample;
+        binnedValueA = [];
+        binnedValueB = [];
+        for (var i = 0; i < numSample; ++i) {
+            binnedValueA.push({key: i, value: 0});
+            binnedValueB.push({key: i, value: 0});
+        }
+            
+        for (var i = 0; i < adjustedSpan; ++i) {
+            var index = Math.floor(i / binFactor);
+            binnedValueA[index].value += recordsA[i].count;
+            binnedValueB[index].value += recordsB[i].count;
+        }
+
+        layerData = groupsToLayers([binnedValueA, binnedValueB]);
+        layer = stack(layerData);
+        if (!absoluteScale) {
+             y = d3.scale.linear()
+                .domain([0, d3.max(layer, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); })])
+                .range([dHeight, 0]);
+        }
+        
+        layerTransition(layer);    
+    }
+
+    function layerTransition(newLayer) {
+        svgTimeDetail.selectAll("path")
+            .data(newLayer)
+            .transition()
+            .duration(1)
+            .attr("d", vizDetail);
+    }
+
+    function groupsToLayers(groups) {
+        var length = groups.length;
+        var result = [];
+        for (var i = 0; i < length; ++i) {
+            var group = groups[i];
+            var stackLayer = [];
+            for (var j = 0; j < numSample; ++j) {
+                var elem = group[j];
+                stackLayer.push({x: elem.key, y: elem.value});
+            }
+            result.push(stackLayer);
+        }
+        return result;
     }
 }
+
+
