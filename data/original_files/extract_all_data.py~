@@ -1,0 +1,104 @@
+import json
+import sys
+
+# Takes the ad-hoc data we got from Chris, and produces our own JSON format.
+# It can then be imported by import.py.
+# See import.py for a full description of our intermediate JSON format.
+
+def extract_geo_id(geo_url):
+    if geo_url is None:
+        return None
+    parts = geo_url.split("/")
+    if len(parts) != 5:
+        return None
+    return int(parts[3])
+assert extract_geo_id("http://sws.geonames.org/3333171/") == 3333171
+
+def extract_title(json):
+    if not json.has_key("res:resource"):
+        return ""
+    resource = json["res:resource"]
+    return resource.get("dcterms:title", resource.get("bibo:shortTitle", ""))
+assert extract_title({"res:resource":{"bibo:shortTitle":"short","dcterms:title":"full"}}) == "full"
+assert extract_title({"res:resource":{"bibo:shortTitle":"short"}}) == "short"
+
+def extract_topics(json):
+    if not json.has_key("ctag:tagged"):
+        return []
+    return [d["ctag:label"]
+            for d in json["ctag:tagged"]
+            if isinstance(d, dict) and d.has_key("ctag:label")]
+assert (extract_topics({"ctag:tagged":[{"@type": "ctag:AutoTag", "ctag:label": "Right of way"}]})
+        == ["Right of way"])
+
+def extract_authors(json):
+    json = json["res:resource"]
+    if not json.has_key("bibo:authorList"):
+        return []
+    else:
+        return [(d.get("foaf:givenname", None),
+                 d.get("foaf:surname", None))
+                for d in json["bibo:authorList"].values()
+                if isinstance(d, dict)]
+assert (extract_authors(
+          {"res:resource":
+            {"bibo:authorList":
+              {"rdf:_1":
+                 {"foaf:givenname": "Robert",
+                  "@type": "foaf:Person",
+                  "foaf:surname": "Hunter"},
+               "@type": "rdf:Seq"}}})
+        == [("Robert", "Hunter")])
+
+def extract_place_refs(json):
+    refs = {}
+    for place in json:
+        id = extract_geo_id(place)
+        if id is not None:
+            refs[id] = json[place]
+    return refs
+assert (extract_place_refs({"http://sws.geonames.org/3333171/": 1, "http://sws.geonames.org/4839292/": 3})
+        == {3333171:1, 4839292:3})
+
+def dict_union(dict1, dict2):
+    return dict(dict1, **dict2)
+
+def main(verbose = False):
+    metadata = json.load(open("metadata.json"))
+    geodata = json.load(open("geodata.json"))
+    
+    rows = []
+
+    geodata_rows = {}
+    for doc_url in geodata:
+        origin = extract_geo_id(geodata[doc_url]["origin"])
+        place_refs = extract_place_refs(geodata[doc_url]["places_referenced"])
+        year = int(geodata[doc_url]["year"])
+        geodata_rows[doc_url] = {"origin":origin,
+                                 "places_referenced":place_refs,
+                                 "year":year}
+
+    metadata_rows = {}
+    for doc_url in metadata:
+        title = extract_title(metadata[doc_url])
+        topics = extract_topics(metadata[doc_url])
+        authors = extract_authors(metadata[doc_url])
+        metadata_rows[doc_url] = {"title": title, "topics":topics, "authors":authors}
+
+    for doc_url in geodata_rows:
+        if doc_url in metadata_rows:
+            rows.append( dict_union({"document_url":doc_url},
+                         dict_union(metadata_rows[doc_url],
+                                    geodata_rows[doc_url])) )
+
+    if verbose:
+        for row in rows:
+            for col in row:
+                json.dump(row[col], sys.stderr)
+                sys.stderr.write("\t")
+            sys.stderr.write("\n")
+
+    json.dump(rows, sys.stdout, sort_keys=True, indent=4)
+
+if __name__ == '__main__':
+    main(False)
