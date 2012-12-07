@@ -12,7 +12,11 @@ function mapViz (container) {
         mapTypeId: google.maps.MapTypeId.TERRAIN
     });
 
+    google.maps.event.addListener(map, 'zoom_changed', setActiveLocations);
+
     var overlay = new google.maps.OverlayView();
+
+    var activeLocations = continents;
 
     // Add the container when the overlay is added to the map.
     overlay.onAdd = function() {
@@ -25,12 +29,17 @@ function mapViz (container) {
             var projection = this.getProjection(),
                 padding = 50;
 
+            layer.selectAll("svg")
+                .data(activeLocations, function(d) { console.log(d.name); return d.name; })
+                .exit().remove();
+
             var marker = layer.selectAll("svg")
-                .data(continents)
+                .data(activeLocations, function(d) { console.log(d.name); return d.name; })                
                 .each(transform) // update existing markers
                 .enter().append("svg:svg")
                 .each(transform)
                 .attr("class", "markers");
+
 
             drawTestDonut(marker, layer);
      
@@ -93,20 +102,32 @@ function mapViz (container) {
                    .style('stroke', '#dedede')
                    .style('stroke-width', 1);
 
+
                node.append('text')
                    .text(function(d) { return d.name; })
                    .attr('class', 'donutCenterText')
                    .attr('text-anchor', 'middle')
-                   .attr('transform', 'translate(' + radius + ', ' + radius + ')');
-            }
-
-      
+                   .attr('transform', 'translate(' + radius + ', ' + radius + ')'); 
+            }      
+        };
     };
-  };
 
-  // Bind our overlay to the map…
-  overlay.setMap(map);
+    // Bind our overlay to the map…
+    overlay.setMap(map);
 
+    function setActiveLocations() {
+                // Need further improvement so that we can determine 
+            // the set of countries / places to show
+            if (this.zoom <= 4) {
+                activeLocations = continents;
+            }
+            else if (this.zoom > 4 && this.zoom <= 6) {
+                activeLocations = countries;
+            }
+            else if (this.zoom > 6) {
+                activeLocations = cities;
+            }
+    }
 }
 
 

@@ -1,0 +1,14 @@
+var continents = [
+    {name: "Europe", lat: 54.54, lng: 25.19},
+    {name: "North America", lat: 48.21, lng: -99.59}
+];
+
+var countries = [
+    {name: "United States", lat: 39.50, lng: -98.35},
+    {name: "Canada", lat: 64.18, lng:-96.04}
+];
+
+var cities = [
+    {name: "New York", lat: 40.42, lng: -74},
+    {name: "Boston", lat: 42.21, lng: -71.03}
+];
