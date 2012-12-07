@@ -63,3 +63,30 @@ p, text {
   padding: 0;
   width: 1000px;
 }
+
+/* Temporary */
+/*
+html, body, #map {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+*/
+
+.markers, .markers svg {
+  position: absolute;
+}
+
+.markers svg {
+  width: 60px;
+  height: 20px;
+  padding-right: 100px;
+  font: 10px sans-serif;
+}
+
+.markers circle {
+  fill: brown;
+  stroke: black;
+  stroke-width: 1.5px;
+}

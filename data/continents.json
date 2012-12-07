@@ -1,0 +1,4 @@
+var continents = [
+    {name: "Europe", lat: 54.54, lng: 25.19},
+    {name: "North America", lat: 48.21, lng: -99.59}
+];
