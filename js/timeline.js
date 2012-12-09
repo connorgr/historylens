@@ -207,20 +207,11 @@ function timelineViz (container) {
     }
 
     function getSummaryByTime(minLat, maxLat, minLng, maxLng, minTime, maxTime) {
-        $.ajax({
-            type: "GET",
-            url: "php/query.php",
-            data: {authors : "*", topics : "*", min_latitude: -90, max_latitude: 90,
-                    min_longitude: -90, max_longitude: 90, min_year: 1950, max_year: 2000},
-            error: function(data) {
-                console.log("Failed");
-                console.log(data);
-            },
-            success: function(data) {
-                console.log("Successfully got  data to php.");
-                console.log(data);
-            }
-        });
+        $.get("php/query.php",
+                {min_latitude: -90, max_latitude: 90}, 
+                function(data) {
+                    alert(data);
+                });
     }
 }
 
