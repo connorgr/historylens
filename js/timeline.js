@@ -213,7 +213,9 @@ function timelineViz (container) {
                 {"q" : filterJSON},
                 function(data) {
                     alert(data);
-                });
+                })
+         .error(function() { alert("error"); })
+         .complete(function() { alert("complete"); });         
     }
 }
 
