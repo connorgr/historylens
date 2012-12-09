@@ -215,7 +215,7 @@ function timelineViz (container) {
                 function(data) {
                     result = $.parseJSON(data);
                 })
-         .error(function(e) { console.log("error"); result = $.parseJSON(e.responseText); });
+         .error(function(e) { console.log("error"); console.log(e.responseText); result = $.parseJSON(e.responseText); });
 
          console.log(result);
     }
