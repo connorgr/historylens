@@ -208,13 +208,16 @@ function timelineViz (container) {
 
     function getSummaryByTime(minLat, maxLat, minLng, maxLng, minTime, maxTime) {
         console.log("getting data from php...");
+        var result;
         var filterJSON = JSON.stringify({min_latitude: -90, max_latitude: 90});
         $.get("/vs/php/query.php",
                 {"q" : filterJSON},
                 function(data) {
-                    alert(data);
+                    result = $.parseJSON(data);
                 })
          .error(function(e) { alert(e.responseText); });
+
+         console.log(result);
     }
 }
 
