@@ -214,8 +214,7 @@ function timelineViz (container) {
                 function(data) {
                     alert(data);
                 })
-         .error(function(e) { alert(e); })
-         .complete(function() { alert("complete"); });         
+         .error(function(e) { alert(e.responseText); });
     }
 }
 
