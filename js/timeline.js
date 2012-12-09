@@ -212,10 +212,13 @@ function timelineViz (container) {
         var filterJSON = JSON.stringify({min_latitude: -90, max_latitude: 90});
         $.get("/vs/php/query.php",
                 {"q" : filterJSON},
-                function(data) {
+                function(data, status) {
+                    console.log(data);
+                    console.log(status);
                     result = $.parseJSON(data);
-                })
-         .error(function(e) { console.log("error"); console.log(e); console.log(e.responseText); result = $.parseJSON(e.responseText); });
+                });
+//         .success(function(data) { console.log("success"); })
+//         .error(function(e) { console.log("error"); console.log(e); console.log(e.responseText); result = $.parseJSON(e.responseText); });
 
          console.log(result);
     }
