@@ -5,10 +5,16 @@
   <title>HistoryLens</title>
   <link rel="stylesheet" href="css/style.css" type="text/css">
   <script src="http://d3js.org/d3.v2.js"></script>
+  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
   <script src=
       "http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">
       </script>
+  <script src="lib/crossfilter.min.js"></script>
   <script src="js/donut.js"></script>
+  <script src="js/timeline.js"></script>
+  <script src="js/map.js"></script>
+  <script type="text/javascript" src="data/randomData.json"></script>
+  <script type="text/javascript" src="data/locations.json"></script>
 </head>
 <body>
   <div class="container">
@@ -20,7 +26,6 @@
         <p style="margin:0 10px; color: #fff">Main content area</p>
       </div>
       <div id="areaMainDocList">
-
       </div>
     </div>
     <div id="areaTime">
@@ -29,7 +34,11 @@
   </div>
   <script type="text/javascript">
     $(document).ready(new function() {
-      new donutsViz(document.getElementById('areaMainCanvas'))
+//      new donutsViz(document.getElementById('areaMainCanvas'))
+      new mapViz(document.getElementById('areaMainCanvas'))
+    });
+    $(document).ready(new function() {
+      new timelineViz(document.getElementById('areaTime'))
     });
   </script>
 </body>

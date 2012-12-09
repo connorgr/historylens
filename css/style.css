@@ -14,6 +14,25 @@ p, text {
   text-align: center;
 }
 
+.timeOVBar {
+  fill: #ccc;
+  stroke: white;
+}
+
+.timeOVBar.selected {
+  fill: steelblue;
+}
+
+.brush rect.extent {
+  fill: steelblue;
+  fill-opacity: .125;
+}
+
+.brush .resize path {
+  fill: #eee;
+  stroke: #666;
+}
+
 #areaMain {
   background: #0077DF;
   display: block;
@@ -43,4 +62,21 @@ p, text {
   margin: 0;
   padding: 0;
   width: 1000px;
+}
+
+.markers, .markers svg {
+  position: absolute;
+}
+
+.markers svg {
+  width: 400px;
+  height: 400px;
+  padding-right: 100px;
+  font: 10px sans-serif;
+}
+
+.markers circle {
+  fill: brown;
+  stroke: black;
+  stroke-width: 1.5px;
 }
