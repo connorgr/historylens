@@ -156,7 +156,7 @@ function bigQuery($jsonString) {
 //		"map" => mapQuery($json),
 //		"timeline" => timelineQuery($json);
 //		"document" => documentQuery($json));
-	return json_encode($results);
+	return json_encode($results, JSON_FORCE_OBJECTS);
 }
 
 
