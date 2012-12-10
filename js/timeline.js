@@ -213,7 +213,7 @@ function timelineViz (container) {
         
         var result;
         var filterJSON = JSON.stringify({min_latitude: -45, max_latitude: 45, min_longitude: -45, max_longitude: 45, min_year: 2005, max_year: 2005});
-        $.get("/vs/test_php/test_query.php",
+        $.get("/vs/php/query.php",
                 {"q" : filterJSON},
                 function(data, status) {
                     console.log(data);
