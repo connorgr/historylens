@@ -219,7 +219,7 @@ function timelineViz (container) {
                 },
                 'json')
          .success(function(data) { console.log("success"); })
-         .error(function(e) { console.log("error"); console.log(e); console.log(e.responseText); result = $.parseJSON(e.responseText); });
+         .error(function(e) { console.log("error"); console.log(e); console.log(e.responseText); result = JSON.parse(e.responseText); });
 
          console.log(result);
     }
