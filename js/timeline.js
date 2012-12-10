@@ -209,7 +209,7 @@ function timelineViz (container) {
     function getSummaryByTime(minLat, maxLat, minLng, maxLng, minTime, maxTime) {
         console.log("getting data from php...");
         var result;
-        var filterJSON = JSON.stringify({min_latitude: -45, max_latitude: 45, min_longitude: -45, max_longitude: 45, min_pubYear: 1990});
+        var filterJSON = JSON.stringify({min_latitude: -45, max_latitude: 45, min_longitude: -45, max_longitude: 45, min_year: 1990});
         $.get("/vs/test_php/test_query.php",
                 {"q" : filterJSON},
                 function(data, status) {
