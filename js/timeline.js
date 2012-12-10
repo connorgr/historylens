@@ -208,7 +208,7 @@ function timelineViz (container) {
 
     function getSummaryByTime(minLat, maxLat, minLng, maxLng, minTime, maxTime) {
         console.log("getting data from php...");
-        var string = '{"2005":{"Chile":"1","Climatic changes":"2","Climatology":"2","Global temperature changes":"2","Government relations":"1","Greenhouse effect, Atmospheric":"2","History":"1","Land grants":"1","Land reform":"1","Land tenure":"1","Mapuche Indians":"1","Politics and government":"1","Race relations":"1","Social conditions":"1"}}';
+        var string = 'Array{"2005":{"Chile":"1","Climatic changes":"2","Climatology":"2","Global temperature changes":"2","Government relations":"1","Greenhouse effect, Atmospheric":"2","History":"1","Land grants":"1","Land reform":"1","Land tenure":"1","Mapuche Indians":"1","Politics and government":"1","Race relations":"1","Social conditions":"1"}})';
         console.log($.parseJSON(string));
         
         var result;
