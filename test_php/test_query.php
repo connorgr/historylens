@@ -119,10 +119,11 @@ function timelineQuery($json)
 		$count = $row[0];
 		$pubYear = $row[1];
 		$tagName = $row[2];
-		if (!isset($data[$pubYear])) {
-			$data[$pubYear] = array();
-		}
-		$data[$pubYear][$tagName] = $count;
+		$data[] = array('pubYear' => $pubYear, 'tagName' => $tagName, 'count' => $count);
+//		if (!isset($data[$pubYear])) {
+//			$data[$pubYear] = array();
+//		}
+//		$data[$pubYear][$tagName] = $count;
 	}
 	return $data;
 }
@@ -151,9 +152,9 @@ function bigQuery($jsonString) {
 	$json = json_decode($jsonString, true);
 	echo $json;
 	$results = timelineQuery($json);
-//	$results = array(
+//	$results = 
 //		"map" => mapQuery($json),
-//		"timeline" => timelineQuery($json));
+//		"timeline" => timelineQuery($json);
 //		"document" => documentQuery($json));
 	return json_encode($results);
 }
