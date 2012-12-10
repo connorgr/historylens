@@ -153,7 +153,9 @@ function documentQuery($json)
 function bigQuery($jsonString) {
 	$json = json_decode($jsonString, true);
 	echo $json;
-	$results = timelineQuery($json);
+//	$results = timelineQuery($json);
+    $results = array();
+    $results[] = array('a' => 'abc', 'b' => 'cde');
 //	$results = 
 //		"map" => mapQuery($json),
 //		"timeline" => timelineQuery($json);
