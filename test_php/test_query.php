@@ -115,7 +115,7 @@ function timelineQuery($json)
 
 	$row = false;
 	$data = array();
-	while ($row = mysql_fetch_array($result)) {
+/*	while ($row = mysql_fetch_array($result)) {
 		$count = $row[0];
 		$pubYear = $row[1];
 		$tagName = $row[2];
@@ -125,6 +125,8 @@ function timelineQuery($json)
 //		}
 //		$data[$pubYear][$tagName] = $count;
 	}
+	*/
+	$data[] = array('a' => 'abc', 'b' => 'cde');
 	return $data;
 }
 
@@ -156,7 +158,7 @@ function bigQuery($jsonString) {
 //		"map" => mapQuery($json),
 //		"timeline" => timelineQuery($json);
 //		"document" => documentQuery($json));
-	return json_encode($results, JSON_FORCE_OBJECTS);
+	return json_encode($results);
 }
 
 
