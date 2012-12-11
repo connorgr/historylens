@@ -64,8 +64,12 @@ function timelineViz (container) {
         console.log(summary);
 
         var numYear = summary.length;
-        var minYear = summary[0].key;
-        console.log(minYear);
+        var minYear = 9999;
+        for (var key in summary) {
+            if (key < minYear) {
+                minYear = key;
+            }
+        }
         
     /* Create filters */
     var filteredRecords = crossfilter(summary);
