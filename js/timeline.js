@@ -241,7 +241,7 @@ function timelineViz (container) {
             var values = data[mainKey];
             var count = 0;
             for (var subKey in values) {
-                count += values[subKey];
+                count += parseInt(values[subKey]);
             }
             result[mainKey] = count;
         }
