@@ -33,7 +33,7 @@
                 function(data) {
                     console.log(data);
 //                    result = $.parseJSON(data);
-                    retult = data.map;
+                    result = data;
                     console.log(result);
                 },
                 'json')
