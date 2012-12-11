@@ -1,7 +1,10 @@
 
-    function getSummaryDataByTime(minLat, maxLat, minLng, maxLng, minYear, maxYear) {
+
+//function dataMngr () {
+
+    function getSummaryDataByTime(minLat, maxLat, minLng, maxLng, minYear, maxYear, viz) {
         console.log("summary");
-        getData(minLat, maxLat, minLng, maxLng, minYear, maxYear, binByTime);
+        getData(minLat, maxLat, minLng, maxLng, minYear, maxYear, binByTime, viz);
 
 //        var timeline = getData(minLat, maxLat, minLng, maxLng, minYear, maxYear).timeline;
 //        console.log(timeline);
@@ -9,9 +12,9 @@
 //        return timeline;
     }
 
-    function binByTime(data) {
+    function binByTime(data, viz) {
         console.log(data);
-        updateView();
+        viz.updateView();
     }
 
     function countAggregator(data) {
@@ -31,14 +34,14 @@
     }
 
 
-    function getData(minLat, maxLat, minLng, maxLng, minYear, maxYear, callback) {
+    function getData(minLat, maxLat, minLng, maxLng, minYear, maxYear, callback, viz) {
         console.log("Getting data from php...");
         var filterJSON = JSON.stringify({min_latitude: minLat, max_latitude: maxLat, min_longitude: minLng, max_longitude: maxLng, min_year: minYear, max_year: maxYear});
         $.get("/vs/php/query.php",
                 {"q" : filterJSON},
                 function(data) {
                     console.log(data);
-                    callback(data);
+                    callback(data, viz);
                 },
                 'json')
          .success(function(data) { console.log("success"); })
@@ -47,4 +50,5 @@
             console.log(e.responseText); 
          });
     }
+//}
 

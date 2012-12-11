@@ -60,6 +60,8 @@ function timelineViz (container) {
         .attr("width", width + 'px')
         .attr("transform", "translate (20, 0)");
 
+//    var dataManager = new dataMngr();
+
     getSummaryDataByTime(-90, 90, -180, 180, 1800, 2010, this);
 
     function updateView() {
