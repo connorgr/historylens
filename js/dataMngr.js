@@ -14,6 +14,7 @@
 
     function binByTime(data, viz) {
         console.log(data);
+        console.log(viz);
         viz.updateView();
     }
 
