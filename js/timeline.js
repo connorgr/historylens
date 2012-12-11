@@ -69,7 +69,7 @@ function timelineViz (container) {
         
     /* Create filters */
     var filteredRecords = crossfilter(summary);
-/   var recordsByTime = filteredRecords.dimension(function(d) {return d.key;});
+    var recordsByTime = filteredRecords.dimension(function(d) { return d.key; });
 //    var recordsByTopic = filteredRecords.dimension(function(d) {return d.topic});
 
         /* Populate the array for detail view */
