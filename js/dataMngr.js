@@ -1,7 +1,7 @@
     function getSummaryDataByTime(minLat, maxLat, minLng, maxLng, minYear, maxYear) {
         console.log("summary");
         var data = getData(minLat, maxLat, minLng, maxLng, minYear, maxYear);
-        while (data === undefined) {}; //Bad practice maybe? Not sure what's a good way
+//        while (data === undefined) {}; //Bad practice maybe? Not sure what's a good way
         console.log(data);
 //        var timeline = getData(minLat, maxLat, minLng, maxLng, minYear, maxYear).timeline;
 //        console.log(timeline);
@@ -43,6 +43,7 @@
             console.log(e.responseText); 
          });
 
+         console.log(result);
          return result;
     }
 
