@@ -205,25 +205,6 @@ function timelineViz (container) {
         }
         return result;
     }
-
-    function getSummaryByTime(minLat, maxLat, minLng, maxLng, minTime, maxTime) {
-
-        
-        var result;
-        var filterJSON = JSON.stringify({min_latitude: -45, max_latitude: 45, min_longitude: -45, max_longitude: 45, min_year: 2005, max_year: 2005});
-        $.get("/vs/php/query.php",
-                {"q" : filterJSON},
-                function(data, status) {
-                    console.log(data);
-                    console.log(status);
-                    result = $.parseJSON(data);
-                },
-                'json')
-         .success(function(data) { console.log("success"); })
-         .error(function(e) { console.log("error"); console.log(e); console.log(e.responseText); result = $.parseJSON(e.responseText); });
-
-         console.log(result);
-    }
 }
 
 
