@@ -228,7 +228,6 @@ function timelineViz (container) {
 
     function binByTime(data) {
         console.log(data);
-        console.log(viz);
         updateView();
     }
 
