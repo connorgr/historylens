@@ -65,19 +65,21 @@ function timelineViz (container) {
 
         var numYear = 0;
         var minYear = 9999;
+        var records = [];
         for (var key in summary) {
             if (key < minYear) {
                 minYear = key;
             }
             numYear += 1;
+            records.push({year: key, count: summary[key]});
         }
 
         console.log(minYear);
         console.log(numYear);
         
     /* Create filters */
-    var filteredRecords = crossfilter(summary);
-    var recordsByTime = filteredRecords.dimension(function(d) { return d.key; });
+    var filteredRecords = crossfilter(records);
+    var recordsByTime = filteredRecords.dimension(function(d) { return d.year; });
 //    var recordsByTopic = filteredRecords.dimension(function(d) {return d.topic});
 
         /* Populate the array for detail view */
