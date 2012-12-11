@@ -63,12 +63,13 @@ function timelineViz (container) {
 
         console.log(summary);
 
-        var numYear = summary.length;
+        var numYear = 0;
         var minYear = 9999;
         for (var key in summary) {
             if (key < minYear) {
                 minYear = key;
             }
+            numYear += 1;
         }
 
         console.log(minYear);
