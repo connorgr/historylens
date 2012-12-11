@@ -61,22 +61,28 @@ function timelineViz (container) {
 
     function updateView(summary) {
 
+        console.log(summary);
+
         var numYear = summary.length;
+        var minYear = summary[0].key;
+        console.log(minYear);
         
     /* Create filters */
-//    var filteredRecords = crossfilter(records);
-//    var recordsByTime = filteredRecords.dimension(function(d) {return d.year;});
+    var filteredRecords = crossfilter(summary);
+/   var recordsByTime = filteredRecords.dimension(function(d) {return d.key;});
 //    var recordsByTopic = filteredRecords.dimension(function(d) {return d.topic});
 
         /* Populate the array for detail view */
-/*        recordsByTopic.filter("A");
-        var binnedValueA = recordsByTime
-            .group(function(d) { return Math.floor((d - 1812) / (200 / numSample)); })
-            .reduceSum(function(d) { return d.count; })
+/*        recordsByTopic.filter("A"); */
+        var binnedValue = recordsByTime
+            .group(function(d) { return Math.floor((d - minYear) / (numYear / numSample)); })
+            .reduceSum(function(d) { return d.value; })
             .order(function(d) { return d.key; })
             .all();
 
-        recordsByTopic.filter("B");
+            console.log(binnedValue);
+
+/*        recordsByTopic.filter("B");
         var binnedValueB = recordsByTime
             .group(function(d) { return Math.floor((d - 1812) / (200 / numSample)); })
             .reduceSum(function(d) { return d.count; })
@@ -84,7 +90,7 @@ function timelineViz (container) {
             .all(); */
 
 //        var layerData = groupsToLayers([binnedValueA, binnedValueB]);
-        var layerData = groupsToLayers([binnedValues]);
+        var layerData = groupsToLayers([binnedValue]);
 
         var layer = stack(layerData);    
 
@@ -218,26 +224,17 @@ function timelineViz (container) {
     }
 
     function getSummaryDataByTime(minLat, maxLat, minLng, maxLng, minYear, maxYear) {
-        console.log("summary");
         getData(minLat, maxLat, minLng, maxLng, minYear, maxYear, binByTime);
-
-//        var timeline = getData(minLat, maxLat, minLng, maxLng, minYear, maxYear).timeline;
-//        console.log(timeline);
-//        var aggregatedTime = countAggregator(timeline);
-//        return timeline;
     }
 
     function binByTime(data) {
-        console.log(data);
-        countAggregator(data.timeline);
-        updateView();
+        var summary = countAggregator(data.timeline);
+        updateView(summary);
     }
 
     function countAggregator(data) {
         var result = {};
         for (var mainKey in data) {
-            console.log(mainKey);
-            console.log(data[mainKey]);
             var values = data[mainKey];
             var count = 0;
             for (var subKey in values) {
@@ -245,7 +242,6 @@ function timelineViz (container) {
             }
             result[mainKey] = count;
         }
-        console.log(result);
         return result;
     }
 
