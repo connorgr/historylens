@@ -1,8 +1,9 @@
     function getSummaryDataByTime(minLat, maxLat, minLng, maxLng, minYear, maxYear) {
-        var timeline = getData(minLat, maxLat, minLng, maxLng, minYear, maxYear).timeline;
-        console.log(timeline);
-        var aggregatedTime = countAggregator(timeline);
-        return timeline;
+        var data = getData(minLat, maxLat, minLng, maxLng, minYear, maxYear);
+//        var timeline = getData(minLat, maxLat, minLng, maxLng, minYear, maxYear).timeline;
+//        console.log(timeline);
+//        var aggregatedTime = countAggregator(timeline);
+//        return timeline;
     }
 
     function countAggregator(data) {
