@@ -79,10 +79,10 @@ function timelineViz (container) {
         /* Populate the array for detail view */
 /*        recordsByTopic.filter("A"); */
         var binnedValue = recordsByTime
-            .group(function(d) { return Math.floor((d - minYear) / (numYear / numSample)); })
-            .reduceSum(function(d) { return d.value; })
-            .order(function(d) { return d.key; })
-            .all();
+            .group(function(d) { return Math.floor((d - minYear) / (numYear / numSample)); });
+//            .reduceSum(function(d) { return d.value; })
+//            .order(function(d) { return d.key; })
+//            .all();
 
             console.log(binnedValue);
 
