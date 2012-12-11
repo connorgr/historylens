@@ -42,7 +42,7 @@ function donutsViz (container) {
 
  var force = d3.layout.force()
          .gravity(.05)
-         .distance(100)
+         .distance(150)
          .charge(-100)
          .size([this.width/2, this.height/2]);
 
