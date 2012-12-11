@@ -1,3 +1,5 @@
+    var result = null;;
+
     function getSummaryDataByTime(minLat, maxLat, minLng, maxLng, minYear, maxYear) {
         console.log("summary");
         var data = getData(minLat, maxLat, minLng, maxLng, minYear, maxYear);
@@ -43,7 +45,7 @@
             console.log(e.responseText); 
          });
 
-         while (result === undefined) {};   
+         while (result === null) {}
          console.log(result);
          return result;
     }
