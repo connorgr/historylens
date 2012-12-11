@@ -10,11 +10,6 @@ function timelineViz (container) {
     var absoluteScale = false;
     
     var stack = d3.layout.stack().offset("zero");
-
-    /* Create filters */
-//    var filteredRecords = crossfilter(records);
-//    var recordsByTime = filteredRecords.dimension(function(d) {return d.year;});
-//    var recordsByTopic = filteredRecords.dimension(function(d) {return d.topic});
     
     var width = 960;
     var oHeight = 50;
@@ -64,12 +59,17 @@ function timelineViz (container) {
 
     getSummaryDataByTime(-90, 90, -180, 180, 1800, 2010);
 
-    function updateView() {
+    function updateView(summary) {
 
         var numYear = summary.length;
+        
+    /* Create filters */
+//    var filteredRecords = crossfilter(records);
+//    var recordsByTime = filteredRecords.dimension(function(d) {return d.year;});
+//    var recordsByTopic = filteredRecords.dimension(function(d) {return d.topic});
 
         /* Populate the array for detail view */
-        recordsByTopic.filter("A");
+/*        recordsByTopic.filter("A");
         var binnedValueA = recordsByTime
             .group(function(d) { return Math.floor((d - 1812) / (200 / numSample)); })
             .reduceSum(function(d) { return d.count; })
@@ -81,9 +81,10 @@ function timelineViz (container) {
             .group(function(d) { return Math.floor((d - 1812) / (200 / numSample)); })
             .reduceSum(function(d) { return d.count; })
             .order(function(d) { return d.key; })
-            .all();
+            .all(); */
 
-        var layerData = groupsToLayers([binnedValueA, binnedValueB]);
+//        var layerData = groupsToLayers([binnedValueA, binnedValueB]);
+        var layerData = groupsToLayers([binnedValues]);
 
         var layer = stack(layerData);    
 
@@ -228,6 +229,7 @@ function timelineViz (container) {
 
     function binByTime(data) {
         console.log(data);
+        countAggregator(data.timeline);
         updateView();
     }
 
