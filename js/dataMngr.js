@@ -11,7 +11,7 @@
 
     function binByTime(data) {
         console.log(data);
-        timelineViz.updateView();
+        updateView();
     }
 
     function countAggregator(data) {
