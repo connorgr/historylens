@@ -7,6 +7,14 @@
   *
   */
 function drawDonut(loc, svg, json) {
+  if (typeof jsonData === 'undefined') {
+    throw { 
+      name:        "JSON undefined", 
+      message:     "Undefined JSON Error. Undefined json passed to drawDonut."
+    } 
+  } else if (json === null) {
+    json = {}
+  }
   var radius = 50,
       donutColorsList = ['#98abc5', '#8a89a6', '#7b6888', '#6b486b', '#a05d56',
           '#d0743c', '#ff8c00'],

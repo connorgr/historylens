@@ -40,8 +40,8 @@ function mapViz (container) {
                 .each(transform)
                 .attr("class", "markers");
 
-
-            drawDonut(marker, layer);
+            var jsonData = null;
+            drawDonut(marker, layer, jsonData);
      
             function transform(d) {
                 d = new google.maps.LatLng(d.lat, d.lng);
