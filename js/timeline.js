@@ -72,7 +72,7 @@ function timelineViz (container) {
         }
 
         console.log(minYear);
-        console.log(numyear);
+        console.log(numYear);
         
     /* Create filters */
     var filteredRecords = crossfilter(summary);
