@@ -1,4 +1,5 @@
     function getSummaryDataByTime(minLat, maxLat, minLng, maxLng, minYear, maxYear) {
+        console.log("summary");
         var data = getData(minLat, maxLat, minLng, maxLng, minYear, maxYear);
         console.log(data);
 //        var timeline = getData(minLat, maxLat, minLng, maxLng, minYear, maxYear).timeline;
@@ -33,7 +34,6 @@
                 function(data) {
                     console.log(data);
                     result = data;
-                    console.log(result);
                 },
                 'json')
          .success(function(data) { console.log("success"); })
@@ -42,6 +42,6 @@
             console.log(e.responseText); 
          });
 
-         return result;        
+         return result;
     }
 
