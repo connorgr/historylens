@@ -34,6 +34,7 @@
                     console.log(data);
 //                    result = $.parseJSON(data);
                     retult = data;
+                    console.log(result);
                 },
                 'json')
          .success(function(data) { console.log("success"); })
