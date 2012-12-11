@@ -34,7 +34,10 @@
                 {"q" : filterJSON},
                 function(data) {
                     console.log(data);
-                    result = data;
+                    return data;
+//                    result = data;
+//         console.log(result);
+//         return result;
                 },
                 'json')
          .success(function(data) { console.log("success"); })
@@ -42,8 +45,5 @@
             console.log("error"); 
             console.log(e.responseText); 
          });
-
-         console.log(result);
-         return result;
     }
 
