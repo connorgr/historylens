@@ -4,7 +4,7 @@
  * container - the object containing the visualization.
  */
 function timelineViz (container) {
-    getData(0, 0, 0, 0, 0, 0);
+    getSummaryDataByTime(-90, 90, -180, 180, 1800, 2010);
 
     var test = [[{"x": 0, "y": 3}, {"x": 1, "y": 5}, {"x": 2, "y": 1}, {"x": 3, "y": 2}], [{"x": 0, "y": 1}, {"x": 1, "y": 3}, {"x": 2, "y": 5}, {"x": 3, "y": 3}]];
     var numTopic = 2; // number of layers
