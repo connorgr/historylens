@@ -70,6 +70,9 @@ function timelineViz (container) {
                 minYear = key;
             }
         }
+
+        console.log(minYear);
+        console.log(numyear);
         
     /* Create filters */
     var filteredRecords = crossfilter(summary);
@@ -79,7 +82,7 @@ function timelineViz (container) {
         /* Populate the array for detail view */
 /*        recordsByTopic.filter("A"); */
         var binnedValue = recordsByTime
-            .group(function(d) { return Math.floor((d - minYear) / (numYear / numSample)); }).all();
+            .group(function(d) { console.log(d); return Math.floor((d - minYear) / (numYear / numSample)); }).all();
 //            .reduceSum(function(d) { return d.value; })
 //            .order(function(d) { return d.key; })
 //            .all();
