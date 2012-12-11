@@ -1,14 +1,17 @@
-    var result = null;;
 
     function getSummaryDataByTime(minLat, maxLat, minLng, maxLng, minYear, maxYear) {
         console.log("summary");
-        var data = getData(minLat, maxLat, minLng, maxLng, minYear, maxYear);
-//        while (data === undefined) {}; //Bad practice maybe? Not sure what's a good way
-        console.log(data);
+        getData(minLat, maxLat, minLng, maxLng, minYear, maxYear, binByTime);
+
 //        var timeline = getData(minLat, maxLat, minLng, maxLng, minYear, maxYear).timeline;
 //        console.log(timeline);
 //        var aggregatedTime = countAggregator(timeline);
 //        return timeline;
+    }
+
+    function binByTime(data) {
+        console.log(data);
+        timelineViz.updateView();
     }
 
     function countAggregator(data) {
@@ -28,14 +31,14 @@
     }
 
 
-    function getData(minLat, maxLat, minLng, maxLng, minYear, maxYear) {
+    function getData(minLat, maxLat, minLng, maxLng, minYear, maxYear, callback) {
         console.log("Getting data from php...");
         var filterJSON = JSON.stringify({min_latitude: minLat, max_latitude: maxLat, min_longitude: minLng, max_longitude: maxLng, min_year: minYear, max_year: maxYear});
         $.get("/vs/php/query.php",
                 {"q" : filterJSON},
                 function(data) {
                     console.log(data);
-                    result = data;
+                    callback(data);
                 },
                 'json')
          .success(function(data) { console.log("success"); })
@@ -43,9 +46,5 @@
             console.log("error"); 
             console.log(e.responseText); 
          });
-
-         while (result === null) {}
-         console.log(result);
-         return result;
     }
 

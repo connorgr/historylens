@@ -4,54 +4,25 @@
  * container - the object containing the visualization.
  */
 function timelineViz (container) {
-    getSummaryDataByTime(-90, 90, -180, 180, 1800, 2010);
 
-    var test = [[{"x": 0, "y": 3}, {"x": 1, "y": 5}, {"x": 2, "y": 1}, {"x": 3, "y": 2}], [{"x": 0, "y": 1}, {"x": 1, "y": 3}, {"x": 2, "y": 5}, {"x": 3, "y": 3}]];
-    var numTopic = 2; // number of layers
+    var numTopic = 1; // number of layers
     var numSample = 20; // number of samples per layer
-    var numYear = summary.length;
     var absoluteScale = false;
     
     var stack = d3.layout.stack().offset("zero");
 
-
     /* Create filters */
-    var filteredRecords = crossfilter(records);
-    var recordsByTime = filteredRecords.dimension(function(d) {return d.year;});
-    var recordsByTopic = filteredRecords.dimension(function(d) {return d.topic});
-
-    /* Populate the array for detail view */
-    recordsByTopic.filter("A");
-    var binnedValueA = recordsByTime
-        .group(function(d) { return Math.floor((d - 1812) / (200 / numSample)); })
-        .reduceSum(function(d) { return d.count; })
-        .order(function(d) { return d.key; })
-        .all();
-
-    recordsByTopic.filter("B");
-    var binnedValueB = recordsByTime
-        .group(function(d) { return Math.floor((d - 1812) / (200 / numSample)); })
-        .reduceSum(function(d) { return d.count; })
-        .order(function(d) { return d.key; })
-        .all();
-
-    var layerData = groupsToLayers([binnedValueA, binnedValueB]);
-
-    var layer = stack(layerData);
+//    var filteredRecords = crossfilter(records);
+//    var recordsByTime = filteredRecords.dimension(function(d) {return d.year;});
+//    var recordsByTopic = filteredRecords.dimension(function(d) {return d.topic});
     
     var width = 960;
     var oHeight = 50;
     var dHeight = 200;
-    var ovBarWidth = width / numYear;
     
     var x = d3.scale.linear()
         .domain([0, numSample - 1])
         .range([0, width]);
-
-
-    var y = d3.scale.linear()
-        .domain([0, d3.max(layer, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); })])
-        .range([dHeight, 0]);
 
     var brushX = d3.scale.linear()
         .range([0, width]);
@@ -75,18 +46,6 @@ function timelineViz (container) {
         .attr("width", width + 'px')
         .attr("transform", "translate (20, 0)");
 
-    var timeOVBars = svgTimeOverview.selectAll()
-        .data(summary)
-        .enter().append("rect")
-        .attr("class", "timeOVBar selected")
-        .attr("width", width / numYear)
-        .attr("height", oHeight)
-        .attr("x", function(d, i) {
-            d.x0 = i * ovBarWidth;
-            d.x1 = d.x0 + ovBarWidth;
-            return d.x0;
-         });
-
     var vizBrush = svgTimeOverview.append("g")
         .attr("class", "brush")
         .call(brush);
@@ -101,11 +60,60 @@ function timelineViz (container) {
         .attr("width", width + 'px')
         .attr("transform", "translate (20, 0)");
 
-    svgTimeDetail.selectAll("path")
+    getSummaryDataByTime(-90, 90, -180, 180, 1800, 2010);
+
+    function updateView() {
+
+        var numYear = summary.length;
+
+        /* Populate the array for detail view */
+        recordsByTopic.filter("A");
+        var binnedValueA = recordsByTime
+            .group(function(d) { return Math.floor((d - 1812) / (200 / numSample)); })
+            .reduceSum(function(d) { return d.count; })
+            .order(function(d) { return d.key; })
+            .all();
+
+        recordsByTopic.filter("B");
+        var binnedValueB = recordsByTime
+            .group(function(d) { return Math.floor((d - 1812) / (200 / numSample)); })
+            .reduceSum(function(d) { return d.count; })
+            .order(function(d) { return d.key; })
+            .all();
+
+        var layerData = groupsToLayers([binnedValueA, binnedValueB]);
+
+        var layer = stack(layerData);    
+
+        var ovBarWidth = width / numYear;
+
+        var y = d3.scale.linear()
+        .domain([0, d3.max(layer, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); })])
+        .range([dHeight, 0]);
+        
+            
+        // Setup the overview
+        var timeOVBars = svgTimeOverview.selectAll()
+        .data(summary)
+        .enter().append("rect")
+        .attr("class", "timeOVBar selected")
+        .attr("width", width / numYear)
+        .attr("height", oHeight)
+        .attr("x", function(d, i) {
+            d.x0 = i * ovBarWidth;
+            d.x1 = d.x0 + ovBarWidth;
+            return d.x0;
+         });
+
+        // Setup the detail view
+        svgTimeDetail.selectAll("path")
         .data(layer)
         .enter().append("path")
         .attr("d", vizDetail)
         .style("fill", function(d, i) { return colorPalette[i]; });
+    
+    }
+        
 
     function resizePath(d) {
         var e = +(d == "e"),
