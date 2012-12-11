@@ -36,13 +36,15 @@ function orClause($clauses) {
 	return empty($clauses) ? array() : array("(" . join(" OR ", $clauses) . ")");
 }
 
-function createQueryString($columns, $filter, $groupBy, $limit)
+function performQuery($columns, $filter, $groupBy, $limit)
 {
 	$select = "SELECT " . join(", ", $columns) . " FROM allDocInfo_vw";
 	$where = empty($filter) ? "" : " WHERE " . $filter[0];
 	$groupBy = empty($groupBy) ? "" : " GROUP BY " . join(", ", $groupBy);
 	$limit = empty($limit) ? "" : " LIMIT " . $limit;
-	return $select . $where . $groupBy . $limit . ";";
+	$query = $select . $where . $groupBy . $limit . ";";
+	mysql_query("SET CHARACTER SET utf8;");
+	return mysql_query($query);
 }
 
 
@@ -88,8 +90,7 @@ function mapQuery($json)
 	$columns = array("COUNT(*)", $regionLevel, "tagName", "AVG(latitude)", "AVG(longitude)");
 	$filter = makeFilter($json);
 	$groupBy = array($regionLevel, "tagName");
-	$query = createQueryString($columns, $filter, $groupBy, false);
-	$result = mysql_query($query);
+	$result = performQuery($columns, $filter, $groupBy, false);
 
 	$row = false;
 	$data = array();
@@ -110,8 +111,7 @@ function timelineQuery($json)
 	$columns = array("COUNT(*)", "pubYear", "tagName");
 	$filter = makeFilter($json);
 	$groupBy = array("pubYear", "tagName");
-	$query = createQueryString($columns, $filter, $groupBy, false);
-	$result = mysql_query($query);
+	$result = performQuery($columns, $filter, $groupBy, false);
 
 	$row = false;
 	$data = array();
@@ -132,8 +132,7 @@ function documentQuery($json)
 	$columns = array("title", "pubYear", "url");
 	$filter = makeFilter($json);
 	$groupBy = array("docId");
-	$query = createQueryString($columns, $filter, $groupBy, 100);
-	$result = mysql_query($query);
+	$result = performQuery($columns, $filter, $groupBy, 100);
 
 	$row = false;
 	$data = array();
