@@ -32,8 +32,8 @@
                 {"q" : filterJSON},
                 function(data) {
                     console.log(data);
-//                    result = $.parseJSON(data);
-                    retult = data;
+                    result = $.parseJSON(data);
+//                    retult = data;
                     console.log(result);
                 },
                 'json')
