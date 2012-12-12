@@ -156,7 +156,7 @@
         .range([dHeight, 0]);
 
         vizDetail = d3.svg.area()
-            .interpolate("basis")
+//            .interpolate("basis")
             .x(function(d) { return x(d.x); })
             .y0(function(d) { return y(d.y0); })
             .y1(function(d) { return y(d.y0 + d.y); });
@@ -189,13 +189,13 @@
             .attr("id", function(d, i) { return "sampleLine-" + i; })
             .attr("class", "sampleLine focus");
 
-/*
+
         svgTimeDetail.selectAll('text')
             .data(sampleLinesData)
             .enter().append('text')
             .text(function(d) { return d.count; })
             .attr('transform', function(d) { return 'translate(' + d.x1 + ', ' + d.y1 + ')'; });
-*/
+
 
         updateDetailView();
     }
