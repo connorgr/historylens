@@ -184,7 +184,7 @@
 
         sampleLines.append('text')
             .text(function(d) { return d.count; })
-            .attr('transform', function(d) { return 'translate(' + x1 + ', ' + y1 + ')'; })
+            .attr('transform', function(d) { return 'translate(' + d.x1 + ', ' + d.y1 + ')'; })
 //            .on("mouseover", sampleLineMouseOver)
 //            .on("mouseout", sampleLineMouseOut);
 
