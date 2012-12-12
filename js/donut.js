@@ -22,7 +22,7 @@ function drawDonut(json) {
       pie = d3.layout.pie().sort(null).value(function(d) { return d.num; });
 
   var loc = document.createElementNS("http://www.w3.org/2000/svg", "g");
-  var idDonut = 'donut' + JSON.stringify(json);
+  var idDonut = 'donut';// + JSON.stringify(json);
   loc.setAttribute('id', idDonut);
   var g = d3.select('#'+idDonut).selectAll('.arc').data(pie(data)).enter().append('g')
             .attr('class', 'arc');
