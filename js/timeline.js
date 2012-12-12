@@ -141,7 +141,7 @@
 
         svgYearLine.selectAll('text')
             .data(yearLineData)
-            .attr('transform', function(d) { return 'translate(' + d.x, + ,'30)'; })
+            .attr('transform', function(d) { return 'translate(' + d.x + ', 30)'; })
             .text(function(d) { console.log(d); return d.year; });
 
         var layerData = groupsToLayers([binnedValue]);
