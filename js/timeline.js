@@ -210,6 +210,7 @@ function timelineViz (container) {
             binnedValue[index].value += recordsAssociative[year];
         }
 
+        console.log(binnedValue);
         layerData = groupsToLayers([binnedValue]);
         layer = stack(layerData);
         if (!absoluteScale) {
