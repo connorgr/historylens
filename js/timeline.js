@@ -55,6 +55,7 @@ function timelineViz (container) {
     var vizDetail;
     var minYear;
     var maxYear;
+    var recordsAssociative;
     var records;
     
     getSummaryDataByTime(-90, 90, -180, 180, 1800, 2010);
@@ -62,6 +63,7 @@ function timelineViz (container) {
     function updateView(summary) {
 
         console.log(summary);
+        recordsAssociative = summary;
 
         minYear = 9999;
         maxYear = -1;
@@ -178,16 +180,20 @@ function timelineViz (container) {
         // Update the records for the detail view
         recordsByTime.filter([startYear, endYear+1]);
 
-        var binFactor = adjustedSpan / numSample;
+        var binFactor = adjustedSpan / numSample; // number of years in each bin
         binnedValue = [];
+        // Initialize the new binnedValue
         for (var i = 0; i < numSample; ++i) {
             binnedValue.push({key: i, value: 0});
         }
 
         console.log(records);
+        console.log(adjustedSpan);
+        // Rebin the 
         for (var i = 0; i < adjustedSpan; ++i) {
             var index = Math.floor(i / binFactor);
-            binnedValue[index].value += records[i].count;
+            var year = startYear + i;
+            binnedValue[index].value += recordsAssociative[year].count;
         }
 
         layerData = groupsToLayers([binnedValue]);
