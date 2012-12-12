@@ -66,7 +66,8 @@
           .enter().append('svg:g')
           .each(transform)
             .append('svg:circle')
-            .attr('r', 10);
+            .attr('r', 10)
+            .on('mouseOver', alert('hi'));
 
         layer.selectAll("svg")
             .data(activeLocations, function(d) { return d.key; })
