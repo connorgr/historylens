@@ -26,10 +26,10 @@ function mapViz (container) {
             }
     }
 
-    function updateView() {
+    function updateView(summary) {
         var overlay = new google.maps.OverlayView();
 
-        var activeLocations = continents;
+        var activeLocations = summary;
 
         // Add the container when the overlay is added to the map.
         overlay.onAdd = function() {
@@ -43,18 +43,23 @@ function mapViz (container) {
                     padding = 50;
 
                 layer.selectAll("svg")
-                    .data(activeLocations, function(d) { console.log(d.name); return d.name; })
+                    .data(activeLocations, function(d) { return d.key; })
                     .exit().remove();
 
                 var marker = layer.selectAll("svg")
-                    .data(activeLocations, function(d) { console.log(d.name); return d.name; })                
+                    .data(activeLocations, function(d) { return d.key; })                
                     .each(transform) // update existing markers
                     .enter().append("svg:svg")
                     .each(transform)
                     .attr("class", "markers");
 
+              marker.append("svg:circle")
+                  .attr("r", 4.5)
+                  .attr("cx", padding)
+                  .attr("cy", padding);
+
                 var jsonData = null;
-                drawDonut(marker, layer, jsonData);
+//                drawDonut(marker, layer, jsonData);
          
                 function transform(d) {
                     d = new google.maps.LatLng(d.lat, d.lng);
@@ -71,7 +76,6 @@ function mapViz (container) {
     }
 
     function getSummaryDataByLoc(minLat, maxLat, minLng, maxLng, minYear, maxYear) {
-        console.log("summary");
         getData(minLat, maxLat, minLng, maxLng, minYear, maxYear, binByLoc);
     }
 
