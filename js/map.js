@@ -40,58 +40,58 @@
             }
     }
 
-    function updateMapView(summary) {
-        var overlay = new google.maps.OverlayView();
+  function updateMapView(summary) {
+    var overlay = new google.maps.OverlayView();
 
-        var activeLocations = summary;
+    var activeLocations = summary;
 
-        // Add the container when the overlay is added to the map.
-        overlay.onAdd = function() {
-            //var layer = d3.select(this.getPanes().overlayLayer).append("div")
-            var layer = d3.select(this.getPanes().overlayMouseTarget).append('div')
-                .attr("class", "markers");
+    // Add the container when the overlay is added to the map.
+    overlay.onAdd = function() {
+      var mouseLayer = d.select(this.getPanes().overlayMouseTarget)
+          .append('div')
+          .attr('class', 'mouseLayer');
 
-            // Draw each marker as a separate SVG element.
-            // We could use a single SVG, but what size would it have?
-            overlay.draw = function() {
-                var projection = this.getProjection(),
-                    padding = 50;
+      var layer = d3.select(this.getPanes().overlayLayer).append("div")
+          .attr("class", "markers");
 
-                layer.selectAll("svg")
-                    .data(activeLocations, function(d) { return d.key; })
-                    .exit().remove();
+      // Draw each marker as a separate SVG element.
+      // We could use a single SVG, but what size would it have?
+      overlay.draw = function() {
+        var projection = this.getProjection(),
+            padding = 50;
 
-                var marker = layer.selectAll("svg")
-                    .data(activeLocations, function(d) { return d.key; })                
-                    .each(transform) // update existing markers
-                    .enter().append("svg:svg")
-                    .each(transform)
-                    .attr("class", "markers")
-                    .on('mouseOver', alert('mouseOver test'));
+        layer.selectAll("svg")
+            .data(activeLocations, function(d) { return d.key; })
+            .exit().remove();
 
-              marker.append("svg:circle")
-                  .attr("r", 4.5)
-                  .attr("cx", padding)
-                  .attr("cy", padding);
+        var marker = layer.selectAll("svg")
+            .data(activeLocations, function(d) { return d.key; })                
+            .each(transform) // update existing markers
+            .enter().append("svg:svg")
+            .each(transform)
+            .attr("class", "markers");
 
-                
+        marker.append("svg:circle")
+            .attr("r", 4.5)
+            .attr("cx", padding)
+            .attr("cy", padding);
 
-                var jsonData = null;
-//                drawDonut(marker, layer, jsonData);
-         
-                function transform(d) {
-                    d = new google.maps.LatLng(d.lat, d.lng);
-                    d = projection.fromLatLngToDivPixel(d);
-                    return d3.select(this)
-                        .style("left", (d.x - padding) + "px")
-                        .style("top", (d.y - padding) + "px");
-                }
-            };
-        };
+        var jsonData = null;
+//      drawDonut(marker, layer, jsonData);
+     
+        function transform(d) {
+          d = new google.maps.LatLng(d.lat, d.lng);
+          d = projection.fromLatLngToDivPixel(d);
+          return d3.select(this)
+              .style("left", (d.x - padding) + "px")
+              .style("top", (d.y - padding) + "px");
+        }
+      };
+    };
 
-        // Bind our overlay to the map…
-        overlay.setMap(map);
-    } 
+    // Bind our overlay to the map…
+    overlay.setMap(map);
+  } 
 //}
 
 
