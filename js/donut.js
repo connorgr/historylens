@@ -47,6 +47,7 @@ function drawDonut(d3Selection, data) {
   g.append('path').attr('d', arc)
           .attr('transform', 'translate(' + radius + ', ' + radius + ')')
           .style('fill', function(d) { return color(d.value); });
+  g.append('svg:circle').attr('r', 50);
   return;
 
   var g = loc.selectAll('.arc').data(pie(data)).enter().append('g')
