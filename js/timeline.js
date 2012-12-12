@@ -63,8 +63,8 @@
                 .attr("class", "brush")
                 .call(brush);        
 
-            vizBrush.selectAll("rect").attr("height", oHeight);
-            vizBrush.selectAll(".resize").append("path").attr("d", resizePath);
+        vizBrush.selectAll("rect").attr("height", oHeight);
+        vizBrush.selectAll(".resize").append("path").attr("d", resizePath);
 
         svgTimeDetail = d3.select('#areaTime').append("svg")
                 .attr("width", width + 40 + 'px')
