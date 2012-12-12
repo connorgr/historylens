@@ -182,7 +182,9 @@
             .attr("id", function(d, i) { return "sampleLine-" + i; })
             .attr("class", "sampleLine focus");
 
-        sampleLines.append('text')
+        svgTimeDetail.selectAll('text')
+            .data(sampleLinesData)
+            .enter().append('text')
             .text(function(d) { return d.count; })
             .attr('transform', function(d) { return 'translate(' + d.x1 + ', ' + d.y1 + ')'; })
 //            .on("mouseover", sampleLineMouseOver)
