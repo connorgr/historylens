@@ -28,7 +28,7 @@
     function binByLoc(data) {
         var summary = locCountAggregator(data.map);
         //updateMapView(summary);
-        updateMapView(data);
+        updateMapView(data.map);
     }
 
     function locCountAggregator(data) {
