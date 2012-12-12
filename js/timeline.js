@@ -189,12 +189,13 @@
             .attr("id", function(d, i) { return "sampleLine-" + i; })
             .attr("class", "sampleLine focus");
 
+/*
         svgTimeDetail.selectAll('text')
             .data(sampleLinesData)
             .enter().append('text')
             .text(function(d) { return d.count; })
             .attr('transform', function(d) { return 'translate(' + d.x1 + ', ' + d.y1 + ')'; });
-
+*/
 
         updateDetailView();
     }
@@ -287,11 +288,11 @@
             .attr("d", vizDetail);
 
         sampleLinesNewData = [];
-        var delta = width / numSample + width / (2 * numSample);
+        var delta = width / numSample;
         for (var i = 0; i < numSample; ++i) {
             var numLayer = layer.length;
             for (var j = 0; j < numLayer; ++j) {
-                sampleLinesNewData.push({x1: i * delta, x2: i * delta, 
+                sampleLinesNewData.push({x1: delta / 2 + i * delta, x2: delta / 2 + i * delta, 
                     y1: y(newLayer[j][i].y), y2: dHeight, count: newLayer[j][i].y});
             }
         }
