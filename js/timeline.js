@@ -183,7 +183,8 @@ function timelineViz (container) {
         for (var i = 0; i < numSample; ++i) {
             binnedValue.push({key: i, value: 0});
         }
-            
+
+        console.log(records);
         for (var i = 0; i < adjustedSpan; ++i) {
             var index = Math.floor(i / binFactor);
             binnedValue[index].value += records[i].count;
