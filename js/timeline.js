@@ -53,15 +53,17 @@ function timelineViz (container) {
     var ovBarWidth;
     var recordsByTime;
     var vizDetail;
-
+    var minYear;
+    var maxYear;
+    
     getSummaryDataByTime(-90, 90, -180, 180, 1800, 2010);
 
     function updateView(summary) {
 
         console.log(summary);
 
-        var minYear = 9999;
-        var maxYear = -1;
+        minYear = 9999;
+        maxYear = -1;
         var records = [];
         for (var key in summary) {
             if (key < minYear) {
@@ -161,8 +163,8 @@ function timelineViz (container) {
         var extent = brush.extent();
 
         // Adjust the extent so that it always covers numSample * x year;
-        var startYear = Math.ceil(extent[0] * width / ovBarWidth) + 1812;
-        var endYear = Math.floor(extent[1] * width / ovBarWidth) - 1 + 1812;
+        var startYear = Math.ceil(extent[0] * width / ovBarWidth) + minYear;
+        var endYear = Math.floor(extent[1] * width / ovBarWidth) - 1 + minYear;
         var adjustedSpan = Math.round((endYear - startYear + 1) / numSample) * numSample;
         extent[0] = Math.ceil(extent[0] * width / ovBarWidth) * ovBarWidth / width;
         extent[1] = (extent[0] * width + adjustedSpan * ovBarWidth) / width;
@@ -174,15 +176,11 @@ function timelineViz (container) {
 
         // Update the records for the detail view
         recordsByTime.filter([startYear, endYear+1]);
-//        var recordsA = recordsByTopic.filter("A").top(Infinity);
-//        var recordsB = recordsByTopic.filter("B").top(Infinity);
 
         var binFactor = adjustedSpan / numSample;
         binnedValue = [];
-//        binnedValueB = [];
         for (var i = 0; i < numSample; ++i) {
             binnedValue.push({key: i, value: 0});
-//            binnedValueB.push({key: i, value: 0});
         }
             
         for (var i = 0; i < adjustedSpan; ++i) {
