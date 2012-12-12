@@ -57,10 +57,6 @@
 
     // Add the container when the overlay is added to the map.
     overlay.onAdd = function() {
-      var mouseLayer = d3.select(this.getPanes().overlayMouseTarget)
-          .append('div')
-          .attr('class', 'mouseLayer');
-
       var layer = d3.select(this.getPanes().overlayLayer).append("div")
           .attr("class", "markers");
 
@@ -69,15 +65,6 @@
       overlay.draw = function() {
         var projection = this.getProjection(),
             padding = 50;
-
-        mouseLayer.selectAll('svg')
-          .data(activeLocations, function(d) { return d.key; })
-          .each(transform)
-          .enter().append('svg:g')
-          .each(transform)
-            .append('svg:circle')
-            .attr('r', 10)
-            .on('mouseDown', console.log('mouseLayer activated'));
 
         layer.selectAll("svg")
             .data(activeLocations, function(d) { return d.key; })
@@ -90,15 +77,7 @@
             .each(transform)
             .attr("class", "markers");
 
-        marker.append("svg:circle")
-            .attr("r", 4.5)
-            .attr("cx", padding)
-            .attr("cy", padding);
-            //.append('svg:g')
-            //  .html(drawDonut(null));
-
         var jsonData = null;
-//      drawDonut(marker, layer, jsonData);
 
         drawDonut(marker, {'test': '1'});
 
