@@ -141,6 +141,7 @@
 
         svgYearLine.selectAll('text')
             .data(yearLineData)
+            .enter().append('text')
             .attr('transform', function(d) { return 'translate(' + d.x + ', 30)'; })
             .text(function(d) { console.log(d); return d.year; });
 
