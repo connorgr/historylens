@@ -52,6 +52,7 @@ function timelineViz (container) {
     var timeOVBars;
     var ovBarWidth;
     var recordsByTime;
+    var vizDetail;
 
     getSummaryDataByTime(-90, 90, -180, 180, 1800, 2010);
 
@@ -95,7 +96,7 @@ function timelineViz (container) {
         .domain([0, d3.max(layer, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); })])
         .range([dHeight, 0]);
 
-        var vizDetail = d3.svg.area()
+        vizDetail = d3.svg.area()
             .interpolate("basis")
             .x(function(d) { return x(d.x); })
             .y0(function(d) { return y(d.y0); })
