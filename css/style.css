@@ -31,6 +31,10 @@ p, text {
     opacity: 1;
 }
 
+.yearLine {
+    stroke: black;
+}
+
 .timeOVBar {
   fill: #ccc;
   stroke: white;

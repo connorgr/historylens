@@ -42,6 +42,8 @@
     var vizDetail;
     var recordsAssociative;
     var records;
+    var svgYearLine;
+    var yearStamps;
 
     // Create the data for overview bars which contain all the years between 
     // the minYear and the maxYear
@@ -66,6 +68,21 @@
         vizBrush.selectAll("rect").attr("height", oHeight);
         vizBrush.selectAll(".resize").append("path").attr("d", resizePath);
 
+        svgYearLine = d3.select('#areaTime').append('svg')
+                .attr("width", width + 40 +  'px')
+                .attr('height', '50px')
+                .append('g')
+                .attr("width", width + 'px')
+                .attr("transform", "translate (20, 0)");
+
+        svgYearLine.append('line')
+                .attr("x1", 0)
+                .attr("x2", width)
+                .attr('y1', 40)
+                .attr('y2', 40)
+                .attr('class', 'yearLine');
+
+                
         svgTimeDetail = d3.select('#areaTime').append("svg")
                 .attr("width", width + 40 + 'px')
                 .attr("height", dHeight + 'px')
@@ -114,6 +131,12 @@
             .reduceSum(function(d) { return d.count; })
             .order(function(d) { return d.key; })
             .all();
+
+        var yearLineData = [];
+        var delta = numYear / numSample;
+        for (var i = 0; i < numSample; ++i) {
+            yearLineData.push(minYear + delta / 2 + delta * i);
+        }
 
         var layerData = groupsToLayers([binnedValue]);
         var layer = stack(layerData);
