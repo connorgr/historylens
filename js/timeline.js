@@ -28,7 +28,7 @@
         .on("brush", brushMove)
         .on("brushend", brushEnd);
 
-    var svgTimeOverview = d3.select(container).append("svg")
+    var svgTimeOverview = d3.select('#areaTime').append("svg")
         .attr("width", width + 40 +  'px')
         .attr("height", oHeight + 'px')
         .append("g")
@@ -42,7 +42,7 @@
     vizBrush.selectAll("rect").attr("height", oHeight);
     vizBrush.selectAll(".resize").append("path").attr("d", resizePath);
 
-    var svgTimeDetail = d3.select(container).append("svg")
+    var svgTimeDetail = d3.select('#areaTime').append("svg")
         .attr("width", width + 40 + 'px')
         .attr("height", dHeight + 'px')
         .append("g")
