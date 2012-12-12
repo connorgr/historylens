@@ -87,7 +87,7 @@ function mapQuery($json)
 	global $regionLevelMapping;
 
 	$regionLevel = $regionLevelMapping[withDefault($json, "regionLevel", 2)];
-	$columns = array("COUNT(*)", $regionLevel, "tagName", "AVG(latitude)", "AVG(longitude)");
+	$columns = array("COUNT(*)", $regionLevel, "tagName", "name", "AVG(latitude)", "AVG(longitude)");
 	$filter = makeFilter($json);
 	$groupBy = array($regionLevel, "tagName");
 	$result = performQuery($columns, $filter, $groupBy, false);
@@ -99,7 +99,7 @@ function mapQuery($json)
 		$region = $row[1];
 		$tagName = $row[2];
 		if (!isset($data[$region])) {
-			$data[$region] = array("lat" => $row[3], "long" => $row[4], "topics" => array());
+			$data[$region] = array("placeName" => $row[3], "lat" => $row[4], "long" => $row[5], "topics" => array());
 		}
 		$data[$region]["topics"][$tagName] = $count;
 	}
