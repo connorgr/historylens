@@ -222,6 +222,7 @@ function timelineViz (container) {
         var result = [];
         for (var i = 0; i < length; ++i) {
             var group = groups[i];
+            console.log(group);
             var stackLayer = [];
             for (var j = 0; j < numSample; ++j) {
                 var value = group[j];
