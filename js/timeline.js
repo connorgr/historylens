@@ -150,9 +150,10 @@
             .attr("y1", function(d) { return d.y1; })
             .attr("y2", function(d) { return d.y2; })
             .attr("id", function(d, i) { return "sampleLine-" + i; })
-            .attr("class", "sampleLine")
-            .on("mouseover", sampleLineMouseOver)
-            .on("mouseout", sampleLineMouseOut);
+            .attr("class", "sampleLine focus")
+            .text(function(d) { return d.count; });
+//            .on("mouseover", sampleLineMouseOver)
+//            .on("mouseout", sampleLineMouseOut);
 
 
         // Setup the detail view
