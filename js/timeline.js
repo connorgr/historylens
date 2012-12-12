@@ -34,7 +34,7 @@
 
     var minYear = 1810;
     var maxYear = 2010;
-    var numYear = maxYear - minYear + 1;
+    var numYear = maxYear - minYear;
     var timeOVBars;
     var sampleLines;
     var ovBarWidth = width / numYear;;
