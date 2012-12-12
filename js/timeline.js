@@ -18,6 +18,7 @@
     var x = d3.scale.linear()
         .domain([0, numSample - 1])
         .range([0, width]);
+    var y;
 
     var brushX = d3.scale.linear()
         .range([0, width]);
@@ -151,7 +152,7 @@
         console.log("layer");
         console.log(layer);
 
-        var y = d3.scale.linear()
+        y = d3.scale.linear()
         .domain([0, d3.max(layer, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); })])
         .range([dHeight, 0]);
 
@@ -174,7 +175,7 @@
         for (var i = 0; i < numSample; ++i) {
             var numLayer = layer.length;
             for (var j = 0; j < numLayer; ++j) {
-                sampleLinesData.push({x1: delta / 2 + i * delta, x2: delta / 2 + i * delta, 
+                sampleLinesData.push({x1: delta + i * delta, x2: delta + i * delta, 
                     y1: y(layer[j][i].y), y2: dHeight, count: layer[j][i].y});
             }
         }
@@ -275,6 +276,11 @@
              y = d3.scale.linear()
                 .domain([0, d3.max(layer, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); })])
                 .range([dHeight, 0]);
+            vizDetail = d3.svg.area()
+    //            .interpolate("basis")
+                .x(function(d) { return x(d.x); })
+                .y0(function(d) { return y(d.y0); })
+                .y1(function(d) { return y(d.y0 + d.y); });
         }
         
         layerTransition(layer);    
@@ -292,7 +298,7 @@
         for (var i = 0; i < numSample; ++i) {
             var numLayer = layer.length;
             for (var j = 0; j < numLayer; ++j) {
-                sampleLinesNewData.push({x1: delta / 2 + i * delta, x2: delta / 2 + i * delta, 
+                sampleLinesNewData.push({x1: delta + i * delta, x2: delta + i * delta, 
                     y1: y(newLayer[j][i].y), y2: dHeight, count: newLayer[j][i].y});
             }
         }
