@@ -182,7 +182,7 @@
         
         sampleLines = svgTimeDetail.selectAll("line")
 //            .data(sampleLinesData)
-            .data(layer)
+            .data(layer[0])
             .enter().append("line")
             .attr("x1", function(d) { return x(d.x); })
             .attr("x2", function(d) { return x(d.x); })
