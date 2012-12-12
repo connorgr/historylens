@@ -225,14 +225,14 @@ function timelineViz (container) {
             console.log(group);
             var stackLayer = [];
             for (var j = 0; j < numSample; ++j) {
-                var elem = group[j];
-                // there should be one key for each j, having the same value
-                if (elem === undefined || elem.key !== j) {
-                    stackLayer.push({x: j, y:0});
+                var value = 0;
+                for (var k = 0; k < group.length; ++k) {
+                    var elem = group[k];
+                    if (elem.key === j) {
+                        value = elem.value;
+                    }
                 }
-                else {
-                    stackLayer.push({x: elem.key, y: elem.value});
-                }
+                stackLayer.push({x: j, y: value});
             }
             result.push(stackLayer);
         }
