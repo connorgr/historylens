@@ -99,7 +99,8 @@
 //      drawDonut(marker, layer, jsonData);
      
         function transform(d) {
-          drawDonut(this, null);
+          d3.select(this).append('svg:g')
+              .each(function (d) { drawDonut(this, null); });
 
           d = new google.maps.LatLng(d.lat, d.lng);
           d = projection.fromLatLngToDivPixel(d);
