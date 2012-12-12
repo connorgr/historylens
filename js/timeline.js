@@ -28,7 +28,7 @@
         .on("brush", brushMove)
         .on("brushend", brushEnd);
 
-    var svgTimeOverview = d3.select('#areaTime').append("svg")
+    var svgTimeOverview = d3.select(container).append("svg")
         .attr("width", width + 40 +  'px')
         .attr("height", oHeight + 'px')
         .append("g")
@@ -42,7 +42,7 @@
     vizBrush.selectAll("rect").attr("height", oHeight);
     vizBrush.selectAll(".resize").append("path").attr("d", resizePath);
 
-    var svgTimeDetail = d3.select('#areaTime').append("svg")
+    var svgTimeDetail = d3.select(container).append("svg")
         .attr("width", width + 40 + 'px')
         .attr("height", dHeight + 'px')
         .append("g")
@@ -58,9 +58,9 @@
     var recordsAssociative;
     var records;
     
-    getSummaryDataByTime(-90, 90, -180, 180, 1810, 2010);
+    getSummaryDataByTime(-90, 90, -180, 180, 1, 1810, 2010);
 
-    function updateView(summary) {
+    function updateTimeView(summary) {
 
         console.log(summary);
 
@@ -187,9 +187,8 @@
         });
 
         // Update the pointers for the map
-        d3.select("#timeMin").text(startYear);
-        d3.select("#timeMin").text(startYear);
-        
+        d3.select("#timeMin").value(startYear);
+
         // Update the records for the detail view
         recordsByTime.filter([startYear, endYear+1]);
 
@@ -249,45 +248,6 @@
         return result;
     }
 
-    function getSummaryDataByTime(minLat, maxLat, minLng, maxLng, minYear, maxYear) {
-        getData(minLat, maxLat, minLng, maxLng, minYear, maxYear, binByTime);
-    }
-
-    function binByTime(data) {
-        var summary = countAggregator(data.timeline);
-        updateView(summary);
-    }
-
-    function countAggregator(data) {
-        var result = {};
-        for (var mainKey in data) {
-            var values = data[mainKey];
-            var count = 0;
-            for (var subKey in values) {
-                count += parseInt(values[subKey]);
-            }
-            result[mainKey] = count;
-        }
-        return result;
-    }
-
-
-    function getData(minLat, maxLat, minLng, maxLng, minYear, maxYear, callback) {
-        console.log("Getting data from php...");
-        var filterJSON = JSON.stringify({min_latitude: minLat, max_latitude: maxLat, min_longitude: minLng, max_longitude: maxLng, min_year: minYear, max_year: maxYear});
-        $.get("/vs/php/query.php",
-                {"q" : filterJSON},
-                function(data) {
-                    console.log(data);
-                    callback(data);
-                },
-                'json')
-         .success(function(data) { console.log("success"); })
-         .error(function(e) { 
-            console.log("error"); 
-            console.log(e.responseText); 
-         });
-    }
     
 //}
 

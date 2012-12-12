@@ -1,48 +1,59 @@
-
-
-//function dataMngr () {
-
-    function getSummaryDataByTime(minLat, maxLat, minLng, maxLng, minYear, maxYear, viz) {
-        console.log("summary");
-        getData(minLat, maxLat, minLng, maxLng, minYear, maxYear, binByTime, viz);
-
-//        var timeline = getData(minLat, maxLat, minLng, maxLng, minYear, maxYear).timeline;
-//        console.log(timeline);
-//        var aggregatedTime = countAggregator(timeline);
-//        return timeline;
+    function getSummaryDataByTime(minLat, maxLat, minLng, maxLng, regionLevel minYear, maxYear) {
+        getData(minLat, maxLat, minLng, maxLng, regionLevel, minYear, maxYear, binByTime);
     }
 
-    function binByTime(data, viz) {
-        console.log(data);
-        console.log(viz);
-        viz.updateView();
+    function binByTime(data) {
+        var summary = countAggregator(data.timeline);
+        updateTimeView(summary);
     }
 
     function countAggregator(data) {
         var result = {};
         for (var mainKey in data) {
-            console.log(mainKey);
-            console.log(data[mainKey]);
             var values = data[mainKey];
             var count = 0;
             for (var subKey in values) {
-                count += values[subKey];
+                count += parseInt(values[subKey]);
             }
             result[mainKey] = count;
+        }
+        return result;
+    }
+
+
+    function getSummaryDataByLoc(minLat, maxLat, minLng, maxLng, regionLevel, minYear, maxYear) {
+        getData(minLat, maxLat, minLng, maxLng, regionLevel, minYear, maxYear, binByLoc);
+    }
+
+    function binByLoc(data) {
+        var summary = locCountAggregator(data.map);
+        updateMapView(summary);
+    }
+
+    function locCountAggregator(data) {
+        var result = [];
+        for (var mainKey in data) {
+            var values = data[mainKey];
+            var topics = values.topics;
+            var count = 0;
+            for (var subKey in topics) {
+                count += parseInt(topics[subKey]);
+            }
+            result.push({key: mainKey, lat: values.lat, lng: values.long, count: count});
         }
         console.log(result);
         return result;
     }
 
 
-    function getData(minLat, maxLat, minLng, maxLng, minYear, maxYear, callback, viz) {
+    function getData(minLat, maxLat, minLng, maxLng, regionLevel, minYear, maxYear, callback) {
         console.log("Getting data from php...");
-        var filterJSON = JSON.stringify({min_latitude: minLat, max_latitude: maxLat, min_longitude: minLng, max_longitude: maxLng, min_year: minYear, max_year: maxYear});
+        var filterJSON = JSON.stringify({min_latitude: minLat, max_latitude: maxLat, min_longitude: minLng, max_longitude: maxLng, min_year: minYear, max_year: maxYear, regionLevel: regionLevel});
         $.get("/vs/php/query.php",
                 {"q" : filterJSON},
                 function(data) {
                     console.log(data);
-                    callback(data, viz);
+                    callback(data);
                 },
                 'json')
          .success(function(data) { console.log("success"); })
@@ -50,6 +61,5 @@
             console.log("error"); 
             console.log(e.responseText); 
          });
-    }
-//}
+    }       
 
