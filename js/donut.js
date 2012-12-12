@@ -23,7 +23,7 @@ function drawDonut(d3Selection, data) {
 
   var loc = d3Selection.append('g');
 
-  var g = d3.select('#'+idDonut).selectAll('.arc').data(pie(data)).enter().append('g')
+  var g = loc.selectAll('.arc').data(pie(data)).enter().append('g')
             .attr('class', 'arc');
       g.append('path').attr('d', arc)
           .attr('transform', 'translate(' + radius + ', ' + radius + ')')
