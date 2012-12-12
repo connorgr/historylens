@@ -55,6 +55,7 @@ function timelineViz (container) {
     var vizDetail;
     var minYear;
     var maxYear;
+    var records;
     
     getSummaryDataByTime(-90, 90, -180, 180, 1800, 2010);
 
@@ -64,7 +65,7 @@ function timelineViz (container) {
 
         minYear = 9999;
         maxYear = -1;
-        var records = [];
+        records = [];
         for (var key in summary) {
             if (key < minYear) {
                 minYear = key;
@@ -186,7 +187,6 @@ function timelineViz (container) {
         for (var i = 0; i < adjustedSpan; ++i) {
             var index = Math.floor(i / binFactor);
             binnedValue[index].value += records[i].count;
-//            binnedValueB[index].value += recordsB[i].count;
         }
 
         layerData = groupsToLayers([binnedValue]);
