@@ -141,6 +141,7 @@
                     y1: y(layer[j][i].y), y2: dHeight, count: layer[j][i].y});
             }
         }
+        
         sampleLines = svgTimeDetail.selectAll("line")
             .data(sampleLinesData)
             .enter().append("line")
@@ -149,7 +150,7 @@
             .attr("y1", function(d) { return d.y1; })
             .attr("y2", function(d) { return d.y2; })
             .attr("id", function(d, i) { return "sampleLine-" + i; })
-            .attr("class", "sampleLine focus")
+            .attr("class", "sampleLine")
             .on("mouseover", sampleLineMouseOver)
             .on("mouseout", sampleLineMouseOut);
 
@@ -251,6 +252,29 @@
             .transition()
             .duration(1)
             .attr("d", vizDetail);
+
+        sampleLinesNewData = [];
+        var delta = width / numSample + width / (2 * numSample);
+        for (var i = 0; i < numSample; ++i) {
+            var numLayer = layer.length;
+            for (var j = 0; j < numLayer; ++j) {
+                sampleLinesNewData.push({x1: i * delta, x2: i * delta, 
+                    y1: y(newLayer[j][i].y), y2: dHeight, count: newLayer[j][i].y});
+            }
+        }
+
+        svgTimeDetail.selectAll('line')
+            .data(sampleLinesNewData)
+            .transition()
+            .duration(0.1)
+//            .attr("x1", function(d) { return d.x1; })
+//            .attr("x2", function(d) { return d.x2; })
+            .attr("y1", function(d) { return d.y1; })
+            .attr("y2", function(d) { return d.y2; });
+//            .attr("id", function(d, i) { return "sampleLine-" + i; })
+//            .attr("class", "sampleLine")
+//            .on("mouseover", sampleLineMouseOver)
+//            .on("mouseout", sampleLineMouseOut);
     }
 
     function groupsToLayers(groups) {
