@@ -128,7 +128,7 @@ function timelineViz (container) {
         .attr("x", function(d, i) {
             d.x0 = i * ovBarWidth;
             d.x1 = d.x0 + ovBarWidth;
-            return 50;
+            return i * ovBarWidth;
          });
 
         // Setup the detail view
