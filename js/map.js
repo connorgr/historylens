@@ -34,7 +34,7 @@
 //                activeLocations = countries;
             }
             else if (this.zoom > 6) {
-                getSummaryByTime(minLat, maxLat, minLng, maxLng, 3, 1810, 2010);
+                getSummaryDataByTime(minLat, maxLat, minLng, maxLng, 3, 1810, 2010);
 //                activeLocations = cities;
 //                getSummaryDataByLoc();
             }
