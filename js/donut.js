@@ -34,7 +34,7 @@ function drawDonut(d3Selection, data) {
          .style('stroke-width', 1);
 
    loc.append('text')
-       .text(function(d) { return d; })//'Hi, Hua!')
+       .text(function(d) { return d.placeName; })//'Hi, Hua!')
        .attr('class', 'donutCenterText')
        .attr('text-anchor', 'middle')
        .attr('transform', 'translate(' + radius + ', ' + radius + ')');
