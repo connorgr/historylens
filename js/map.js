@@ -5,15 +5,19 @@
  */
 //function mapViz (container) {
 
+    var map;
+    
     // Create the Google Map…
-    var map = new google.maps.Map(d3.select("#areaMainCanvas").node(), {
-        zoom: 2,
-        center: new google.maps.LatLng(0, 0),
-        mapTypeId: google.maps.MapTypeId.TERRAIN
-    });
+    function initMap() {
+        map = new google.maps.Map(d3.select("#areaMainCanvas").node(), {
+            zoom: 2,
+            center: new google.maps.LatLng(0, 0),
+            mapTypeId: google.maps.MapTypeId.TERRAIN
+        });
 
-    google.maps.event.addListener(map, 'zoom_changed', setActiveLocations); 
-    getSummaryDataByLoc(-90, 90, -180, 180, 1, 1810, 2010);
+        google.maps.event.addListener(map, 'zoom_changed', setActiveLocations); 
+        getSummaryDataByLoc(-90, 90, -180, 180, 1, 1810, 2010);    
+    }
 
     function setActiveLocations() {
                 // Need further improvement so that we can determine 
