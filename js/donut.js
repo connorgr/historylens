@@ -12,7 +12,7 @@ function drawDonut(d3Selection, data) {
       message:     "Undefined JSON Error. Undefined json passed to drawDonut."
     } 
   } else if (data === null) {
-    data = { 'num': '1'}
+    data = { num: 1};
   }
   var radius = 50,
       donutColorsList = ['#98abc5', '#8a89a6', '#7b6888', '#6b486b', '#a05d56',
@@ -37,8 +37,11 @@ function drawDonut(d3Selection, data) {
        .attr('text-anchor', 'middle')
        .attr('transform', 'translate(' + radius + ', ' + radius + ')');
 
-  var g = loc.selectAll('.arc').data(pie(data)).enter().append('g')
-            .attr('class', 'arc');
+  var g = loc.selectAll('.arc')
+      .data(pie(data))
+      .enter()
+        .append('g')
+        .attr('class', 'arc');
   return;
 
   var g = loc.selectAll('.arc').data(pie(data)).enter().append('g')
