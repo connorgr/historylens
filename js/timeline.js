@@ -77,7 +77,14 @@ function timelineViz (container) {
             }
             records.push({year: key, count: summary[key]});
         }
-        var numYear = maxYear - minYear;
+        var numYear = maxYear - minYear + 1;
+
+        // Create the data for overview bars which contain all the years between 
+        // the minYear and the maxYear
+        var allTime;
+        for (var i = minYear; i <= maxYear; ++i) {
+            allTime.push(i);
+        }
         
         /* Create filters */
         var filteredRecords = crossfilter(records);
@@ -110,7 +117,7 @@ function timelineViz (container) {
             
         // Setup the overview
          timeOVBars = svgTimeOverview.selectAll()
-        .data(summary)
+        .data(allTime)
         .enter().append("rect")
         .attr("class", "timeOVBar selected")
         .attr("width", width / numYear)
