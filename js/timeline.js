@@ -183,7 +183,8 @@
             .attr("class", "sampleLine focus");
 
         sampleLines.append('text')
-            .text(function(d) { return d.count; });
+            .text(function(d) { return d.count; })
+            .attr('transform', function(d) { return 'translate(' + x1 + ', ' + y1 + ')'; })
 //            .on("mouseover", sampleLineMouseOver)
 //            .on("mouseout", sampleLineMouseOut);
 
