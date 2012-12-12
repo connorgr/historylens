@@ -205,7 +205,7 @@ function timelineViz (container) {
         for (var i = 0; i < adjustedSpan; ++i) {
             var index = Math.floor(i / binFactor);
             var year = startYear + i;
-            console.log(i);
+            console.log(recordsAssociative);
             binnedValue[index].value += recordsAssociative[year].count;
         }
 
