@@ -44,6 +44,7 @@ function performQuery($columns, $filter, $groupBy, $limit)
 	#$orderBy = empty($orderBy) ? "" : " ORDER BY " . join(", ", $orderBy);
 	$limit = empty($limit) ? "" : " LIMIT " . $limit;
 	$query = $select . $where . $groupBy . $limit . ";";
+	echo "Query: " + $query;
 	mysql_query("SET CHARACTER SET utf8;");
 	return mysql_query($query);
 }
