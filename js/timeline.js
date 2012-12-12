@@ -226,7 +226,7 @@ function timelineViz (container) {
                     stackLayer.push({x: j, y: 0});
                 }
                 else {
-                    stackLayer.push({x: elem.key, y: elem.value});
+                    stackLayer.push({x: j, y: value});
                 }
             }
             result.push(stackLayer);
