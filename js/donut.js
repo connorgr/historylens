@@ -1,6 +1,77 @@
 
 /**
+  * This function draws a donut visualization on an SVG canvas
+  * loc - the location to draw the donut
+  * svg - the canvas to draw the donut on
+  * json - the data that the donut will use
+  *
+  */
+function drawDonut(loc, svg, json) {
+  if (typeof jsonData === 'undefined') {
+    throw { 
+      name:        "JSON undefined", 
+      message:     "Undefined JSON Error. Undefined json passed to drawDonut."
+    } 
+  } else if (json === null) {
+    json = {}
+  }
+  var radius = 50,
+      donutColorsList = ['#98abc5', '#8a89a6', '#7b6888', '#6b486b', '#a05d56',
+          '#d0743c', '#ff8c00'],
+      donutColors = d3.scale.ordinal().range(donutColorsList),
+      arc = d3.svg.arc().outerRadius(radius).innerRadius(radius - radius/3),
+      pie = d3.layout.pie().sort(null).value(function(d) { return d.num; });
+
+  var g = node.selectAll('.arc').data(pie(data)).enter().append('g')
+            .attr('class', 'arc');
+        g.append('path').attr('d', arc)
+            .attr('transform', 'translate(' + radius + ', ' + radius + ')')
+            .style('fill', function(d) { return color(d.value); });
+        g.append('text')
+            .attr('transform', function(d) { return 'translate('+arc.centroid(d)+')'})
+           .attr('transform', 'translate(' + radius + ', ' + radius + ')')
+           .attr('text-anchor', 'middle')
+           .attr('dy', '.35em')
+           .text(function(d) { return d.num });
+
+        var dropShadow = svg.append('svg:defs')
+           .append('svg:filter')
+           .attr('id', 'dropShadow')
+           .append('svg:feGaussianBlur').attr('stdDeviation', 2.5)
+           .append('svg:feOffset').attr('result', 'offOut').attr('in','SourceAlpha')
+           .attr('dx', 20).attr('dy', 20)
+           .append('svg:feBlend').attr('in', 'SourceGraphic').attr('in2', 'blurOut')
+           .attr('mode', 'normal');
+
+       node.append('circle')
+           .attr('filter', 'url(#dropShadow)')
+           .attr('r', radius - radius/3)
+           .attr('transform', 'translate(' + radius + ', ' + radius + ')')
+           .style('fill', '#fff')
+           .style('opacity', .8)
+           .style('stroke', '#ccc')
+           .style('stroke-width', 3);
+           
+       // NOTE: an optimization would use an svg filter to prevent having to
+       //  render twice
+       node.append('circle')
+           .attr('r', radius - radius/3)
+           .attr('transform', 'translate(' + radius + ', ' + radius + ')')
+           .style('fill', '#fff')
+           .style('stroke', '#dedede')
+           .style('stroke-width', 1);
+
+       node.append('text')
+           .text(function(d) { return d.name; })
+           .attr('class', 'donutCenterText')
+           .attr('text-anchor', 'middle')
+           .attr('transform', 'translate(' + radius + ', ' + radius + ')'); 
+}
+
+
+/**
  * Constructor for the donuts visualization object.
+ * NOTE: THIS IS DEPRECATED
  * container - the object containing the visualization.
  */
 function donutsViz (container) {
