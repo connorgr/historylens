@@ -220,7 +220,7 @@ function timelineViz (container) {
             var group = groups[i];
             var stackLayer = [];
             for (var j = 0; j < numSample; ++j) {
-                var value = gropu[j];
+                var value = group[j];
                 // there should be one key for each j, having the same value
                 if (value === undefined) {
                     stackLayer.push({x: j, y: 0});
