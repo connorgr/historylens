@@ -24,6 +24,10 @@ function drawDonut(data) {
   var loc = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   var idDonut = 'donut';// + JSON.stringify(json);
   loc.setAttribute('id', idDonut);
+
+  var test = d3.select('#'+idDonut);
+  debugger;
+
   var g = d3.select('#'+idDonut).selectAll('.arc').data(pie(data)).enter().append('g')
             .attr('class', 'arc');
       g.append('path').attr('d', arc)
