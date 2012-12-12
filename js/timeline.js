@@ -116,6 +116,8 @@ function timelineViz (container) {
         
             
         // Setup the overview
+        console.log(ovBarWidth);
+        
          timeOVBars = svgTimeOverview.selectAll()
         .data(allTime)
         .enter().append("rect")
