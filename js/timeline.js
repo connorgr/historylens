@@ -88,16 +88,17 @@
 
          // Setup the lines at each sample point
         sampleLinesData = [];
+        var delta = width / numSample + width / (2 * numSample);
         for (var i = 0; i < numSample; ++i) {
-            sampleLinesData.push(i);
+            sampleLinesData.push({x1: i * delta, x2: i * delta, y1: 0, y2: dHeight });
         }
         sampleLines = svgTimeDetail.selectAll("line")
             .data(sampleLinesData)
             .enter().append("line")
-            .attr("x1", function(d) { return d * width / numSample; })
-            .attr("x2", function(d) { return d * width / numSample; })
-            .attr("y1", 0)
-            .attr("y2", dHeight)
+            .attr("x1", function(d) { return d.x1; })
+            .attr("x2", function(d) { return d.x2; })
+            .attr("y1", function(d) { return d.y1; })
+            .attr("y2", function(d) { return d.y2; })
             .attr("id", function(d) { return "sampleLine-" + i; })
             .attr("class", "sampleLine")
             .on("mouseover", sampleLineMouseOver)
@@ -154,6 +155,9 @@
             .x(function(d) { return x(d.x); })
             .y0(function(d) { return y(d.y0); })
             .y1(function(d) { return y(d.y0 + d.y); });
+
+        console.log("layer");
+        console.log(layer);
 
         // Setup the detail view
         svgTimeDetail.selectAll("path")
@@ -275,6 +279,7 @@
     }
 
     function sampleLineMouseOver(d) {
+        console.log("mouseover");
         d3.select("#sampleLine-" + d).classed("focus", true);   
     }
 
