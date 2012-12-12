@@ -193,7 +193,8 @@
 
 
         svgTimeDetail.selectAll('text')
-            .data(sampleLinesData)
+//            .data(sampleLinesData)
+            .data(layer)
             .enter().append('text')
             .text(function(d) { return d.count; })
             .attr('transform', function(d) { return 'translate(' + x(d.x) + ', ' + y(d.y0 + d.y) + ')'; });
