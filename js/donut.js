@@ -5,7 +5,7 @@
   * data {json} - the data that the donut will use
   *
   */
-function drawDonut(data) {
+function drawDonut(d3Selection, data) {
   if (typeof data === 'undefined') {
     throw { 
       name:        "JSON undefined", 
@@ -21,12 +21,7 @@ function drawDonut(data) {
       arc = d3.svg.arc().outerRadius(radius).innerRadius(radius - radius/3),
       pie = d3.layout.pie().sort(null).value(function(d) { return d.num; });
 
-  var loc = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-  var idDonut = 'donut';// + JSON.stringify(json);
-  loc.setAttribute('id', idDonut);
-
-  var test = d3.select('#'+idDonut);
-  debugger;
+  var loc = d3Selection.append('g');
 
   var g = d3.select('#'+idDonut).selectAll('.arc').data(pie(data)).enter().append('g')
             .attr('class', 'arc');

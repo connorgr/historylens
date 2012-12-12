@@ -100,6 +100,8 @@
         var jsonData = null;
 //      drawDonut(marker, layer, jsonData);
 
+        drawDonut(marker, null);
+
         function transform(d) {
           d = new google.maps.LatLng(d.lat, d.lng);
           d = projection.fromLatLngToDivPixel(d);
