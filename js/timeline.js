@@ -69,13 +69,14 @@ function timelineViz (container) {
         maxYear = -1;
         records = [];
         for (var key in summary) {
-            if (key < minYear) {
-                minYear = key;
+            var numKey = parseInt(key);
+            if (numKey < minYear) {
+                minYear = numKey;
             }
-            if (key > maxYear) {
-                maxYear = key;
+            if (numKey > maxYear) {
+                maxYear = numKey;
             }
-            records.push({year: key, count: summary[key]});
+            records.push({year: numKey, count: summary[key]});
         }
 
         var numYear = maxYear - minYear + 1;
