@@ -15,21 +15,26 @@
             mapTypeId: google.maps.MapTypeId.TERRAIN
         });
 
-        google.maps.event.addListener(map, 'zoom_changed', setActiveLocations); 
+        google.maps.event.addListener(map, 'zoom_changed', mapOnZoom); 
         getSummaryDataByLoc(-90, 90, -180, 180, 1, 1810, 2010);    
     }
 
-    function setActiveLocations() {
+    function mapOnZoom() {
                 // Need further improvement so that we can determine 
             // the set of countries / places to show
-            console.log(this);
             var bounds = map.getBounds();
             var ne = bounds.getNorthEast();
             var sw = bounds.getSouthWest();
+            var minLat = sw.lat();
+            var maxLat = ne.lat();
+            var minLng = sw.lng();
+            var maxLng = ne.lng();
             if (this.zoom <= 6) {
+                getSummaryByTime(minLat, maxLat, minlng, maxLng, 1, 1810, 2010);
 //                activeLocations = countries;
             }
             else if (this.zoom > 6) {
+                getSummaryByTime(minLat, maxLat, minlng, maxLng, 3, 1810, 2010);
 //                activeLocations = cities;
 //                getSummaryDataByLoc();
             }

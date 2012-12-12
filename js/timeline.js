@@ -32,14 +32,23 @@
     var vizBrush;
     var svgTimeDetail;
 
+    var minYear = 1810;
+    var maxYear = 2010;
+    var numYear = maxYear - minYear + 1;
     var timeOVBars;
-    var ovBarWidth;
+    var ovBarWidth = width / numYear;;
     var recordsByTime;
     var vizDetail;
-    var minYear;
-    var maxYear;
     var recordsAssociative;
     var records;
+
+    // Create the data for overview bars which contain all the years between 
+    // the minYear and the maxYear
+    var allTime = [];
+    for (var i = minYear; i <= maxYear; ++i) {
+        allTime.push({year: i});
+    }
+            
 
     function initTimeline() {
         svgTimeOverview = d3.select('#areaTime').append("svg")
@@ -63,7 +72,20 @@
                 .attr("width", width + 'px')
                 .attr("transform", "translate (20, 0)");
 
-        getSummaryDataByTime(-90, 90, -180, 180, 1, 1810, 2010);    
+        // Setup the overview        
+         timeOVBars = svgTimeOverview.selectAll()
+        .data(allTime)
+        .enter().append("rect")
+        .attr("class", "timeOVBar selected")
+        .attr("width", width / numYear)
+        .attr("height", oHeight)
+        .attr("x", function(d, i) {
+            d.x0 = i * ovBarWidth;
+            d.x1 = d.x0 + ovBarWidth;
+            return d.x0;
+         });
+
+        getSummaryDataByTime(-90, 90, -180, 180, 1, 1810, 2010);
     }
 
 
@@ -71,28 +93,22 @@
 
         console.log(summary);
 
-        minYear = 9999;
-        maxYear = -1;
+//        minYear = 9999;
+//        maxYear = -1;
         records = [];
         recordsAssociative = {};
         for (var key in summary) {
             var numKey = parseInt(key);
+            /*
             if (numKey < minYear) {
                 minYear = numKey;
             }
             if (numKey > maxYear) {
                 maxYear = numKey;
             }
+            */
             records.push({year: numKey, count: parseInt(summary[key])});
             recordsAssociative[numKey] = parseInt(summary[key]);
-        }
-
-        var numYear = maxYear - minYear + 1;
-        // Create the data for overview bars which contain all the years between 
-        // the minYear and the maxYear
-        var allTime = [];
-        for (var i = minYear; i <= maxYear; ++i) {
-            allTime.push({year: i});
         }
         
         /* Create filters */
@@ -111,8 +127,6 @@
         var layerData = groupsToLayers([binnedValue]);
         var layer = stack(layerData);    
 
-        ovBarWidth = width / numYear;
-
         var y = d3.scale.linear()
         .domain([0, d3.max(layer, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); })])
         .range([dHeight, 0]);
@@ -122,20 +136,6 @@
             .x(function(d) { return x(d.x); })
             .y0(function(d) { return y(d.y0); })
             .y1(function(d) { return y(d.y0 + d.y); });
-        
-            
-        // Setup the overview        
-         timeOVBars = svgTimeOverview.selectAll()
-        .data(allTime)
-        .enter().append("rect")
-        .attr("class", "timeOVBar selected")
-        .attr("width", width / numYear)
-        .attr("height", oHeight)
-        .attr("x", function(d, i) {
-            d.x0 = i * ovBarWidth;
-            d.x1 = d.x0 + ovBarWidth;
-            return d.x0;
-         });
 
         // Setup the detail view
         svgTimeDetail.selectAll("path")
@@ -193,11 +193,14 @@
             return d.x0 >= extent[0] * width && d.x1 <= extent[1] * width ;
         });
 
+        minYear = startYear;
+        maxYear = endYear;
+
         // Update the pointers for the map
-        d3.select("#timeMin").value(startYear);
+//        d3.select("#timeMin").value(startYear);
 
         // Update the records for the detail view
-        recordsByTime.filter([startYear, endYear+1]);
+//        recordsByTime.filter([startYear, endYear+1]);
 
         var binFactor = adjustedSpan / numSample; // number of years in each bin
         binnedValue = [];
