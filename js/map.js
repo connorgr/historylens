@@ -40,6 +40,16 @@
             }
     }
 
+  /**
+    * This is a hack for getting the D3 map markers to the front of the DOM to
+    *   support mouse interaction
+    **/
+  d3.selection.prototype.moveToFront = function() {
+    return this.each(function() {
+      this.parentNode.appendChild(this);
+    });
+  }
+
   function updateMapView(summary) {
     var overlay = new google.maps.OverlayView();
 
@@ -84,6 +94,8 @@
             .attr("r", 4.5)
             .attr("cx", padding)
             .attr("cy", padding);
+
+        d3.select('.markers').moveToFront();
 
         var jsonData = null;
 //      drawDonut(marker, layer, jsonData);
