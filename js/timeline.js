@@ -161,6 +161,13 @@
             .y0(function(d) { return y(d.y0); })
             .y1(function(d) { return y(d.y0 + d.y); });
 
+        // Setup the detail view
+        svgTimeDetail.selectAll("path")
+            .data(layer)
+            .enter().append("path")
+            .attr("d", vizDetail)
+            .style("fill", function(d, i) { return colorPalette[i]; });
+
          // Setup the lines at each sample point
         sampleLinesData = [];
         var delta = width / numSample + width / (2 * numSample);
@@ -186,18 +193,8 @@
             .data(sampleLinesData)
             .enter().append('text')
             .text(function(d) { return d.count; })
-            .attr('transform', function(d) { return 'translate(' + d.x1 + ', ' + d.y1 + ')'; })
-//            .on("mouseover", sampleLineMouseOver)
-//            .on("mouseout", sampleLineMouseOut);
+            .attr('transform', function(d) { return 'translate(' + d.x1 + ', ' + d.y1 + ')'; });
 
-
-        // Setup the detail view
-        svgTimeDetail.selectAll("path")
-            .data(layer)
-            .enter().append("path")
-            .attr("d", vizDetail)
-            .style("fill", function(d, i) { return colorPalette[i]; })
-            .on("mouseover", sampleLineMouseOver);
 
         updateDetailView();
     }
@@ -303,14 +300,15 @@
             .data(sampleLinesNewData)
             .transition()
             .duration(0.1)
-//            .attr("x1", function(d) { return d.x1; })
-//            .attr("x2", function(d) { return d.x2; })
             .attr("y1", function(d) { return d.y1; })
             .attr("y2", function(d) { return d.y2; });
-//            .attr("id", function(d, i) { return "sampleLine-" + i; })
-//            .attr("class", "sampleLine")
-//            .on("mouseover", sampleLineMouseOver)
-//            .on("mouseout", sampleLineMouseOut);
+
+        svgTimeDetail.selectAll('text')
+            .data(sampleLinesNewData)
+            .transition()
+            .duration(0.1)
+            .text(function(d) { return d.count; })
+            .attr('transform', function(d) { return 'translate(' + d.x1 + ', ' + d.y1 + ')'; });            
     }
 
     function groupsToLayers(groups) {
