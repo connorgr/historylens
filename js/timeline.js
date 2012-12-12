@@ -126,10 +126,9 @@ function timelineViz (container) {
         .attr("width", width / numYear)
         .attr("height", oHeight)
         .attr("x", function(d, i) {
-            console.log(i);
             d.x0 = i * ovBarWidth;
             d.x1 = d.x0 + ovBarWidth;
-            return d.x0;
+            return 50;
          });
 
         // Setup the detail view
