@@ -229,7 +229,6 @@ function timelineViz (container) {
                 // there should be one key for each j, having the same value
                 if (elem === undefined || elem.key !== j) {
                     stackLayer.push({x: j, y:0});
-                    j = j + 1;
                 }
                 else {
                     stackLayer.push({x: elem.key, y: elem.value});
