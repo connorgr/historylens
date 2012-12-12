@@ -1,9 +1,9 @@
 
 /**
   * This function draws a donut visualization on an SVG canvas
-  * loc - the location to draw the donut
-  * svg - the canvas to draw the donut on
-  * json - the data that the donut will use
+  * locGroup {svg:g} - a location group to draw the donut in
+  * svg {svg} - the canvas to draw the donut on
+  * json {json} - the data that the donut will use
   *
   */
 function drawDonut(loc, svg, json) {
@@ -22,7 +22,7 @@ function drawDonut(loc, svg, json) {
       arc = d3.svg.arc().outerRadius(radius).innerRadius(radius - radius/3),
       pie = d3.layout.pie().sort(null).value(function(d) { return d.num; });
 
-  var g = node.selectAll('.arc').data(pie(data)).enter().append('g')
+  var g = loc.selectAll('.arc').data(pie(data)).enter().append('g')
             .attr('class', 'arc');
         g.append('path').attr('d', arc)
             .attr('transform', 'translate(' + radius + ', ' + radius + ')')
@@ -43,7 +43,7 @@ function drawDonut(loc, svg, json) {
            .append('svg:feBlend').attr('in', 'SourceGraphic').attr('in2', 'blurOut')
            .attr('mode', 'normal');
 
-       node.append('circle')
+       loc.append('circle')
            .attr('filter', 'url(#dropShadow)')
            .attr('r', radius - radius/3)
            .attr('transform', 'translate(' + radius + ', ' + radius + ')')
@@ -54,14 +54,14 @@ function drawDonut(loc, svg, json) {
            
        // NOTE: an optimization would use an svg filter to prevent having to
        //  render twice
-       node.append('circle')
+       loc.append('circle')
            .attr('r', radius - radius/3)
            .attr('transform', 'translate(' + radius + ', ' + radius + ')')
            .style('fill', '#fff')
            .style('stroke', '#dedede')
            .style('stroke-width', 1);
 
-       node.append('text')
+       loc.append('text')
            .text(function(d) { return d.name; })
            .attr('class', 'donutCenterText')
            .attr('text-anchor', 'middle')
