@@ -76,8 +76,8 @@ function timelineViz (container) {
             if (numKey > maxYear) {
                 maxYear = numKey;
             }
-            records.push({year: numKey, count: summary[key]});
-            recordsAssociative[numKey] = summary[key];
+            records.push({year: numKey, count: parseInt(summary[key])});
+            recordsAssociative[numKey] = parseInt(summary[key]);
         }
 
         var numYear = maxYear - minYear + 1;
@@ -208,7 +208,7 @@ function timelineViz (container) {
             console.log(recordsAssociative);
             console.log(year);
             console.log(recordsAssociative[year]);
-//            binnedValue[index].value += recordsAssociative[year];
+            binnedValue[index].value += recordsAssociative[year];
         }
 
         console.log(binnedValue);
