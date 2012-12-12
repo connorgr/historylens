@@ -30,7 +30,7 @@
             var minLng = sw.lng();
             var maxLng = ne.lng();
             if (this.zoom <= 6) {
-                getSummaryByTime(minLat, maxLat, minLng, maxLng, 1, 1810, 2010);
+                getSummaryDataByTime(minLat, maxLat, minLng, maxLng, 1, 1810, 2010);
 //                activeLocations = countries;
             }
             else if (this.zoom > 6) {
