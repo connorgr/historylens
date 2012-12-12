@@ -64,10 +64,9 @@
           .data(activeLocations, function(d) { return d.key; })
           .each(transform)
           .enter().append('svg:g')
-          .each(function (d) {
-            d3.select(this).append('svg:circle').attr('r', 10);
-            return transform(d);
-          });
+          .each(transform)
+            .append('svg:circle')
+            .attr('r', 10);
 
         layer.selectAll("svg")
             .data(activeLocations, function(d) { return d.key; })
