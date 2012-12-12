@@ -207,7 +207,8 @@ function timelineViz (container) {
             var year = startYear + i;
             console.log(recordsAssociative);
             console.log(year);
-            binnedValue[index].value += recordsAssociative[year];
+            console.log(recordsAssociative[year]);
+//            binnedValue[index].value += recordsAssociative[year];
         }
 
         console.log(binnedValue);
