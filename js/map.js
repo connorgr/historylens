@@ -93,15 +93,14 @@
         marker.append("svg:circle")
             .attr("r", 4.5)
             .attr("cx", padding)
-            .attr("cy", padding);
+            .attr("cy", padding)
+            .append('svg:g')
+              .html(drawDonut(null));
 
         var jsonData = null;
 //      drawDonut(marker, layer, jsonData);
-     
-        function transform(d) {
-          d3.select(this).append('svg:g')
-              .each(function (d) { console.log(this); drawDonut(this, null); });
 
+        function transform(d) {
           d = new google.maps.LatLng(d.lat, d.lng);
           d = projection.fromLatLngToDivPixel(d);
           return d3.select(this)

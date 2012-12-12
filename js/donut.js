@@ -5,7 +5,7 @@
   * json {json} - the data that the donut will use
   *
   */
-function drawDonut(loc, json) {
+function drawDonut(json) {
   if (typeof json === 'undefined') {
     throw { 
       name:        "JSON undefined", 
@@ -21,6 +21,7 @@ function drawDonut(loc, json) {
       arc = d3.svg.arc().outerRadius(radius).innerRadius(radius - radius/3),
       pie = d3.layout.pie().sort(null).value(function(d) { return d.num; });
 
+  var loc = svgDoc.createElementNS("http://www.w3.org/2000/svg", "g");
   var g = loc.selectAll('.arc').data(pie(data)).enter().append('g')
             .attr('class', 'arc');
         g.append('path').attr('d', arc)
@@ -64,7 +65,8 @@ function drawDonut(loc, json) {
            .text(function(d) { return d.name; })
            .attr('class', 'donutCenterText')
            .attr('text-anchor', 'middle')
-           .attr('transform', 'translate(' + radius + ', ' + radius + ')'); 
+           .attr('transform', 'translate(' + radius + ', ' + radius + ')');
+  return loc;
 }
 
 
