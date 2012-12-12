@@ -196,8 +196,8 @@
 //            .data(sampleLinesData)
             .data(layer)
             .enter().append('text')
-            .text(function(d) { return d.count; })
-            .attr('transform', function(d) { return 'translate(' + x(d.x) + ', ' + y(d.y0 + d.y) + ')'; });
+            .text(function(d) { return d.count; });
+//            .attr('transform', function(d) { return 'translate(' + x(d.x) + ', ' + y(d.y0 + d.y) + ')'; });
 
 
         updateDetailView();
@@ -295,6 +295,7 @@
             .duration(1)
             .attr("d", vizDetail);
 
+/*
         svgTimeDetail.selectAll('line')
             .data(newLayer)
             .transition()
@@ -307,7 +308,7 @@
             .transition()
             .duration(0.1)
             .text(function(d) { return d.count; })
-            .attr('transform', function(d) { return 'translate(' + x(d.x) + ', ' + y(d.y0 + d.y) + ')'; });            
+            .attr('transform', function(d) { return 'translate(' + x(d.x) + ', ' + y(d.y0 + d.y) + ')'; });     */       
     }
 
     function groupsToLayers(groups) {
