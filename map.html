@@ -1,3 +1,4 @@
+<!-- DEPRECATED DO NOT USE -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -36,6 +37,19 @@ html, body, #map {
   <body>
     <div id="map"></div>
     <script type="text/javascript">
+      /**
+        *
+        *
+        *
+        *
+        *  DEPRECATED
+        *
+        *
+        *
+        *
+        *
+        **/
+
       // Create the Google Map…
       var map = new google.maps.Map(d3.select("#map").node(), {
         zoom: 2,
@@ -50,9 +64,9 @@ html, body, #map {
 
       // Add the container when the overlay is added to the map.
       overlay.onAdd = function() {
-        var layer = d3.select(this.getPanes().overlayLayer).append("div")
+        //var layer = d3.select(this.getPanes().overlayLayer).append("div")
+        var layer = d3.select(this.getPanes().overlayMouseTarget).append('div')
             .attr("class", "stations");
-
 
         d3.select()
         // Draw each marker as a separate SVG element.
@@ -74,7 +88,8 @@ html, body, #map {
           marker.append("svg:circle")
               .attr("r", 4.5)
               .attr("cx", padding)
-              .attr("cy", padding);
+              .attr("cy", padding)
+              .on('mouseOver', alert('mouseOver test.'));
 
           // Add a label.
           marker.append("svg:text")
