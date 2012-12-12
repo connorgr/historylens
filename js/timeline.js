@@ -194,7 +194,7 @@
         svgTimeDetail.selectAll('text')
             .data(layer[0])
             .enter().append('text')
-            .text(function(d) { return d.count; });
+            .text(function(d) { return d.count; })
             .attr('transform', function(d) { return 'translate(' + x(d.x) + ', ' + y(d.y0 + d.y) + ')'; });
 
 
