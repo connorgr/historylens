@@ -206,7 +206,8 @@ function timelineViz (container) {
             var index = Math.floor(i / binFactor);
             var year = startYear + i;
             console.log(recordsAssociative);
-            binnedValue[index].value += recordsAssociative[year].count;
+            console.log(year);
+            binnedValue[index].value += recordsAssociative[year];
         }
 
         layerData = groupsToLayers([binnedValue]);
