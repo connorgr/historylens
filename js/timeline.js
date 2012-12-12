@@ -208,7 +208,7 @@ function timelineViz (container) {
             console.log(recordsAssociative);
             console.log(year);
             console.log(recordsAssociative[year]);
-            console.log(isNaA(recordsAssociative[year]))
+            console.log(isNaN(recordsAssociative[year]))
 //            binnedValue[index].value += Number(recordsAssociative[year]);
         }
 
