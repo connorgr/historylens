@@ -99,7 +99,7 @@
             .attr("x2", function(d) { return d.x2; })
             .attr("y1", function(d) { return d.y1; })
             .attr("y2", function(d) { return d.y2; })
-            .attr("id", function(d) { return "sampleLine-" + i; })
+            .attr("id", function(d, i) { return "sampleLine-" + i; })
             .attr("class", "sampleLine")
             .on("mouseover", sampleLineMouseOver)
             .on("mouseout", sampleLineMouseOut);
@@ -144,7 +144,10 @@
             .all();
 
         var layerData = groupsToLayers([binnedValue]);
-        var layer = stack(layerData);    
+        var layer = stack(layerData);
+
+        console.log("layer");
+        console.log(layer);
 
         var y = d3.scale.linear()
         .domain([0, d3.max(layer, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); })])
@@ -155,9 +158,6 @@
             .x(function(d) { return x(d.x); })
             .y0(function(d) { return y(d.y0); })
             .y1(function(d) { return y(d.y0 + d.y); });
-
-        console.log("layer");
-        console.log(layer);
 
         // Setup the detail view
         svgTimeDetail.selectAll("path")
