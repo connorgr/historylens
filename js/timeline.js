@@ -170,11 +170,11 @@
 
          // Setup the lines at each sample point
         sampleLinesData = [];
-        var delta = width / numSample + width / (2 * numSample);
+        var delta = width / numSample;
         for (var i = 0; i < numSample; ++i) {
             var numLayer = layer.length;
             for (var j = 0; j < numLayer; ++j) {
-                sampleLinesData.push({x1: i * delta, x2: i * delta, 
+                sampleLinesData.push({x1: delta / 2 + i * delta, x2: delta / 2 + i * delta, 
                     y1: y(layer[j][i].y), y2: dHeight, count: layer[j][i].y});
             }
         }
