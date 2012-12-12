@@ -36,6 +36,7 @@
     var maxYear = 2010;
     var numYear = maxYear - minYear + 1;
     var timeOVBars;
+    var sampleLines;
     var ovBarWidth = width / numYear;;
     var recordsByTime;
     var vizDetail;
@@ -84,6 +85,19 @@
             d.x1 = d.x0 + ovBarWidth;
             return d.x0;
          });
+
+         // Setup the lines at each sample point
+        sampleLinesData = [];
+        for (var i = 0; i < numSample; ++i) {
+            sampleLinesData.push(i);
+        }
+        sampleLines = svgTimeDetail.selectAll("line")
+            .data(sampleLinesData)
+            .enter().append("line")
+            .attr("x1", i * width / numSample)
+            .attr("x2", i * width / numSample)
+            .attr("y1", 0)
+            .attr("y2", dheight);
 
         getSummaryDataByTime(-90, 90, -180, 180, 1, 1810, 2010);
     }
