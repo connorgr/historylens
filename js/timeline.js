@@ -84,8 +84,7 @@
             d.x0 = i * ovBarWidth;
             d.x1 = d.x0 + ovBarWidth;
             return d.x0;
-         })
-         .on("mouseover", sampleLineMouseOver);
+         });
 
          // Setup the lines at each sample point
         sampleLinesData = [];
@@ -165,7 +164,8 @@
             .data(layer)
             .enter().append("path")
             .attr("d", vizDetail)
-            .style("fill", function(d, i) { return colorPalette[i]; });
+            .style("fill", function(d, i) { return colorPalette[i]; })
+            .on("mouseover", sampleLineMouseOver);
 
         updateDetailView();
     }
@@ -281,6 +281,7 @@
 
     function sampleLineMouseOver(d, i) {
         console.log("mouseover");
+        console.log(d);
         d3.select("#sampleLine-" + i).classed("focus", true);   
     }
 
