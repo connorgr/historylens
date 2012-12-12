@@ -28,12 +28,6 @@ function timelineViz (container) {
         .on("brush", brushMove)
         .on("brushend", brushEnd);
 
-    var vizDetail = d3.svg.area()
-        .interpolate("basis")
-        .x(function(d) { return x(d.x); })
-        .y0(function(d) { return y(d.y0); })
-        .y1(function(d) { return y(d.y0 + d.y); });
-
     var svgTimeOverview = d3.select(container).append("svg")
         .attr("width", width + 40 +  'px')
         .attr("height", oHeight + 'px')
@@ -104,6 +98,12 @@ function timelineViz (container) {
         var y = d3.scale.linear()
         .domain([0, d3.max(layer, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); })])
         .range([dHeight, 0]);
+
+        var vizDetail = d3.svg.area()
+            .interpolate("basis")
+            .x(function(d) { return x(d.x); })
+            .y0(function(d) { return y(d.y0); })
+            .y1(function(d) { return y(d.y0 + d.y); });
         
             
         // Setup the overview
