@@ -117,10 +117,7 @@ function timelineViz (container) {
             .y1(function(d) { return y(d.y0 + d.y); });
         
             
-        // Setup the overview
-        console.log(ovBarWidth);
-        console.log(allTime);
-        
+        // Setup the overview        
          timeOVBars = svgTimeOverview.selectAll()
         .data(allTime)
         .enter().append("rect")
@@ -171,7 +168,7 @@ function timelineViz (container) {
     }
 
     function brushEnd() {
-        updateDetailView();
+//        updateDetailView();
     }
 
     function updateDetailView() {
