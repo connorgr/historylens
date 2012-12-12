@@ -175,18 +175,19 @@
         for (var i = 0; i < numSample; ++i) {
             var numLayer = layer.length;
             for (var j = 0; j < numLayer; ++j) {
-                sampleLinesData.push({x1: delta + i * delta, x2: delta + i * delta, 
+                sampleLinesData.push({x1: i * delta, x2: i * delta, 
                     y1: y(layer[j][i].y), y2: dHeight, count: layer[j][i].y});
             }
         }
         
         sampleLines = svgTimeDetail.selectAll("line")
-            .data(sampleLinesData)
+//            .data(sampleLinesData)
+            .data(layer)
             .enter().append("line")
-            .attr("x1", function(d) { return d.x1; })
-            .attr("x2", function(d) { return d.x2; })
-            .attr("y1", function(d) { return d.y1; })
-            .attr("y2", function(d) { return d.y2; })
+            .attr("x1", function(d) { return x(d.x); })
+            .attr("x2", function(d) { return x(d.x); })
+            .attr("y1", function(d) { return y(d.y0 + d.y); })
+            .attr("y2", function(d) { return dHeight; })
             .attr("id", function(d, i) { return "sampleLine-" + i; })
             .attr("class", "sampleLine focus");
 
@@ -298,7 +299,7 @@
         for (var i = 0; i < numSample; ++i) {
             var numLayer = layer.length;
             for (var j = 0; j < numLayer; ++j) {
-                sampleLinesNewData.push({x1: delta + i * delta, x2: delta + i * delta, 
+                sampleLinesNewData.push({x1: i * delta, x2: i * delta, 
                     y1: y(newLayer[j][i].y), y2: dHeight, count: newLayer[j][i].y});
             }
         }
