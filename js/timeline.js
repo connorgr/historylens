@@ -205,12 +205,9 @@ function timelineViz (container) {
         for (var i = 0; i < adjustedSpan; ++i) {
             var index = Math.floor(i / binFactor);
             var year = startYear + i;
-            console.log(recordsAssociative);
-            console.log(year);
-            console.log(recordsAssociative[year]);
-            console.log(isNaN(recordsAssociative[year]))
-            binnedValue[index].value += recordsAssociative[year];
-            console.log(binnedValue[index].value);
+            if (recordsAssociative[year] !== undefined) {
+                binnedValue[index].value += recordsAssociative[year];
+            }
         }
 
         console.log(binnedValue);
