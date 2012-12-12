@@ -22,6 +22,10 @@ p, text {
 
 }
 
+.sampleLine {
+    stroke: blue;
+}
+
 .timeOVBar {
   fill: #ccc;
   stroke: white;
