@@ -190,7 +190,7 @@ function timelineViz (container) {
 //            binnedValueB[index].value += recordsB[i].count;
         }
 
-        layerData = groupsToLayers([binnedValueA, binnedValueB]);
+        layerData = groupsToLayers([binnedValue]);
         layer = stack(layerData);
         if (!absoluteScale) {
              y = d3.scale.linear()
