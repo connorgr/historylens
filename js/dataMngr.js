@@ -1,4 +1,4 @@
-    function getSummaryDataByTime(minLat, maxLat, minLng, maxLng, regionLevel minYear, maxYear) {
+    function getSummaryDataByTime(minLat, maxLat, minLng, maxLng, regionLevel, minYear, maxYear) {
         getData(minLat, maxLat, minLng, maxLng, regionLevel, minYear, maxYear, binByTime);
     }
 
