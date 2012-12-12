@@ -93,9 +93,9 @@
         marker.append("svg:circle")
             .attr("r", 4.5)
             .attr("cx", padding)
-            .attr("cy", padding)
-            .append('svg:g')
-              .html(drawDonut(null));
+            .attr("cy", padding);
+            //.append('svg:g')
+            //  .html(drawDonut(null));
 
         var jsonData = null;
 //      drawDonut(marker, layer, jsonData);
