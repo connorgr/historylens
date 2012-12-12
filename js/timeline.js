@@ -170,7 +170,7 @@
             .style("fill", function(d, i) { return colorPalette[i]; });
 
          // Setup the lines at each sample point
-        sampleLinesData = [];
+/*        sampleLinesData = [];
         var delta = width / numSample;
         for (var i = 0; i < numSample; ++i) {
             var numLayer = layer.length;
@@ -178,7 +178,7 @@
                 sampleLinesData.push({x1: i * delta, x2: i * delta, 
                     y1: y(layer[j][i].y), y2: dHeight, count: layer[j][i].y});
             }
-        }
+        }*/
         
         sampleLines = svgTimeDetail.selectAll("line")
 //            .data(sampleLinesData)
@@ -187,7 +187,7 @@
             .attr("x1", function(d) { return x(d.x); })
             .attr("x2", function(d) { return x(d.x); })
             .attr("y1", function(d) { return y(d.y0 + d.y); })
-            .attr("y2", function(d) { return dHeight; })
+            .attr("y2", function(d) { return y(0); })
             .attr("id", function(d, i) { return "sampleLine-" + i; })
             .attr("class", "sampleLine focus");
 
@@ -196,7 +196,7 @@
             .data(sampleLinesData)
             .enter().append('text')
             .text(function(d) { return d.count; })
-            .attr('transform', function(d) { return 'translate(' + d.x1 + ', ' + d.y1 + ')'; });
+            .attr('transform', function(d) { return 'translate(' + x(d.x) + ', ' + y(d.y0 + d.y) + ')'; });
 
 
         updateDetailView();
@@ -294,29 +294,19 @@
             .duration(1)
             .attr("d", vizDetail);
 
-        sampleLinesNewData = [];
-        var delta = width / numSample;
-        for (var i = 0; i < numSample; ++i) {
-            var numLayer = layer.length;
-            for (var j = 0; j < numLayer; ++j) {
-                sampleLinesNewData.push({x1: i * delta, x2: i * delta, 
-                    y1: y(newLayer[j][i].y), y2: dHeight, count: newLayer[j][i].y});
-            }
-        }
-
         svgTimeDetail.selectAll('line')
-            .data(sampleLinesNewData)
+            .data(newLayer)
             .transition()
             .duration(0.1)
-            .attr("y1", function(d) { return d.y1; })
-            .attr("y2", function(d) { return d.y2; });
+            .attr("y1", function(d) { return y(d.y0 + d.y); })
+            .attr("y2", function(d) { return y(0); });
 
         svgTimeDetail.selectAll('text')
-            .data(sampleLinesNewData)
+            .data(newLayer)
             .transition()
             .duration(0.1)
             .text(function(d) { return d.count; })
-            .attr('transform', function(d) { return 'translate(' + d.x1 + ', ' + d.y1 + ')'; });            
+            .attr('transform', function(d) { return 'translate(' + x(d.x) + ', ' + y(d.y0 + d.y) + ')'; });            
     }
 
     function groupsToLayers(groups) {
