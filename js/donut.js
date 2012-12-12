@@ -23,8 +23,21 @@ function drawDonut(d3Selection, data) {
 
   var loc = d3Selection.append('g');
 
-  loc.append('circle').attr('r', 100);
+  //loc.append('circle').attr('r', 100);
+  loc.append('circle')
+         .attr('r', radius - radius/3)
+         .attr('transform', 'translate(' + radius + ', ' + radius + ')')
+         .style('fill', '#fff')
+         .style('stroke', '#dedede')
+         .style('stroke-width', 1);
+
+     loc.append('text')
+         .text(function(d) { return d.name; })
+         .attr('class', 'donutCenterText')
+         .attr('text-anchor', 'middle')
+         .attr('transform', 'translate(' + radius + ', ' + radius + ')');
   return;
+
   var g = loc.selectAll('.arc').data(pie(data)).enter().append('g')
             .attr('class', 'arc');
       g.append('path').attr('d', arc)
