@@ -178,6 +178,9 @@ function timelineViz (container) {
         // Adjust the extent so that it always covers numSample * x year;
         var startYear = Math.ceil(extent[0] * width / ovBarWidth) + minYear;
         var endYear = Math.floor(extent[1] * width / ovBarWidth) - 1 + minYear;
+        console.log(startYear);
+        console.log(endYear);
+        console.log(numSample);
         var adjustedSpan = Math.round((endYear - startYear + 1) / numSample) * numSample;
         extent[0] = Math.ceil(extent[0] * width / ovBarWidth) * ovBarWidth / width;
         extent[1] = (extent[0] * width + adjustedSpan * ovBarWidth) / width;
