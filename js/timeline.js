@@ -78,8 +78,8 @@
         svgYearLine.append('line')
                 .attr("x1", 0)
                 .attr("x2", width)
-                .attr('y1', 40)
-                .attr('y2', 40)
+                .attr('y1', 15)
+                .attr('y2', 15)
                 .attr('class', 'yearLine');
 
                 
@@ -133,10 +133,16 @@
             .all();
 
         var yearLineData = [];
-        var delta = numYear / numSample;
+        var deltaY = numYear / numSample;
+        var deltaW = width / numSample
         for (var i = 0; i < numSample; ++i) {
-            yearLineData.push(minYear + delta / 2 + delta * i);
+            yearLineData.push({year: minYear + deltaY / 2 + deltaY * i, x: deltaW / 2 + deltaW * i});
         }
+
+        svgYearLine.selectAll('text')
+            .data(yearLineData)
+            .attr('transform', function(d) { return 'translate(' + d.x, + ,'30)'; })
+            .text(function(d) { console.log(d); return d.year; });
 
         var layerData = groupsToLayers([binnedValue]);
         var layer = stack(layerData);
