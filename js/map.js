@@ -100,7 +100,7 @@
      
         function transform(d) {
           d3.select(this).append('svg:g')
-              .each(function (d) { drawDonut(this, null); });
+              .each(function (d) { alert(this); drawDonut(this, null); });
 
           d = new google.maps.LatLng(d.lat, d.lng);
           d = projection.fromLatLngToDivPixel(d);
