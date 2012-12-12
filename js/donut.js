@@ -2,17 +2,17 @@
 /**
   * This function draws a donut visualization on an SVG canvas
   * locGroup {svg:g} - a location group to draw the donut in
-  * json {json} - the data that the donut will use
+  * data {json} - the data that the donut will use
   *
   */
-function drawDonut(json) {
-  if (typeof json === 'undefined') {
+function drawDonut(data) {
+  if (typeof data === 'undefined') {
     throw { 
       name:        "JSON undefined", 
       message:     "Undefined JSON Error. Undefined json passed to drawDonut."
     } 
-  } else if (json === null) {
-    json = { 'num': '1'}
+  } else if (data === null) {
+    data = { 'num': '1'}
   }
   var radius = 50,
       donutColorsList = ['#98abc5', '#8a89a6', '#7b6888', '#6b486b', '#a05d56',
