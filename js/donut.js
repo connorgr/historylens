@@ -21,53 +21,53 @@ function drawDonut(data) {
       arc = d3.svg.arc().outerRadius(radius).innerRadius(radius - radius/3),
       pie = d3.layout.pie().sort(null).value(function(d) { return d.num; });
 
-  var loc = document.createElementNS("http://www.w3.org/2000/svg", "g");
+  var loc = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   var idDonut = 'donut';// + JSON.stringify(json);
   loc.setAttribute('id', idDonut);
   var g = d3.select('#'+idDonut).selectAll('.arc').data(pie(data)).enter().append('g')
             .attr('class', 'arc');
-        g.append('path').attr('d', arc)
-            .attr('transform', 'translate(' + radius + ', ' + radius + ')')
-            .style('fill', function(d) { return color(d.value); });
-        g.append('text')
-            .attr('transform', function(d) { return 'translate('+arc.centroid(d)+')'})
-           .attr('transform', 'translate(' + radius + ', ' + radius + ')')
-           .attr('text-anchor', 'middle')
-           .attr('dy', '.35em')
-           .text(function(d) { return d.num });
+      g.append('path').attr('d', arc)
+          .attr('transform', 'translate(' + radius + ', ' + radius + ')')
+          .style('fill', function(d) { return color(d.value); });
+      g.append('text')
+          .attr('transform', function(d) { return 'translate('+arc.centroid(d)+')'})
+         .attr('transform', 'translate(' + radius + ', ' + radius + ')')
+         .attr('text-anchor', 'middle')
+         .attr('dy', '.35em')
+         .text(function(d) { return d.num });
 
-        var dropShadow = loc.append('svg:defs')
-           .append('svg:filter')
-           .attr('id', 'dropShadow')
-           .append('svg:feGaussianBlur').attr('stdDeviation', 2.5)
-           .append('svg:feOffset').attr('result', 'offOut').attr('in','SourceAlpha')
-           .attr('dx', 20).attr('dy', 20)
-           .append('svg:feBlend').attr('in', 'SourceGraphic').attr('in2', 'blurOut')
-           .attr('mode', 'normal');
+      var dropShadow = loc.append('svg:defs')
+         .append('svg:filter')
+         .attr('id', 'dropShadow')
+         .append('svg:feGaussianBlur').attr('stdDeviation', 2.5)
+         .append('svg:feOffset').attr('result', 'offOut').attr('in','SourceAlpha')
+         .attr('dx', 20).attr('dy', 20)
+         .append('svg:feBlend').attr('in', 'SourceGraphic').attr('in2', 'blurOut')
+         .attr('mode', 'normal');
 
-       loc.append('circle')
-           .attr('filter', 'url(#dropShadow)')
-           .attr('r', radius - radius/3)
-           .attr('transform', 'translate(' + radius + ', ' + radius + ')')
-           .style('fill', '#fff')
-           .style('opacity', .8)
-           .style('stroke', '#ccc')
-           .style('stroke-width', 3);
-           
-       // NOTE: an optimization would use an svg filter to prevent having to
-       //  render twice
-       loc.append('circle')
-           .attr('r', radius - radius/3)
-           .attr('transform', 'translate(' + radius + ', ' + radius + ')')
-           .style('fill', '#fff')
-           .style('stroke', '#dedede')
-           .style('stroke-width', 1);
+     loc.append('circle')
+         .attr('filter', 'url(#dropShadow)')
+         .attr('r', radius - radius/3)
+         .attr('transform', 'translate(' + radius + ', ' + radius + ')')
+         .style('fill', '#fff')
+         .style('opacity', .8)
+         .style('stroke', '#ccc')
+         .style('stroke-width', 3);
+         
+     // NOTE: an optimization would use an svg filter to prevent having to
+     //  render twice
+     loc.append('circle')
+         .attr('r', radius - radius/3)
+         .attr('transform', 'translate(' + radius + ', ' + radius + ')')
+         .style('fill', '#fff')
+         .style('stroke', '#dedede')
+         .style('stroke-width', 1);
 
-       loc.append('text')
-           .text(function(d) { return d.name; })
-           .attr('class', 'donutCenterText')
-           .attr('text-anchor', 'middle')
-           .attr('transform', 'translate(' + radius + ', ' + radius + ')');
+     loc.append('text')
+         .text(function(d) { return d.name; })
+         .attr('class', 'donutCenterText')
+         .attr('text-anchor', 'middle')
+         .attr('transform', 'translate(' + radius + ', ' + radius + ')');
   return loc;
 }
 
