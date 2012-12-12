@@ -135,7 +135,11 @@
         sampleLinesData = [];
         var delta = width / numSample + width / (2 * numSample);
         for (var i = 0; i < numSample; ++i) {
-            sampleLinesData.push({x1: i * delta, x2: i * delta, y1: y(layer[i].y), y2: dHeight, count: layer[i].y});
+            var numLayer = layer.length;
+            for (var j = 0; j < numLayer; ++j) {
+                sampleLinesData.push({x1: i * delta, x2: i * delta, 
+                    y1: y(layer[j][i].y), y2: dHeight, count: layer[j][i].y});
+            }
         }
         sampleLines = svgTimeDetail.selectAll("line")
             .data(sampleLinesData)
