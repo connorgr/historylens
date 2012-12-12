@@ -15,7 +15,7 @@ function drawDonut(d3Selection, data) {
   //   data = { num: 1};
   // }
   data = [{ num:'50' }, { num:'6' }, { num:'6' }, { num:'6' }, { num:'6' }, {num:'3'}, {num:'1'}, { num:'6' }, {num:'10'} ];
-  
+
   var radius = 50,
       donutColorsList = ['#98abc5', '#8a89a6', '#7b6888', '#6b486b', '#a05d56',
           '#d0743c', '#ff8c00'],
@@ -44,6 +44,9 @@ function drawDonut(d3Selection, data) {
       .enter()
         .append('g')
         .attr('class', 'arc');
+  g.append('path').attr('d', arc)
+          .attr('transform', 'translate(' + radius + ', ' + radius + ')')
+          .style('fill', function(d) { return color(d.value); });
   return;
 
   var g = loc.selectAll('.arc').data(pie(data)).enter().append('g')
