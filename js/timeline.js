@@ -139,12 +139,12 @@
 
         // Setup the detail view
         svgTimeDetail.selectAll("path")
-        .data(layer)
-        .enter().append("path")
-        .attr("d", vizDetail)
-        .style("fill", function(d, i) { return colorPalette[i]; });
+            .data(layer)
+            .enter().append("path")
+            .attr("d", vizDetail)
+            .style("fill", function(d, i) { return colorPalette[i]; });
 
-        layerTransition(layer);    
+        updateDetailView();
     }
         
 
