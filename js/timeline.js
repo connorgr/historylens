@@ -51,7 +51,7 @@ function timelineViz (container) {
 
     var timeOVBars;
     var ovBarWidth;
-
+    var recordsByTime;
 
     getSummaryDataByTime(-90, 90, -180, 180, 1800, 2010);
 
@@ -75,7 +75,7 @@ function timelineViz (container) {
         
         /* Create filters */
         var filteredRecords = crossfilter(records);
-        var recordsByTime = filteredRecords.dimension(function(d) { return d.year; });
+        recordsByTime = filteredRecords.dimension(function(d) { return d.year; });
     //    var recordsByTopic = filteredRecords.dimension(function(d) {return d.topic});
 
         /* Populate the array for detail view */
@@ -173,21 +173,21 @@ function timelineViz (container) {
 
         // Update the records for the detail view
         recordsByTime.filter([startYear, endYear+1]);
-        var recordsA = recordsByTopic.filter("A").top(Infinity);
-        var recordsB = recordsByTopic.filter("B").top(Infinity);
+//        var recordsA = recordsByTopic.filter("A").top(Infinity);
+//        var recordsB = recordsByTopic.filter("B").top(Infinity);
 
         var binFactor = adjustedSpan / numSample;
-        binnedValueA = [];
-        binnedValueB = [];
+        binnedValue = [];
+//        binnedValueB = [];
         for (var i = 0; i < numSample; ++i) {
-            binnedValueA.push({key: i, value: 0});
-            binnedValueB.push({key: i, value: 0});
+            binnedValue.push({key: i, value: 0});
+//            binnedValueB.push({key: i, value: 0});
         }
             
         for (var i = 0; i < adjustedSpan; ++i) {
             var index = Math.floor(i / binFactor);
-            binnedValueA[index].value += recordsA[i].count;
-            binnedValueB[index].value += recordsB[i].count;
+            binnedValue[index].value += records[i].count;
+//            binnedValueB[index].value += recordsB[i].count;
         }
 
         layerData = groupsToLayers([binnedValueA, binnedValueB]);
