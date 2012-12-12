@@ -12,7 +12,8 @@ function mapViz (container) {
         mapTypeId: google.maps.MapTypeId.TERRAIN
     });
 
-    google.maps.event.addListener(map, 'zoom_changed', setActiveLocations);
+    google.maps.event.addListener(map, 'zoom_changed', setActiveLocations); 
+    getSummaryDataByLoc(-90, 90, -180, 180, 1810, 2010);
 
     function setActiveLocations() {
                 // Need further improvement so that we can determine 
