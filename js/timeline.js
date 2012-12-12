@@ -84,7 +84,8 @@
             d.x0 = i * ovBarWidth;
             d.x1 = d.x0 + ovBarWidth;
             return d.x0;
-         });
+         })
+         .on("mouseover", sampleLineMouseOver);
 
          // Setup the lines at each sample point
         sampleLinesData = [];
@@ -278,13 +279,13 @@
         return result;
     }
 
-    function sampleLineMouseOver(d) {
+    function sampleLineMouseOver(d, i) {
         console.log("mouseover");
-        d3.select("#sampleLine-" + d).classed("focus", true);   
+        d3.select("#sampleLine-" + i).classed("focus", true);   
     }
 
     function sampleLineMouseOut(d) {
-        d3.select("#sampleLine-" + d).classed("focus", false);       
+        d3.select("#sampleLine-" + i).classed("focus", false);       
     }
 //}
 
