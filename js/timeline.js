@@ -188,7 +188,8 @@ function timelineViz (container) {
 
         // Update the pointers for the map
         d3.select("#timeMin").text(startYear);
-
+        d3.select("#timeMin").text(startYear);
+        
         // Update the records for the detail view
         recordsByTime.filter([startYear, endYear+1]);
 

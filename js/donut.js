@@ -7,7 +7,7 @@
   *
   */
 function drawDonut(loc, svg, json) {
-  if (typeof jsonData === 'undefined') {
+  if (typeof json === 'undefined') {
     throw { 
       name:        "JSON undefined", 
       message:     "Undefined JSON Error. Undefined json passed to drawDonut."

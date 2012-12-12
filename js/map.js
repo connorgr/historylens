@@ -59,10 +59,7 @@ function mapViz (container) {
     function setActiveLocations() {
                 // Need further improvement so that we can determine 
             // the set of countries / places to show
-            if (this.zoom <= 4) {
-                activeLocations = continents;
-            }
-            else if (this.zoom > 4 && this.zoom <= 6) {
+            if (this.zoom <= 6) {
                 activeLocations = countries;
             }
             else if (this.zoom > 6) {
