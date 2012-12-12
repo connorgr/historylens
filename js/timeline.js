@@ -143,7 +143,8 @@
         .enter().append("path")
         .attr("d", vizDetail)
         .style("fill", function(d, i) { return colorPalette[i]; });
-    
+
+        layerTransition(layer);    
     }
         
 
@@ -192,9 +193,6 @@
         timeOVBars.classed("selected", function(d) {
             return d.x0 >= extent[0] * width && d.x1 <= extent[1] * width ;
         });
-
-        minYear = startYear;
-        maxYear = endYear;
 
         // Update the pointers for the map
 //        d3.select("#timeMin").value(startYear);
