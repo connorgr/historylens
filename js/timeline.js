@@ -181,7 +181,6 @@
         }*/
         
         sampleLines = svgTimeDetail.selectAll("line")
-//            .data(sampleLinesData)
             .data(layer[0])
             .enter().append("line")
             .attr("x1", function(d) { return x(d.x); })
@@ -193,11 +192,10 @@
 
 
         svgTimeDetail.selectAll('text')
-//            .data(sampleLinesData)
-            .data(layer)
+            .data(layer[0])
             .enter().append('text')
             .text(function(d) { return d.count; });
-//            .attr('transform', function(d) { return 'translate(' + x(d.x) + ', ' + y(d.y0 + d.y) + ')'; });
+            .attr('transform', function(d) { return 'translate(' + x(d.x) + ', ' + y(d.y0 + d.y) + ')'; });
 
 
         updateDetailView();
@@ -295,20 +293,19 @@
             .duration(1)
             .attr("d", vizDetail);
 
-/*
         svgTimeDetail.selectAll('line')
-            .data(newLayer)
+            .data(newLayer[0])
             .transition()
             .duration(0.1)
             .attr("y1", function(d) { return y(d.y0 + d.y); })
             .attr("y2", function(d) { return y(0); });
 
         svgTimeDetail.selectAll('text')
-            .data(newLayer)
+            .data(newLayer[0])
             .transition()
             .duration(0.1)
             .text(function(d) { return d.count; })
-            .attr('transform', function(d) { return 'translate(' + x(d.x) + ', ' + y(d.y0 + d.y) + ')'; });     */       
+            .attr('transform', function(d) { return 'translate(' + x(d.x) + ', ' + y(d.y0 + d.y) + ')'; });
     }
 
     function groupsToLayers(groups) {
