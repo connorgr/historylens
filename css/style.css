@@ -27,7 +27,7 @@ p, text {
     opacity: 0;
 }
 
-.sampleLine .focus {
+.sampleLine.focus {
     opacity: 1;
 }
 
