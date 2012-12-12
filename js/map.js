@@ -47,7 +47,8 @@
 
         // Add the container when the overlay is added to the map.
         overlay.onAdd = function() {
-            var layer = d3.select(this.getPanes().overlayLayer).append("div")
+            //var layer = d3.select(this.getPanes().overlayLayer).append("div")
+            var layer = d3.select(this.getPanes().overlayMouseTarget).append('div')
                 .attr("class", "markers");
 
             // Draw each marker as a separate SVG element.
@@ -65,7 +66,8 @@
                     .each(transform) // update existing markers
                     .enter().append("svg:svg")
                     .each(transform)
-                    .attr("class", "markers");
+                    .attr("class", "markers")
+                    .on('mouseOver', alert('mouseOver test'));
 
               marker.append("svg:circle")
                   .attr("r", 4.5)
