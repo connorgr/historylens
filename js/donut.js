@@ -12,7 +12,7 @@ function drawDonut(json) {
       message:     "Undefined JSON Error. Undefined json passed to drawDonut."
     } 
   } else if (json === null) {
-    json = {}
+    json = { 'num': '1'}
   }
   var radius = 50,
       donutColorsList = ['#98abc5', '#8a89a6', '#7b6888', '#6b486b', '#a05d56',
