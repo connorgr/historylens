@@ -40,7 +40,7 @@
             for (var subKey in topics) {
                 count += parseInt(topics[subKey]);
             }
-            result.push({key: mainKey, lat: values.lat, lng: values.long, count: count, values.placeName});
+            result.push({key: mainKey, lat: values.lat, lng: values.long, count: count, placeName: values.placeName});
         }
         console.log(result);
         return result;
