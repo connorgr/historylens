@@ -103,7 +103,7 @@
         drawDonut(marker, {'test': '1'});
 
         function transform(d) {
-          d = new google.maps.LatLng(d.lat, d.lng);
+          d = new google.maps.LatLng(d.lat, d.long);
           d = projection.fromLatLngToDivPixel(d);
           return d3.select(this)
               .style("left", (d.x - padding) + "px")
