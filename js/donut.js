@@ -2,11 +2,10 @@
 /**
   * This function draws a donut visualization on an SVG canvas
   * locGroup {svg:g} - a location group to draw the donut in
-  * svg {svg} - the canvas to draw the donut on
   * json {json} - the data that the donut will use
   *
   */
-function drawDonut(loc, svg, json) {
+function drawDonut(loc, json) {
   if (typeof json === 'undefined') {
     throw { 
       name:        "JSON undefined", 
@@ -34,7 +33,7 @@ function drawDonut(loc, svg, json) {
            .attr('dy', '.35em')
            .text(function(d) { return d.num });
 
-        var dropShadow = svg.append('svg:defs')
+        var dropShadow = loc.append('svg:defs')
            .append('svg:filter')
            .attr('id', 'dropShadow')
            .append('svg:feGaussianBlur').attr('stdDeviation', 2.5)

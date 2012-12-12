@@ -95,14 +95,12 @@
             .attr("cx", padding)
             .attr("cy", padding);
 
-        d3.select('.markers').selectAll('svg:circle')
-            .on('mouseup', console.log(this))
-            .moveToFront();
-
         var jsonData = null;
 //      drawDonut(marker, layer, jsonData);
      
         function transform(d) {
+          drawDonut(this, null);
+
           d = new google.maps.LatLng(d.lat, d.lng);
           d = projection.fromLatLngToDivPixel(d);
           return d3.select(this)
