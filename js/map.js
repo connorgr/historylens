@@ -93,7 +93,8 @@
         marker.append("svg:circle")
             .attr("r", 4.5)
             .attr("cx", padding)
-            .attr("cy", padding);
+            .attr("cy", padding)
+            .on('mouseup', console.log('marker mouse up'));
 
         d3.select('.markers').moveToFront();
 
