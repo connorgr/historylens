@@ -28,26 +28,9 @@
         .on("brush", brushMove)
         .on("brushend", brushEnd);
 
-    var svgTimeOverview = d3.select('#areaTime').append("svg")
-        .attr("width", width + 40 +  'px')
-        .attr("height", oHeight + 'px')
-        .append("g")
-        .attr("width", width + 'px')
-        .attr("transform", "translate (20, 0)");
-
-    var vizBrush = svgTimeOverview.append("g")
-        .attr("class", "brush")
-        .call(brush);
-        
-    vizBrush.selectAll("rect").attr("height", oHeight);
-    vizBrush.selectAll(".resize").append("path").attr("d", resizePath);
-
-    var svgTimeDetail = d3.select('#areaTime').append("svg")
-        .attr("width", width + 40 + 'px')
-        .attr("height", dHeight + 'px')
-        .append("g")
-        .attr("width", width + 'px')
-        .attr("transform", "translate (20, 0)");
+    var svgTimeOverview;
+    var vizBrush;
+    var svgTimeDetail;
 
     var timeOVBars;
     var ovBarWidth;
@@ -57,8 +40,32 @@
     var maxYear;
     var recordsAssociative;
     var records;
-    
-    getSummaryDataByTime(-90, 90, -180, 180, 1, 1810, 2010);
+
+    function initTimeline() {
+        svgTimeOverview = d3.select('#areaTime').append("svg")
+                .attr("width", width + 40 +  'px')
+                .attr("height", oHeight + 'px')
+                .append("g")
+                .attr("width", width + 'px')
+                .attr("transform", "translate (20, 0)");
+
+        vizBrush = svgTimeOverview.append("g")
+                .attr("class", "brush")
+                .call(brush);        
+
+            vizBrush.selectAll("rect").attr("height", oHeight);
+            vizBrush.selectAll(".resize").append("path").attr("d", resizePath);
+
+        svgTimeDetail = d3.select('#areaTime').append("svg")
+                .attr("width", width + 40 + 'px')
+                .attr("height", dHeight + 'px')
+                .append("g")
+                .attr("width", width + 'px')
+                .attr("transform", "translate (20, 0)");
+
+        getSummaryDataByTime(-90, 90, -180, 180, 1, 1810, 2010);    
+    }
+
 
     function updateTimeView(summary) {
 
