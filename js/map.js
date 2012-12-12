@@ -3,7 +3,7 @@
  * Constructor for the timeline visualization object.
  * container - the object containing the visualization.
  */
-function mapViz (container) {
+//function mapViz (container) {
 
     // Create the Google Map…
     var map = new google.maps.Map(d3.select("#areaMainCanvas").node(), {
@@ -19,6 +19,9 @@ function mapViz (container) {
                 // Need further improvement so that we can determine 
             // the set of countries / places to show
             console.log(this);
+            var bounds = map.getBounds();
+            var ne = bounds.getNorthEast();
+            var sw = bounds.getSouthWest();
             if (this.zoom <= 6) {
 //                activeLocations = countries;
             }
@@ -120,6 +123,6 @@ function mapViz (container) {
             console.log(e.responseText); 
          });
     }    
-}
+//}
 
 

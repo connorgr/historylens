@@ -3,7 +3,7 @@
  * Constructor for the timeline visualization object.
  * container - the object containing the visualization.
  */
-function timelineViz (container) {
+//function timelineViz (container) {
 
     var numTopic = 1; // number of layers
     var numSample = 20; // number of samples per layer
@@ -28,7 +28,7 @@ function timelineViz (container) {
         .on("brush", brushMove)
         .on("brushend", brushEnd);
 
-    var svgTimeOverview = d3.select(container).append("svg")
+    var svgTimeOverview = d3.select('#areaTime').append("svg")
         .attr("width", width + 40 +  'px')
         .attr("height", oHeight + 'px')
         .append("g")
@@ -42,7 +42,7 @@ function timelineViz (container) {
     vizBrush.selectAll("rect").attr("height", oHeight);
     vizBrush.selectAll(".resize").append("path").attr("d", resizePath);
 
-    var svgTimeDetail = d3.select(container).append("svg")
+    var svgTimeDetail = d3.select('#areaTime').append("svg")
         .attr("width", width + 40 + 'px')
         .attr("height", dHeight + 'px')
         .append("g")
