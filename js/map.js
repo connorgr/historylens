@@ -76,21 +76,21 @@ function mapViz (container) {
     }
 
     function binByLoc(data) {
-        var summary = countAggregator(data.map);
+        var summary = locCountAggregator(data.map);
         updateView(summary);
     }
 
-    function countAggregator(data) {
-        var result = {};
+    function locCountAggregator(data) {
+        var result = [];
         for (var mainKey in data) {
-            console.log(mainKey);
-            console.log(data[mainKey]);
             var values = data[mainKey];
+            var topics = values.topics;
             var count = 0;
-            for (var subKey in values) {
-                count += values[subKey];
+            for (var subKey in topics) {
+                count += topics[subKey];
             }
             result[mainKey] = count;
+            result.push({key: mainKey, lat: values.lat, lng: values.long, count: count});
         }
         console.log(result);
         return result;
