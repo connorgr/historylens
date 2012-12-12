@@ -23,6 +23,8 @@ function drawDonut(d3Selection, data) {
 
   var loc = d3Selection.append('g');
 
+  loc.append('circle').attr('r', 100);
+  return;
   var g = loc.selectAll('.arc').data(pie(data)).enter().append('g')
             .attr('class', 'arc');
       g.append('path').attr('d', arc)
