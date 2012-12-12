@@ -97,7 +97,7 @@
             .attr("x1", i * width / numSample)
             .attr("x2", i * width / numSample)
             .attr("y1", 0)
-            .attr("y2", dheight)
+            .attr("y2", dHeight)
             .attr("class", "sampleLine");
 
         getSummaryDataByTime(-90, 90, -180, 180, 1, 1810, 2010);
