@@ -6,14 +6,16 @@
   *
   */
 function drawDonut(d3Selection, data) {
-  if (typeof data === 'undefined') {
-    throw { 
-      name:        "JSON undefined", 
-      message:     "Undefined JSON Error. Undefined json passed to drawDonut."
-    } 
-  } else if (data === null) {
-    data = { num: 1};
-  }
+  // if (typeof data === 'undefined') {
+  //   throw { 
+  //     name:        "JSON undefined", 
+  //     message:     "Undefined JSON Error. Undefined json passed to drawDonut."
+  //   } 
+  // } else if (data === null) {
+  //   data = { num: 1};
+  // }
+  data = [{ num:'50' }, { num:'6' }, { num:'6' }, { num:'6' }, { num:'6' }, {num:'3'}, {num:'1'}, { num:'6' }, {num:'10'} ];
+  
   var radius = 50,
       donutColorsList = ['#98abc5', '#8a89a6', '#7b6888', '#6b486b', '#a05d56',
           '#d0743c', '#ff8c00'],
