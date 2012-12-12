@@ -58,7 +58,7 @@ function timelineViz (container) {
     var recordsAssociative;
     var records;
     
-    getSummaryDataByTime(-90, 90, -180, 180, 1800, 2010);
+    getSummaryDataByTime(-90, 90, -180, 180, 1810, 2010);
 
     function updateView(summary) {
 
