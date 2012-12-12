@@ -83,7 +83,7 @@ function timelineViz (container) {
         // the minYear and the maxYear
         var allTime = [];
         for (var i = minYear; i <= maxYear; ++i) {
-            allTime.push(i);
+            allTime.push({year: i});
         }
         
         /* Create filters */
@@ -128,7 +128,7 @@ function timelineViz (container) {
         .attr("x", function(d, i) {
             d.x0 = i * ovBarWidth;
             d.x1 = d.x0 + ovBarWidth;
-            return i * ovBarWidth;
+            return d.x0;
          });
 
         // Setup the detail view
