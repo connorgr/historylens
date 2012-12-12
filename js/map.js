@@ -94,7 +94,7 @@
             .attr("r", 4.5)
             .attr("cx", padding)
             .attr("cy", padding)
-            .on('mouseup', console.log('marker mouse up'));
+            .on('mouseup', console.log(this));
 
         d3.select('.markers').moveToFront();
 
