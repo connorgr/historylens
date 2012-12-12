@@ -168,7 +168,7 @@ function timelineViz (container) {
     }
 
     function brushEnd() {
-//        updateDetailView();
+        updateDetailView();
     }
 
     function updateDetailView() {
@@ -186,6 +186,9 @@ function timelineViz (container) {
             return d.x0 >= extent[0] * width && d.x1 <= extent[1] * width ;
         });
 
+        // Update the pointers for the map
+        d3.select("#timeMin").text(startYear);
+
         // Update the records for the detail view
         recordsByTime.filter([startYear, endYear+1]);
 
@@ -196,9 +199,7 @@ function timelineViz (container) {
             binnedValue.push({key: i, value: 0});
         }
 
-        console.log(records);
-        console.log(adjustedSpan);
-        // Rebin the 
+        // Rebin the years
         for (var i = 0; i < adjustedSpan; ++i) {
             var index = Math.floor(i / binFactor);
             var year = startYear + i;
@@ -207,7 +208,6 @@ function timelineViz (container) {
             }
         }
 
-        console.log(binnedValue);
         layerData = groupsToLayers([binnedValue]);
         layer = stack(layerData);
         if (!absoluteScale) {
