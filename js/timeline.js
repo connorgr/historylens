@@ -91,7 +91,11 @@ function timelineViz (container) {
 //        var layerData = groupsToLayers([binnedValueA, binnedValueB]);
         var layerData = groupsToLayers([binnedValue]);
 
+        console.log(layerData);
+
         var layer = stack(layerData);    
+
+        console.log(layer);
 
         var ovBarWidth = width / numYear;
 
