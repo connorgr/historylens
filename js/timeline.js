@@ -94,11 +94,14 @@
         sampleLines = svgTimeDetail.selectAll("line")
             .data(sampleLinesData)
             .enter().append("line")
-            .attr("x1", i * width / numSample)
-            .attr("x2", i * width / numSample)
+            .attr("x1", function(d) { return d * width / numSample; })
+            .attr("x2", function(d) { return d * width / numSample; })
             .attr("y1", 0)
             .attr("y2", dHeight)
-            .attr("class", "sampleLine");
+            .attr("id", function(d) { return "sampleLine-" + i; })
+            .attr("class", "sampleLine")
+            .on("mouseover", sampleLineMouseOver)
+            .on("mouseout", sampleLineMouseOut);
 
         getSummaryDataByTime(-90, 90, -180, 180, 1, 1810, 2010);
     }
@@ -271,7 +274,13 @@
         return result;
     }
 
-    
+    function sampleLineMouseOver(d) {
+        d3.select("#sampleLine-" + d).classed("focus", true);   
+    }
+
+    function sampleLineMouseOut(d) {
+        d3.select("#sampleLine-" + d).classed("focus", false);       
+    }
 //}
 
 
