@@ -88,7 +88,7 @@ function timelineViz (container) {
     /*        recordsByTopic.filter("A"); */
         var binnedValue = recordsByTime
             .group(function(d) { return Math.floor((d - minYear) / Math.ceil(numYear / numSample)); })
-            .reduceSum(function(d) { return d.value; })
+            .reduceSum(function(d) { return d.count; })
             .order(function(d) { return d.key; })
             .all();
 
@@ -220,8 +220,14 @@ function timelineViz (container) {
             var group = groups[i];
             var stackLayer = [];
             for (var j = 0; j < numSample; ++j) {
-                var elem = group[j];
-                stackLayer.push({x: elem.key, y: elem.value});
+                var value = gropu[j];
+                // there should be one key for each j, having the same value
+                if (value === undefined) {
+                    stackLayer.push({x: j, y: 0});
+                }
+                else {
+                    stackLayer.push({x: elem.key, y: elem.value});
+                }
             }
             result.push(stackLayer);
         }
