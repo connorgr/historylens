@@ -136,7 +136,7 @@
         var deltaY = numYear / numSample;
         var deltaW = width / numSample
         for (var i = 0; i < numSample; ++i) {
-            yearLineData.push({year: minYear + deltaY / 2 + deltaY * i, x: deltaW / 2 + deltaW * i});
+            yearLineData.push({year: Math.round(minYear + deltaY / 2 + deltaY * i), x: deltaW / 2 + deltaW * i});
         }
 
         svgYearLine.selectAll('text')
