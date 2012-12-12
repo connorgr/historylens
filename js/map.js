@@ -87,9 +87,8 @@ function mapViz (container) {
             var topics = values.topics;
             var count = 0;
             for (var subKey in topics) {
-                count += topics[subKey];
+                count += parseInt(topics[subKey]);
             }
-            result[mainKey] = count;
             result.push({key: mainKey, lat: values.lat, lng: values.long, count: count});
         }
         console.log(result);
