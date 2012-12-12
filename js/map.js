@@ -60,6 +60,15 @@
         var projection = this.getProjection(),
             padding = 50;
 
+        mouseLayer.selectAll('svg')
+          .data(activeLocations, function(d) { return d.key; })
+          .each(transform)
+          .enter().append('svg:g')
+          .each(function (d) {
+            alert('test');
+            return transform(d);
+          });
+
         layer.selectAll("svg")
             .data(activeLocations, function(d) { return d.key; })
             .exit().remove();
