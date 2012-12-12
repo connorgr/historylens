@@ -24,11 +24,11 @@ p, text {
 
 .sampleLine {
     stroke: blue;
-    visibility: hidden;
+    opacity: 0;
 }
 
 .sampleLine .focus {
-    visibility: visible;
+    opacity: 1;
 }
 
 .timeOVBar {
