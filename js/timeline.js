@@ -49,7 +49,9 @@ function timelineViz (container) {
         .attr("width", width + 'px')
         .attr("transform", "translate (20, 0)");
 
-//    var dataManager = new dataMngr();
+    var timeOVBars;
+    var ovBarWidth;
+
 
     getSummaryDataByTime(-90, 90, -180, 180, 1800, 2010);
 
@@ -70,8 +72,6 @@ function timelineViz (container) {
             records.push({year: key, count: summary[key]});
         }
         var numYear = maxYear - minYear;
-        console.log(numYear);
-
         
         /* Create filters */
         var filteredRecords = crossfilter(records);
@@ -86,18 +86,10 @@ function timelineViz (container) {
             .order(function(d) { return d.key; })
             .all();
 
-        console.log(binnedValue);
-
-//        var layerData = groupsToLayers([binnedValueA, binnedValueB]);
         var layerData = groupsToLayers([binnedValue]);
-
-        console.log(layerData);
-
         var layer = stack(layerData);    
 
-        console.log(layer);
-
-        var ovBarWidth = width / numYear;
+        ovBarWidth = width / numYear;
 
         var y = d3.scale.linear()
         .domain([0, d3.max(layer, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); })])
@@ -111,7 +103,7 @@ function timelineViz (container) {
         
             
         // Setup the overview
-        var timeOVBars = svgTimeOverview.selectAll()
+         timeOVBars = svgTimeOverview.selectAll()
         .data(summary)
         .enter().append("rect")
         .attr("class", "timeOVBar selected")
@@ -222,7 +214,6 @@ function timelineViz (container) {
         var result = [];
         for (var i = 0; i < length; ++i) {
             var group = groups[i];
-            console.log(group);
             var stackLayer = [];
             for (var j = 0; j < numSample; ++j) {
                 var value = 0;
