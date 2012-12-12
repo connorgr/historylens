@@ -18,11 +18,13 @@ function mapViz (container) {
     function setActiveLocations() {
                 // Need further improvement so that we can determine 
             // the set of countries / places to show
+            console.log(this);
             if (this.zoom <= 6) {
-                activeLocations = countries;
+//                activeLocations = countries;
             }
             else if (this.zoom > 6) {
-                activeLocations = cities;
+//                activeLocations = cities;
+//                getSummaryDataByLoc();
             }
     }
 
@@ -57,6 +59,8 @@ function mapViz (container) {
                   .attr("r", 4.5)
                   .attr("cx", padding)
                   .attr("cy", padding);
+
+                
 
                 var jsonData = null;
 //                drawDonut(marker, layer, jsonData);
