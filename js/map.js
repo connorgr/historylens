@@ -93,10 +93,11 @@
         marker.append("svg:circle")
             .attr("r", 4.5)
             .attr("cx", padding)
-            .attr("cy", padding)
-            .on('mouseup', console.log(this));
+            .attr("cy", padding);
 
-        d3.select('.markers').moveToFront();
+        d3.select('.markers').selectAll('svg:circle')
+            .on('mouseup', console.log(this))
+            .moveToFront();
 
         var jsonData = null;
 //      drawDonut(marker, layer, jsonData);
