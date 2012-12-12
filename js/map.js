@@ -47,7 +47,7 @@
 
     // Add the container when the overlay is added to the map.
     overlay.onAdd = function() {
-      var mouseLayer = d.select(this.getPanes().overlayMouseTarget)
+      var mouseLayer = d3.select(this.getPanes().overlayMouseTarget)
           .append('div')
           .attr('class', 'mouseLayer');
 
@@ -65,7 +65,7 @@
           .each(transform)
           .enter().append('svg:g')
           .each(function (d) {
-            alert('test');
+            d3.select(this).append('svg:circle').attr('r', 10);
             return transform(d);
           });
 
