@@ -77,11 +77,11 @@ function timelineViz (container) {
             }
             records.push({year: key, count: summary[key]});
         }
-        var numYear = maxYear - minYear + 1;
 
+        var numYear = maxYear - minYear + 1;
         // Create the data for overview bars which contain all the years between 
         // the minYear and the maxYear
-        var allTime;
+        var allTime = [];
         for (var i = minYear; i <= maxYear; ++i) {
             allTime.push(i);
         }
