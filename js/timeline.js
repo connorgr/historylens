@@ -180,7 +180,9 @@
             .attr("y1", function(d) { return d.y1; })
             .attr("y2", function(d) { return d.y2; })
             .attr("id", function(d, i) { return "sampleLine-" + i; })
-            .attr("class", "sampleLine focus")
+            .attr("class", "sampleLine focus");
+
+        sampleLines.append('text')
             .text(function(d) { return d.count; });
 //            .on("mouseover", sampleLineMouseOver)
 //            .on("mouseout", sampleLineMouseOut);
