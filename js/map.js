@@ -77,7 +77,7 @@
           .each(transform)
             .append('svg:circle')
             .attr('r', 10)
-            .on('mouseOver', alert('hi'));
+            .on('mouseOver', console.log('mouseLayer activated'));
 
         layer.selectAll("svg")
             .data(activeLocations, function(d) { return d.key; })
