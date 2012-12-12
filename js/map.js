@@ -13,7 +13,7 @@ function mapViz (container) {
     });
 
     google.maps.event.addListener(map, 'zoom_changed', setActiveLocations); 
-    getSummaryDataByLoc(-90, 90, -180, 180, 1810, 2010);
+    getSummaryDataByLoc(-90, 90, -180, 180, 1, 1810, 2010);
 
     function setActiveLocations() {
                 // Need further improvement so that we can determine 
@@ -75,8 +75,8 @@ function mapViz (container) {
         overlay.setMap(map);
     }
 
-    function getSummaryDataByLoc(minLat, maxLat, minLng, maxLng, minYear, maxYear) {
-        getData(minLat, maxLat, minLng, maxLng, minYear, maxYear, binByLoc);
+    function getSummaryDataByLoc(minLat, maxLat, minLng, maxLng, regionLevel, minYear, maxYear) {
+        getData(minLat, maxLat, minLng, maxLng, regionLevel, minYear, maxYear, binByLoc);
     }
 
     function binByLoc(data) {
@@ -100,9 +100,9 @@ function mapViz (container) {
     }
 
 
-    function getData(minLat, maxLat, minLng, maxLng, minYear, maxYear, callback) {
+    function getData(minLat, maxLat, minLng, maxLng, regionLevel, minYear, maxYear, callback) {
         console.log("Getting data from php...");
-        var filterJSON = JSON.stringify({min_latitude: minLat, max_latitude: maxLat, min_longitude: minLng, max_longitude: maxLng, min_year: minYear, max_year: maxYear});
+        var filterJSON = JSON.stringify({min_latitude: minLat, max_latitude: maxLat, min_longitude: minLng, max_longitude: maxLng, min_year: minYear, max_year: maxYear, regionLevel: regionLevel});
         $.get("/vs/php/query.php",
                 {"q" : filterJSON},
                 function(data) {
