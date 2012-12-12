@@ -31,11 +31,14 @@ function drawDonut(d3Selection, data) {
          .style('stroke', '#dedede')
          .style('stroke-width', 1);
 
-     loc.append('text')
-         .text(function(d) { return d.name; })
-         .attr('class', 'donutCenterText')
-         .attr('text-anchor', 'middle')
-         .attr('transform', 'translate(' + radius + ', ' + radius + ')');
+   loc.append('text')
+       .text('Hi, Hua!')
+       .attr('class', 'donutCenterText')
+       .attr('text-anchor', 'middle')
+       .attr('transform', 'translate(' + radius + ', ' + radius + ')');
+
+  var g = loc.selectAll('.arc').data(pie(data)).enter().append('g')
+            .attr('class', 'arc');
   return;
 
   var g = loc.selectAll('.arc').data(pie(data)).enter().append('g')
