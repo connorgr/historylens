@@ -13,7 +13,7 @@
     
     // Create the Google Map…
     function initMap() {
-        map = new google.maps.Map(d3.select("#areaMainCanvas").node(), {
+        map = new google.maps.Map(d3.select("#areaMap").node(), {
             zoom: 2,
             center: new google.maps.LatLng(0, 0),
             mapTypeId: google.maps.MapTypeId.TERRAIN

@@ -71,22 +71,22 @@ p, text {
   stroke: #666;
 }
 
-#areaMain {
-  background: #0077DF;
+#areaDocList {
+  width: 200px;
+}
+
+#areaLeft {
   display: block;
+  float: left;
+}
+
+#areaMap {
+  background: #0077DF;
+  display: inherit;
   height: 600px;
   margin: 0;
   padding: 0;
   width: 1000px;
-}
-
-#areaMainCanvas {
-  height: inherit;
-  width: inherit;
-}
-
-#areaMainDocList {
-  width: 200px;
 }
 
 #areaSearch {
