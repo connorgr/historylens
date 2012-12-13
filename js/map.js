@@ -62,6 +62,10 @@
       var layer = d3.select(this.getPanes().overlayLayer).append("div")
           .attr("class", "markers");
 
+      var mouseLayer = d3.select(this.getPanes().overlayMouseTarget)
+          .append("div")
+          .attr("class", "providers");
+
       // Draw each marker as a separate SVG element.
       // We could use a single SVG, but what size would it have?
       overlay.draw = function() {
