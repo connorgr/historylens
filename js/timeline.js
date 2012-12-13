@@ -61,13 +61,6 @@
                 .append("g")
                 .attr("width", width + 'px')
                 .attr("transform", "translate (20, 0)");
-
-        vizBrush = svgTimeOverview.append("g")
-                .attr("class", "brush")
-                .call(brush);        
-
-        vizBrush.selectAll("rect").attr("height", oHeight);
-        vizBrush.selectAll(".resize").append("path").attr("d", resizePath);
                 
         svgTimeDetail = d3.select('#areaTime').append("svg")
                 .attr("width", width + 40 + 'px')
@@ -102,6 +95,13 @@
             d.x1 = d.x0 + ovBarWidth;
             return d.x0;
          });
+         
+        vizBrush = svgTimeOverview.append("g")
+                .attr("class", "brush")
+                .call(brush);        
+
+        vizBrush.selectAll("rect").attr("height", oHeight);
+        vizBrush.selectAll(".resize").append("path").attr("d", resizePath);
 
         getSummaryDataByTime(-90, 90, -180, 180, 1, 1810, 2010);
     }
@@ -146,7 +146,7 @@
             .enter().append('text')
             .attr('transform', function(d) { return 'translate(' + x(d.x) + ', 35)'; })
             .text(function(d) { return d.year; })
-            .attr('dx', '-5px');            
+            .attr('dx', '-10px');            
             
         console.log("layer");
         console.log(layer);
@@ -245,12 +245,6 @@
             return d.x0 >= extent[0] * width && d.x1 <= extent[1] * width ;
         });
 
-        // Update the pointers for the map
-//        d3.select("#timeMin").value(startYear);
-
-        // Update the records for the detail view
-//        recordsByTime.filter([startYear, endYear+1]);
-
         var binFactor = adjustedSpan / numSample; // number of years in each bin
         binnedValue = [];
         // Initialize the new binnedValue
@@ -307,7 +301,8 @@
             .data(newLayer[0])
             .transition()
             .duration(0.1)
-            .text(function(d) { return d.y; });
+            .text(function(d) { return d.y; })
+            .attr('transform', function(d) { return 'translate(' + x(d.x) + ', ' + y(d.y0 + d.y) + ')'; });            
 
         svgYearLine.selectAll('text')
             .data(newYears)
