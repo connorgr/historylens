@@ -287,7 +287,7 @@
             }
             */
             console.log(year);
-            console.log();
+            console.log(records[year - minYear]);
             binnedValue[index].value += records[year - minYear];
         }
 
