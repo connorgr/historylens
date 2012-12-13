@@ -132,22 +132,21 @@
             .order(function(d) { return d.key; })
             .all();
 
+        var layerData = groupsToLayers([binnedValue]);
+        var layer = stack(layerData);
+
         var yearLineData = [];
         var deltaY = numYear / numSample;
-        var deltaW = width / numSample
         for (var i = 0; i < numSample; ++i) {
-            yearLineData.push({year: Math.round(minYear + deltaY / 2 + deltaY * i), x: deltaW * i});
+            yearLineData.push({year: Math.round(minYear + deltaY * i), x: i});
         }
 
         svgYearLine.selectAll('text')
             .data(yearLineData)
             .enter().append('text')
-            .attr('transform', function(d) { return 'translate(' + d.x + ', 30)'; })
-            .text(function(d) { console.log(d); return d.year; });
-
-        var layerData = groupsToLayers([binnedValue]);
-        var layer = stack(layerData);
-
+            .attr('transform', function(d) { return 'translate(' + x(d.x) + ', 30)'; })
+            .text(function(d) { return d.year; });
+            
         console.log("layer");
         console.log(layer);
 
@@ -191,8 +190,8 @@
             .enter().append('line')
             .attr("x1", function(d) { return x(d.x); })
             .attr("x2", function(d) { return x(d.x); })
-            .attr("y1", 0)
-            .attr("y2", 30)
+            .attr("y1", 5)
+            .attr("y2", 25)
             .attr('class', 'vertLine');            
 
         updateDetailView();
@@ -282,9 +281,8 @@
 
         var yearLineData = [];
         var deltaY = (endYear - startYear) / numSample;
-        var deltaW = width / numSample
         for (var i = 0; i < numSample; ++i) {
-            yearLineData.push({year: Math.round(startYear + deltaY / 2 + deltaY * i), x: deltaW * i});
+            yearLineData.push({year: Math.round(startYear + deltaY * i), x: i});
         }        
         
         layerTransition(layer, yearLineData);    
