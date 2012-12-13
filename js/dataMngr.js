@@ -6,16 +6,24 @@
     }
 
     function binByTime(data) {
-/*        var summary = [];
+        var summary = [];
         var topics = [];
         for (var i = 0; i < 10; ++i) {
             topics[i] = [];
         }
-        for (var mainKey in data) {
-            
-        }*/
-        var summary = timeCountAggregator(data.timeline);
-        updateTimeView(summary);
+        var timeline = data.timeline;
+        for (var mainKey in timeline) {
+            var topicPairs = timeline[mainKey];
+            var count = 0;
+            var i = 0;
+            for (var subKey in topicPairs) {
+                var singleCount = parseInt(topicPairs[subKey]);
+                count += singleCount;
+                topics[i++].push({year: mainKey, count: singleCount});
+            }
+            summary.push({year: mainKey, count: count});
+        }
+        updateTimeView(summary, topics);
     }
 
     function timeCountAggregator(data) {
