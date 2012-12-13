@@ -82,11 +82,23 @@
         return result;
     }
 
+    // Time & Space
+
+    function getSummaryDataByBoth(minLat, maxLat, minLng, maxLng, regionLevel, minYear, maxYear) {
+        getData(minLat, maxLat, minLng, maxLng, regionLevel, minYear, maxYear, binByBoth);        
+    }
+
+    function binByBoth(data) {
+        binByTime(data);
+        updateMapView(data.map);
+    }
+
     // Documents
 
     function getDocuments(minLat, maxLat, minLng, maxLng, minyear, maxYear, topic) {
         console.log("Getting data from php...");
         var filterJSON = JSON.stringify({min_latitude: minLat, max_latitude: maxLat, min_longitude: minLng, max_longitude: maxLng, min_year: minYear, max_year: maxYear, topic: topic});
+        console.log(filterJSON);
         $.get("/vs/php/query.php",
                 {"q" : filterJSON},
                 function(data) {
