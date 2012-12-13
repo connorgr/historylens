@@ -16,6 +16,7 @@
   <script src="js/dataMngr.js"></script>
   <script src="js/timeline.js"></script>
   <script src="js/map.js"></script>
+  <script src="js/misc.js"></script>
   <script type="text/javascript" src="data/randomData.json"></script>
   <script type="text/javascript" src="data/locations.json"></script>
 </head>
@@ -23,7 +24,7 @@
   <div class="container">
     <div id="areaSearch">
       <p style="margin:0 10px;">Collapsable/Expandable search area</p>
-      <select data-placeholder="Choose a brain area" class="chzn-select" style="width:250px;" id="sourceSelect">
+      <select data-placeholder="Choose a brain area" class="chzn-select" style="width:250px;" id="topicSelect">
         <option></option>
       </select>
     </div>
@@ -42,6 +43,7 @@
       $(document).ready(new function() {
         initMap();
         initTimeline();
+        populateOptions();
       })  
       /* Deprecated - container style initialization*/
 //    $(document).ready(new function() {

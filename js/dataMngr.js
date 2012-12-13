@@ -17,8 +17,14 @@
             var count = 0;
             for (var subKey in values) {
                 count += parseInt(values[subKey]);
+                if (!optionsLoaded) {
+                    if ($.inArray(subKey, options) < 0) { options.push(subKey); };
+                }
             }
             result[mainKey] = count;
+        }
+        if (!optionsLoaded) {
+            populateOptions();
         }
         return result;
     }
