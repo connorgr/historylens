@@ -19,6 +19,7 @@
         .domain([0, numSample - 1])
         .range([0, width]);
     var y;
+    var topicY;
 
     var brushX = d3.scale.linear()
         .range([0, width]);
@@ -43,6 +44,7 @@
     var ovBarWidth = width / numYear;;
     var recordsByTime;
     var vizDetail;
+    var vizOverview;
 //    var recordsAssociative;
 //    var records;
     var summaryRecords;
@@ -144,6 +146,9 @@
         var layerData = groupsToLayers(binnedSummary);
 //        var layerData = groupsToLayers([binnedValue]);
         var layer = stack(layerData);
+        var binnedTopics = timeReduce(topicRecords);
+        var topicLayerData = groupsToLayers(binnedTopics);
+        var topicLayer = stack(topicLayerData);
 
         var yearLineData = [];
         var deltaY = numYear / numSample;
@@ -151,31 +156,42 @@
             yearLineData.push({year: Math.round(minYear + deltaY * i), x: i});
         }
 
+        // Add year labels
         svgYearLine.selectAll('text')
             .data(yearLineData)
             .enter().append('text')
             .attr('transform', function(d) { return 'translate(' + x(d.x) + ', 35)'; })
             .text(function(d) { return d.year; })
-            .attr('dx', '-10px');            
+            .attr('dx', '-10px');
             
         console.log("layer");
-        console.log(layer);
+        console.log(topicLayer);
 
         y = d3.scale.linear()
         .domain([0, d3.max(layer, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); })])
+        .range([oHeight, 0]);
+        
+        topicY = d3.scale.linear()
+        .domain([0, d3.max(topicLayer, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); })])
         .range([dHeight, 0]);
 
-        vizDetail = d3.svg.area()
+        vizOverview = d3.svg.area()
             .interpolate("cardinal")
             .x(function(d) { return x(d.x); })
             .y0(function(d) { return y(d.y0); })
             .y1(function(d) { return y(d.y0 + d.y); });
 
+        vizDetail = d3.svg.area()
+            .interpolate("cardinal")
+            .x(function(d) { return x(d.x); })
+            .y0(function(d) { return topicY(d.y0); })
+            .y1(function(d) { return topicY(d.y0 + d.y); });
+
         // Render the overview
         timeOverview = svgTimeOverview.selectAll('path')
             .data(layer)
             .enter().append('path')
-            .attr('d', vizDetail)
+            .attr('d', vizOverview)
             .style("fill", function(d, i) { return colorPalette[10]; });            
 
         // Render the brush
@@ -220,7 +236,7 @@
             .attr("y2", 25)
             .attr('class', 'vertLine');
 
-        updateDetailView();
+//        updateDetailView();
     }
         
 
@@ -286,8 +302,6 @@
                 binnedValue[index].value += recordsAssociative[year];
             }
             */
-            console.log(year);
-            console.log(summaryRecords[year - minYear]);
             binnedValue[index].value += summaryRecords[year - minYear].count;
         }
 
@@ -296,12 +310,15 @@
         if (!absoluteScale) {
              y = d3.scale.linear()
                 .domain([0, d3.max(layer, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); })])
+                .range([oHeight, 0]);
+             topicY = d3.scale.linear()
+                .domain([0, d3.max(topicLayer, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); })])
                 .range([dHeight, 0]);
             vizDetail = d3.svg.area()
                 .interpolate("cardinal")
                 .x(function(d) { return x(d.x); })
-                .y0(function(d) { return y(d.y0); })
-                .y1(function(d) { return y(d.y0 + d.y); });
+                .y0(function(d) { return topicY(d.y0); })
+                .y1(function(d) { return topicY(d.y0 + d.y); });
         }
 
         var yearLineData = [];
