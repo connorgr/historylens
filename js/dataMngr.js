@@ -14,7 +14,7 @@
         for (var mainKey in data) {
             
         }*/
-        var summary = timeCountAggregator(data);
+        var summary = timeCountAggregator(data.timeline);
         updateTimeView(summary);
     }
 
