@@ -78,9 +78,9 @@
     }
 
     function binByLoc(data) {
-//        var summary = locCountAggregator(data.map);
-//        updateMapView(summary);
-        updateMapView(data.map);
+        var summary = locCountAggregator(data.map);
+        updateMapView(summary);
+//        updateMapView(data.map);
     }
 
     function locCountAggregator(data) {
