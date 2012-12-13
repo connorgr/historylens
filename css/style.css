@@ -1,5 +1,5 @@
 body {
-  background: url('images/bg3.png'), repeat;
+  background: url('../images/bg3.png'), repeat;
 }
 
 p, text {
