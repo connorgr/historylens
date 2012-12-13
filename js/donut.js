@@ -37,9 +37,12 @@ function drawDonut(d3Selection, data) {
       .attr('class', 'donutCenterText')
       .attr("x", 0)//function(d) { return d._children ? -8 : -48; }) /*the position of the text (left to right)*/
       .attr("y", 0) /*the position of the text (Up and Down)*/
+      .attr("height", "100px")
+      .attr("width", "100px")
       .append("xhtml:body")
       .append("p")
-      .text(function(d) { return d.placeName; });
+      .text(function(d) { return d.placeName; })
+      .style('font-size', '6px');
 
    // loc.append('text')
    //     .text(function(d) { return (d.placeName).replace(/\s/g, "\n"); })//'Hi, Hua!')
