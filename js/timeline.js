@@ -203,7 +203,7 @@
             
         // Render the detail view
         svgTimeDetail.selectAll("path")
-            .data(layer)
+            .data(topicLayer)
             .enter().append("path")
             .attr("d", vizDetail)
             .style("fill", function(d, i) { return colorPalette[i]; });
