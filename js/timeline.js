@@ -186,6 +186,15 @@
             .attr('transform', function(d) { return 'translate(' + x(d.x) + ', ' + y(d.y0 + d.y) + ')'; });
 
 
+        svgYearLine.selectAll('line vert')
+            .data(layer[0])
+            .enter().append('line')
+            .attr("x1", function(d) { return x(d.x); })
+            .attr("x2", function(d) { return x(d.x); })
+            .attr("y1", 0)
+            .attr("y2", 30)
+            .attr('class', 'vert');            
+
         updateDetailView();
     }
         
