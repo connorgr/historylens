@@ -66,10 +66,6 @@
       var layer = d3.select(this.getPanes().overlayLayer).append("div")
           .attr("class", "markers");
 
-      var mouseLayer = d3.select(this.getPanes().floatPane)
-          .append("div")
-          .attr("class", "providers");
-
       // Draw each marker as a separate SVG element.
       // We could use a single SVG, but what size would it have?
       overlay.draw = function() {
@@ -88,21 +84,6 @@
             .attr("class", "markers");
 
         drawDonut(marker, {'test': '1'});
-
-        mouseLayer.selectAll("svg")
-            .data(activeLocations, function(d) { return d.key; })
-            .exit().remove();
-
-        var mouseMarker = layer.selectAll("svg")
-            .data(activeLocations, function(d) { return d.key; })                
-            .each(transform) // update existing markers
-            .enter().append("svg:svg")
-            .each(transform)
-            .attr("class", "markers")
-            .on('mouseOver', console.log('testing mouseOver on donut'));
-
-        drawDonut(mouseMarker, {'test': '1'});
-
 
         function transform(d) {
           d = new google.maps.LatLng(d.lat, d.lng);
