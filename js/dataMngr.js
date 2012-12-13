@@ -6,12 +6,43 @@
     }
 
     function binByTime(data) {
-        var summary = countAggregator(data.timeline);
+/*        var summary = [];
+        var topics = [];
+        for (var i = 0; i < 10; ++i) {
+            topics[i] = [];
+        }
+        for (var mainKey in data) {
+            
+        }*/
+        var summary = timeCountAggregator(data);
         updateTimeView(summary);
     }
 
-    function countAggregator(data) {
-        console.log(optionsLoaded);
+    function timeCountAggregator(data) {
+        var result = [];
+        for (var i = 0; i < 10; ++i) {
+            
+        }
+        for (var mainKey in data) {
+            var values = data[mainKey];
+            var count = 0;
+            for (var subKey in values) {
+                count += parseInt(values[subKey]);
+                if (!optionsLoaded) {
+                    if ($.inArray(subKey, options) < 0) { options.push(subKey); };
+                }
+            }
+            result[mainKey] = count;
+        }
+        if (!optionsLoaded) {
+            populateOptions();
+        }
+        return result;
+    }
+
+
+/*
+    function timeCountAggregator(data) {
         var result = {};
         for (var mainKey in data) {
             var values = data[mainKey];
@@ -29,6 +60,7 @@
         }
         return result;
     }
+*/
 
     // Space
 

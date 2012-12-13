@@ -101,6 +101,26 @@
         getSummaryDataByTime(-90, 90, -180, 180, 1, 1810, 2010);
     }
 
+    function timeReduce(input) {
+        var binnedValues = [];
+        var numArrays = input.length;
+        for (var i = 0; i < numArrays; ++i) {
+            var records = input[i];
+            /* Create filters */
+            var filteredRecords = crossfilter(records);
+            recordsByTime = filteredRecords.dimension(function(d) { return d.year; });
+
+            /* Populate the array for detail view */
+            var binnedValue = recordsByTime
+                .group(function(d) { return Math.floor((d - minYear) / Math.ceil(numYear / numSample)); })
+                .reduceSum(function(d) { return d.count; })
+                .order(function(d) { return d.key; })
+                .all();
+            binnedValues.push(binnedValue);
+        }
+
+        return binnedValues;
+    }
 
     function updateTimeView(summary) {
 
@@ -113,21 +133,10 @@
             records.push({year: numKey, count: parseInt(summary[key])});
             recordsAssociative[numKey] = parseInt(summary[key]);
         }
-        
-        /* Create filters */
-        var filteredRecords = crossfilter(records);
-        recordsByTime = filteredRecords.dimension(function(d) { return d.year; });
-    //    var recordsByTopic = filteredRecords.dimension(function(d) {return d.topic});
 
-        /* Populate the array for detail view */
-    /*        recordsByTopic.filter("A"); */
-        var binnedValue = recordsByTime
-            .group(function(d) { return Math.floor((d - minYear) / Math.ceil(numYear / numSample)); })
-            .reduceSum(function(d) { return d.count; })
-            .order(function(d) { return d.key; })
-            .all();
-
-        var layerData = groupsToLayers([binnedValue]);
+        var binnedSummary = timeReduce([records]);
+        var layerData = groupsToLayers(binnedSummary);
+//        var layerData = groupsToLayers([binnedValue]);
         var layer = stack(layerData);
 
         var yearLineData = [];
