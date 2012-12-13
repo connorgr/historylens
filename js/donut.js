@@ -57,7 +57,8 @@ function drawDonut(d3Selection, data) {
         .attr('class', 'arc');
   g.append('path').attr('d', arc)
     .attr('transform', 'translate(' + radius + ', ' + radius + ')')
-    .style('fill', function(d) { return donutColors(d.value); });
+    .style('fill', function(d) { return donutColors(d.value); })
+    .style('stroke-width', '10px');
 }
 
 
