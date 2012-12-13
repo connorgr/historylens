@@ -208,15 +208,26 @@
             .attr("d", vizDetail)
             .style("fill", function(d, i) { return colorPalette[i]; });
 
+        // Construct the data for the sample lines;
+        var sampleLineData = [];
+        for (var i = 0; i < topicLayer.length; ++i) {
+            var topic = topicLayer[i];
+            for (var j = 0; j < topic.length; ++j) {
+                var datum = topic[j];
+                sampleLineData.push({x: datum.x, y0: datum.y0, y: datum.y, group: i});
+            }
+        }
+
         // Render the sample lines
         sampleLines = svgTimeDetail.selectAll("line")
-            .data(layer[0])
+            .data(sampleLineData)
             .enter().append("line")
             .attr("x1", function(d) { return x(d.x); })
             .attr("x2", function(d) { return x(d.x); })
             .attr("y1", function(d) { return y(d.y0 + d.y); })
-            .attr("y2", function(d) { return y(0); })
+            .attr("y2", function(d) { return y(d.y0); })
             .attr("id", function(d, i) { return "sampleLine-" + i; })
+//            .style('stroke', function(d) { return colorPalette[d.group].darker(); })
             .attr("class", "sampleLine focus");
 
         // Render the counts labels
