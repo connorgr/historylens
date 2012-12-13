@@ -42,7 +42,7 @@ function drawDonut(d3Selection, data) {
       .append("xhtml:body")
       .append("p")
       .text(function(d) { return d.placeName; })
-      .style('font-size', '6px');
+      .style('font-size', '10px');
 
    // loc.append('text')
    //     .text(function(d) { return (d.placeName).replace(/\s/g, "\n"); })//'Hi, Hua!')
