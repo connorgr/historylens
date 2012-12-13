@@ -3,6 +3,10 @@ p, text {
   font-size: 14px;
 }
 
+.arc {
+  stroke-width: 100px;
+}
+
 .container {
   display: block;
   margin: 0;

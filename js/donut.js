@@ -17,7 +17,8 @@ function drawDonut(d3Selection, data) {
   data = [{ num:'50' }, { num:'6' }, { num:'6' }, { num:'6' }, { num:'6' }, {num:'3'}, {num:'1'}, { num:'6' }, {num:'10'} ];
 
   var radius = 50,
-      donutColorsList = ['#081D31', '#2C424D', '#6D6344', '#B5995B', '#CCB48B'],
+      donutColorsList = ['#8DD3C7', '#FFFFB3', '#BEBADA', '#FB8072', '#80B1D3',
+          '#FDB462', '#B3DE69', '#FCCDE5', '#D9D9D9', 'BC80BD'],
       donutColors = d3.scale.ordinal().range(donutColorsList),
       arc = d3.svg.arc().outerRadius(radius).innerRadius(radius - radius/3),
       pie = d3.layout.pie().sort(null).value(function(d) { return d.num; });
@@ -52,11 +53,11 @@ function drawDonut(d3Selection, data) {
   var g = loc.selectAll('.arc')
       .data(pie(data))
       .enter()
-        .append('g')
-        .attr('class', 'arc');
-  g.append('path').attr('d', arc)
-    .attr('transform', 'translate(' + radius + ', ' + radius + ')')
-    .style('fill', function(d) { return donutColors(d.value); });
+      .append('path').attr('d', arc)
+        .attr('transform', 'translate(' + radius + ', ' + radius + ')')
+        .attr('class', 'arc')
+        .style('fill', function(d) { return donutColors(d.value); })
+        .style('stroke-width', '10px');
 }
 
 
