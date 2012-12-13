@@ -44,7 +44,7 @@ function performQuery($columns, $filter, $groupBy, $limit)
 	#$orderBy = empty($orderBy) ? "" : " ORDER BY " . join(", ", $orderBy);
 	$limit = empty($limit) ? "" : " LIMIT " . $limit;
 	$query = $select . $where . $groupBy . $limit . ";";
-	echo "Query: " + $query;
+	echo "Query: $query\n";
 	mysql_query("SET CHARACTER SET utf8;");
 	return mysql_query($query);
 }
@@ -152,9 +152,9 @@ function documentQuery($json)
 function bigQuery($jsonString) {
 	$json = json_decode($jsonString, true);
 	$results = array(
-		"map" => mapQuery($json),
-		"timeline" => timelineQuery($json),
-		"document" => documentQuery($json));
+		"map" => mapQuery($json));#,
+		#"timeline" => timelineQuery($json),
+		#"document" => documentQuery($json));
 	return json_encode($results);
 }
 
@@ -163,7 +163,7 @@ function bigQuery($jsonString) {
 
 header('Content-Type: application/json');
 $q = $_GET["q"];
-echo bigQuery($q);
+bigQuery($q);
 
 mysql_close($connection);
 
