@@ -228,7 +228,7 @@
             .attr("y1", function(d) { return topicY(d.y0 + d.y); })
             .attr("y2", function(d) { return topicY(d.y0); })
             .attr("id", function(d, i) { return "sampleLine-" + i; })
-            .style('stroke', function(d) { return colorPalette[d.group].darker(); });
+            .style('stroke', function(d) { return d3.rgb(colorPalette[d.group]).darker(); });
 //            .attr("class", "sampleLine focus");
 
         // Render the counts labels
