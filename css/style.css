@@ -2,7 +2,7 @@ body {
   background: url('../images/bg-leather3.png'), repeat;
 }
 
-p, text {
+p, text, td {
   font-family: sans-serif;
   font-size: 14px;
 }
