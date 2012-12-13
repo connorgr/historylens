@@ -43,8 +43,10 @@
     var ovBarWidth = width / numYear;;
     var recordsByTime;
     var vizDetail;
-    var recordsAssociative;
-    var records;
+//    var recordsAssociative;
+//    var records;
+    var summaryRecords;
+    var topicRecords;
     var svgYearLine;
     var yearStamps;
 
@@ -126,6 +128,9 @@
 
         console.log(summary);
         console.log(topics);
+
+        summaryRecords = summary;
+        topicRecords = topics;
         
 /*        records = [];
         recordsAssociative = {};
@@ -135,7 +140,7 @@
             recordsAssociative[numKey] = parseInt(summary[key]);
         } */
 
-        var binnedSummary = timeReduce([summary]);
+        var binnedSummary = timeReduce([summaryRecords]);
         var layerData = groupsToLayers(binnedSummary);
 //        var layerData = groupsToLayers([binnedValue]);
         var layer = stack(layerData);
@@ -213,7 +218,7 @@
             .attr("x2", function(d) { return x(d.x); })
             .attr("y1", 5)
             .attr("y2", 25)
-            .attr('class', 'vertLine');            
+            .attr('class', 'vertLine');
 
         updateDetailView();
     }
@@ -276,9 +281,12 @@
         for (var i = 0; i < adjustedSpan; ++i) {
             var index = Math.floor(i / binFactor);
             var year = startYear + i;
+            /*
             if (recordsAssociative[year] !== undefined) {
                 binnedValue[index].value += recordsAssociative[year];
             }
+            */
+            binnedValue[index].value += records[year - minYear];
         }
 
         layerData = groupsToLayers([binnedValue]);
