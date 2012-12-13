@@ -1,8 +1,6 @@
 
     var optionsLoaded = false;
     var options = [];
-    $('#topicSelect').chosen().change(function() {console.log("????");});
-
 
     function populateOptions() {
         var numOptions = options.length;
@@ -10,6 +8,7 @@
             $('#topicSelect').append(new Option(options[i], i, false, false));
         }
         $('.chzn-select').chosen({allow_single_deselect: true});
+        $('#topicSelect').change(topicSearchInput);
         optionsLoaded = true;
     }
 
