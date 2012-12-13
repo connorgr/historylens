@@ -48,15 +48,9 @@ function drawDonut(d3Selection, data) {
       .attr("width", "70px")
       .append("xhtml:body")
       .append("p")
-      .attr('donutCenterText')
-      .text(function(d) { return d.placeName; })
-      .style('font-size', '10px');
-
-   // loc.append('text')
-   //     .text(function(d) { return (d.placeName).replace(/\s/g, "\n"); })//'Hi, Hua!')
-   //     .attr('class', 'donutCenterText')
-   //     .attr('text-anchor', 'middle')
-   //     .attr('transform', 'translate(' + radius + ', ' + radius + ')');
+        .attr('class', 'donutCenterText')
+        .text(function(d) { return d.placeName; })
+        .style('font-size', '10px');
 
   var g = loc.selectAll('.arc')
       .data(pie(data))
