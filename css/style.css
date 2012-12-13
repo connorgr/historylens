@@ -1,3 +1,7 @@
+body {
+  background: url(images/bg3.png), repeat;
+}
+
 p, text {
   font-family: sans-serif;
   font-size: 14px;
