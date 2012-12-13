@@ -83,7 +83,9 @@ p, text {
 }
 
 #areaSearch {
-  background: #DFDFDF;
+  background: #EEE;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
   display: block;
   height: 50px;
   margin: 0;
