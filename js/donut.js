@@ -53,7 +53,12 @@ function drawDonut(d3Selection, data) {
         .style('font-size', '10px');
 
   var g = loc.selectAll('.arc')
-      .data(pie(data))
+      .data(function(d) {
+        var topicArray = [];
+        for(var entry in d.topics) {
+          topicArray.push({num: d.topics[entry]}); 
+        }
+        return pie(topicArray); })
       .enter()
       .append('path').attr('d', arc)
         .attr('transform', 'translate(' + radius + ', ' + radius + ')')

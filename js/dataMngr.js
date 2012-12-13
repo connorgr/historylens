@@ -68,18 +68,19 @@
     }
 
     function locCountAggregator(data) {
-        var result = [];
-        for (var mainKey in data) {
-            var values = data[mainKey];
-            var topics = values.topics;
-            var count = 0;
-            for (var subKey in topics) {
-                count += parseInt(topics[subKey]);
-            }
-            result.push({key: mainKey, lat: values.lat, lng: values.long, count: count, placeName: values.placeName});
+      var result = [];
+      for (var mainKey in data) {
+        var values = data[mainKey];
+        var topics = values.topics;
+        var count = 0;
+        for (var subKey in topics) {
+          count += parseInt(topics[subKey]);
         }
-        console.log(result);
-        return result;
+        result.push({key: mainKey, lat: values.lat, lng: values.long, 
+            count: count, placeName: values.placeName, topics: values.topics});
+      }
+      console.log(result);
+      return result;
     }
 
     // Time & Space
