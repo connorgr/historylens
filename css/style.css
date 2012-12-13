@@ -77,7 +77,8 @@ p, text {
   height: 1000px;
   max-height: 1000px;
   min-height: 1000px;
-  overflow: scroll-y;
+  overflow-x: hidden;
+  overflow-y: scroll;
   padding: 0 10px;
   width: 180px;
 }
