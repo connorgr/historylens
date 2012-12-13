@@ -86,8 +86,6 @@
         var jsonData = null;
 
         drawDonut(marker, {'test': '1'});
-        marker.moveToFront();
-        marker.on('mouseOver', console.log('marker mouse over'));
 
         function transform(d) {
           d = new google.maps.LatLng(d.lat, d.lng);
