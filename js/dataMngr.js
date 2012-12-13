@@ -1,3 +1,6 @@
+
+    // Time 
+    
     function getSummaryDataByTime(minLat, maxLat, minLng, maxLng, regionLevel, minYear, maxYear) {
         getData(minLat, maxLat, minLng, maxLng, regionLevel, minYear, maxYear, binByTime);
     }
@@ -20,6 +23,7 @@
         return result;
     }
 
+    // Space
 
     function getSummaryDataByLoc(minLat, maxLat, minLng, maxLng, regionLevel, minYear, maxYear) {
         getData(minLat, maxLat, minLng, maxLng, regionLevel, minYear, maxYear, binByLoc);
@@ -46,6 +50,9 @@
         return result;
     }
 
+    // Documents
+
+    // Base functions
 
     function getData(minLat, maxLat, minLng, maxLng, regionLevel, minYear, maxYear, callback) {
         console.log("Getting data from php...");
