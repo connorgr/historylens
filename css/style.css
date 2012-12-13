@@ -71,10 +71,6 @@ p, text {
   stroke: #666;
 }
 
-#areaDocList {
-  width: 200px;
-}
-
 #areaMain {
   background: #0077DF;
   display: block;
@@ -83,9 +79,14 @@ p, text {
   padding: 0;
   width: 1000px;
 }
+
 #areaMainCanvas {
   height: inherit;
   width: inherit;
+}
+
+#areaMainDocList {
+  width: 200px;
 }
 
 #areaSearch {
