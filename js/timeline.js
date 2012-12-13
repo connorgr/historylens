@@ -236,7 +236,7 @@
             .attr("y2", 25)
             .attr('class', 'vertLine');
 
-//        updateDetailView();
+        updateDetailView();
     }
         
 
@@ -288,9 +288,17 @@
 
         var binFactor = adjustedSpan / numSample; // number of years in each bin
         binnedValue = [];
+        binnedTopicValues = [];
+        for (var i = 0; i < 10; ++i) {
+            binnedTopicValues[i] = [];
+        }
+        
         // Initialize the new binnedValue
         for (var i = 0; i < numSample; ++i) {
             binnedValue.push({key: i, value: 0});
+            for (var j = 0; j < 10; ++j) {
+                binnedTopicValues[j].push({key: i, value: 0});
+            }
         }
 
         // Rebin the years
@@ -303,10 +311,15 @@
             }
             */
             binnedValue[index].value += summaryRecords[year - minYear].count;
+            for (var j = 0; j < 10; ++j) {
+                binnedTopicValues[j][index].value += topicRecords[j][year - minYear].count;
+            }
         }
 
         layerData = groupsToLayers([binnedValue]);
+        topicLayerData = groupsToLayers(binnedTopicValues);
         layer = stack(layerData);
+        topicLayer = stack(topicLayerData);
         if (!absoluteScale) {
              y = d3.scale.linear()
                 .domain([0, d3.max(layer, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); })])
@@ -314,6 +327,13 @@
              topicY = d3.scale.linear()
                 .domain([0, d3.max(topicLayer, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); })])
                 .range([dHeight, 0]);
+                
+            vizOverview = d3.svg.area()
+                .interpolate("cardinal")
+                .x(function(d) { return x(d.x); })
+                .y0(function(d) { return y(d.y0); })
+                .y1(function(d) { return y(d.y0 + d.y); });
+                
             vizDetail = d3.svg.area()
                 .interpolate("cardinal")
                 .x(function(d) { return x(d.x); })
@@ -327,12 +347,18 @@
             yearLineData.push({year: Math.round(startYear + deltaY * i), x: i});
         }        
         
-        layerTransition(layer, yearLineData);    
+        layerTransition(layer, topicLayer, yearLineData);    
     }
 
-    function layerTransition(newLayer, newYears) {
-        svgTimeDetail.selectAll("path")
+    function layerTransition(newLayer, newTopicLayer, newYears) {
+        svgTimeOverview.selectAll('path')
             .data(newLayer)
+            .transition()
+            .duration(1)
+            .attr("d", vizOverview);
+                
+        svgTimeDetail.selectAll("path")
+            .data(newTopicLayer)
             .transition()
             .duration(1)
             .attr("d", vizDetail);
