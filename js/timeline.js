@@ -35,6 +35,8 @@
 
     var minYear = 1810;
     var maxYear = 2010;
+    var startYear = minYear;
+    var endYear = maxYear;
     var numYear = maxYear - minYear;
     var timeOVBars;
     var sampleLines;
@@ -234,8 +236,8 @@
         var extent = brush.extent();
 
         // Adjust the extent so that it always covers numSample * x year;
-        var startYear = Math.ceil(extent[0] * width / ovBarWidth) + minYear;
-        var endYear = Math.floor(extent[1] * width / ovBarWidth) - 1 + minYear;
+        startYear = Math.ceil(extent[0] * width / ovBarWidth) + minYear;
+        endYear = Math.floor(extent[1] * width / ovBarWidth) - 1 + minYear;
         var adjustedSpan = Math.round((endYear - startYear + 1) / numSample) * numSample;
         extent[0] = Math.ceil(extent[0] * width / ovBarWidth) * ovBarWidth / width;
         extent[1] = (extent[0] * width + adjustedSpan * ovBarWidth) / width;

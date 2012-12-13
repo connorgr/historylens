@@ -59,8 +59,21 @@
 
     // Documents
 
-    function getDocuments() {
-    
+    function getDocuments(minLat, maxLat, minLng, maxLng, minyear, maxYear, topic) {
+        console.log("Getting data from php...");
+        var filterJSON = JSON.stringify({min_latitude: minLat, max_latitude: maxLat, min_longitude: minLng, max_longitude: maxLng, min_year: minYear, max_year: maxYear, topic: topic});
+        $.get("/vs/php/query.php",
+                {"q" : filterJSON},
+                function(data) {
+                    console.log(data);
+                    populateDocList(data.document);
+                },
+                'json')
+         .success(function(data) { console.log("success"); })
+         .error(function(e) { 
+            console.log("error"); 
+            console.log(e.responseText); 
+         });        
     }
 
     // Base functions
