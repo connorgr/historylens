@@ -1,4 +1,5 @@
 
+
 /**
   * This function draws a donut visualization on an SVG canvas
   * locGroup {svg:g} - a location group to draw the donut in
