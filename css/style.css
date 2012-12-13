@@ -19,6 +19,7 @@ p, text {
 }
 
 .donutCenterText {
+  background: #FFF;
   fill: rgb(31, 37, 39);
   font-size: 10px;
   text-align: center;
