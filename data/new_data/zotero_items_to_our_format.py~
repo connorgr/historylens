@@ -1,0 +1,23 @@
+
+# Our JSON format:
+# [ { "document_url" : string,
+#     "origin" : number?,
+#     "authors" : [(string?, string?)]    // (firstName, lastName)
+#     "topics" : [string]
+#     "year" : number?
+#     "places_referenced" : { number : number }   // (place, count)
+#     "title" : string?
+#   } ]
+
+# items format:
+# {"items":[{"id":NUM/STR,
+#            "title":title,
+#            "author"[{"family":first, "given":last}],
+#            "issued":STR}]}
+# 
+
+
+http://zotero.org/groups/50280/items/85KGDAJC
+
+# [DONE] get zotero items
+# get zotero 

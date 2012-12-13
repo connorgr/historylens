@@ -24,6 +24,10 @@ function maxClause($column, $max) {
 	return isset($max) ? array($column . " <= " . $max) : array();
 }
 
+function eqClause($column, $value) {
+	 return isset($value) ? array($column . " = " . $value) : array();
+}
+
 function likeClause($column, $like) {
 	return isset($like) ? array($column . " like '%" . $like . "%'") : array();
 }
@@ -72,6 +76,7 @@ function makeFilter($json)
 {
 	$filters = array();
 	$filters = array_merge($filters,
+		eqClause("originalData", "0"),
 		authorFilter(withDefault($json, "authors", array())),
 		topicFilter(withDefault($json, "topics", array())),
 		minClause("latitude", withDefault($json, "min_latitude", NULL)),
@@ -87,7 +92,7 @@ function mapQuery($json)
 {
 	global $regionLevelMapping;
 
-	$regionLevel = $regionLevelMapping[withDefault($json, "regionLevel", 2)];
+	$regionLevel = $regionLevelMapping[withDefault($json, "regionLevel", 1)];
 	$columns = array("COUNT(*)", $regionLevel, "tagName", "name", "AVG(latitude)", "AVG(longitude)");
 	$filter = makeFilter($json);
 	$groupBy = array($regionLevel, "tagName");

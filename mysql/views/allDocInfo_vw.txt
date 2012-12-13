@@ -1,11 +1,12 @@
-CREATE VIEW allDocInfo_vw
+CREATE VIEW allDocInfo2_vw
 AS
 SELECT d.docId, d.title, d.pubYear, d.origin, d.url,
 p.placeId, p.name, p.latitude, p.longitude, p.country_code,
 p.region1, p.region2, p.region3, p.region4, pr.frequency,
 a.authorId, a.firstName, a.lastName,
 a.firstName + ' ' + a.lastName as authorName,
-t.tagId, t.tagName, tt.tagTypeId, tt.tagTypeName
+t.tagId, t.tagName, tt.tagTypeId, tt.tagTypeName,
+d.originalData
 FROM doc_tbl d
 LEFT OUTER JOIN placeRef_tbl pr
 	ON pr.docId = d.docID
@@ -20,4 +21,15 @@ LEFT OUTER JOIN docsToTags_tbl dtt
 LEFT OUTER JOIN tag_tbl t
 	on t.tagId = dtt.tagId
 LEFT OUTER JOIN tagType_tbl tt
-	on tt.tagTypeID = t.tagTypeId;
+	on tt.tagTypeID = t.tagTypeId
+;
+
+
+LEFT OUTER JOIN region1_tbl r1
+	on r1.country_code = p.country_code
+	and r1.region1 = p.region1
+LEFT OUTER JOIN region2_tbl r2
+	on r2.country_code = p.country_code
+	and r2.region1 = p.region1
+	and r2.region2 = p.region2
+;
