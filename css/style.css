@@ -83,8 +83,12 @@ p, text {
 }
 
 #areaLeft {
+  background: url('../images/paper-test.png'), repeat;
   display: block;
   float: left;
+  height: 1000px;
+  max-height: 1000px;
+  min-height: 1000px;
 }
 
 #areaMap {
@@ -110,7 +114,6 @@ p, text {
 }
 
 #areaTime {
-  background: url('../images/paper-test.png'), repeat;
   background-color: #EEE;
   border-top: 1px dashed #CCC;
   display: block;
