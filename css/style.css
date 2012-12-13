@@ -74,6 +74,9 @@ p, text {
 #areaDocList {
   background: #EEE;
   float: right;
+  height: 1000px;
+  max-height: 1000px;
+  min-height: 1000px;
   overflow: scroll;
   padding: 0 10px;
   width: 180px;
