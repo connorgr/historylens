@@ -144,8 +144,9 @@
         svgYearLine.selectAll('text')
             .data(yearLineData)
             .enter().append('text')
-            .attr('transform', function(d) { return 'translate(' + x(d.x) + ', 30)'; })
-            .text(function(d) { return d.year; });
+            .attr('transform', function(d) { return 'translate(' + x(d.x) + ', 35)'; })
+            .text(function(d) { return d.year; })
+            .attr('dx', '-5px');            
             
         console.log("layer");
         console.log(layer);
@@ -313,6 +314,7 @@
             .transition()
             .duration(0.1)
             .text(function(d) { return d.year; });
+            
     }
 
     function groupsToLayers(groups) {
