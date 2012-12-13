@@ -351,11 +351,11 @@
     }
 
     function layerTransition(newLayer, newTopicLayer, newYears) {
-        svgTimeOverview.selectAll('path')
+/*        svgTimeOverview.selectAll('path')
             .data(newLayer)
             .transition()
             .duration(1)
-            .attr("d", vizOverview);
+            .attr("d", vizOverview); */
                 
         svgTimeDetail.selectAll("path")
             .data(newTopicLayer)
