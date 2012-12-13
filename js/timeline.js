@@ -33,7 +33,7 @@
     var vizBrush;
     var svgTimeDetail;
 
-    var minYear = 1810;
+    var minYear = 1850;
     var maxYear = 2010;
     var startYear = minYear;
     var endYear = maxYear;
@@ -220,7 +220,7 @@
             .attr("y2", 25)
             .attr('class', 'vertLine');
 
-//        updateDetailView();
+        updateDetailView();
     }
         
 
@@ -286,6 +286,8 @@
                 binnedValue[index].value += recordsAssociative[year];
             }
             */
+            console.log(year);
+            console.log();
             binnedValue[index].value += records[year - minYear];
         }
 
