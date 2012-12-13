@@ -20,7 +20,7 @@ function drawDonut(d3Selection, data) {
   var radius = 50,
       donutColorsList = ['#8DD3C7', '#FFFFB3', '#BEBADA', '#FB8072', '#80B1D3',
           '#FDB462', '#B3DE69', '#FCCDE5', '#D9D9D9', 'BC80BD'],
-      donutColors = d3.scale.quantize().range(donutColorsList),
+      donutColors = d3.scale.linear().range(donutColorsList),
       arc = d3.svg.arc().outerRadius(radius - 3).innerRadius(radius - radius/3),
       pie = d3.layout.pie().sort(null).value(function(d) { return d.num; });
 
