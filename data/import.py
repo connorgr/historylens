@@ -91,10 +91,10 @@ WHERE NOT EXISTS (
 """
     return execute(cursor, cmd2, {"docId" : docId, "tagId" : tagId})
 
-def insert_doc(cursor, url, title, publicationYear, origin):
+def insert_doc(cursor, url, title, publicationYear, origin, original):
     cmd = u"""
-INSERT INTO doc_tbl (title, pubYear, origin, url)
-SELECT * FROM (SELECT %(title)s, %(pubYear)s, %(origin)s, %(url)s) AS QQ
+INSERT INTO doc_tbl (title, pubYear, origin, url, originalData)
+SELECT * FROM (SELECT %(title)s, %(pubYear)s, %(origin)s, %(url)s, %(original)s) AS QQ
 WHERE NOT EXISTS (
   SELECT 1 FROM doc_tbl
   WHERE IFNULL(title,'') = IFNULL(%(title)s,'')
@@ -110,7 +110,7 @@ AND IFNULL(pubYear,0) = IFNULL(%(pubYear)s,0)
 AND IFNULL(origin,0) = IFNULL(%(origin)s,0)
 AND IFNULL(url,'') = IFNULL(%(url)s,'');
 """
-    mapping = {"url":url, "title":title, "pubYear":publicationYear, "origin":origin}
+    mapping = {"url":url, "title":title, "pubYear":publicationYear, "origin":origin, "original":original}
     result = try_insert(cursor, cmd, query, mapping)
     insert_place(cursor, origin)
     return result
@@ -131,7 +131,7 @@ WHERE NOT EXISTS (
 def insert_place(cursor, placeId):
     cmd = u"""
 INSERT INTO place_tbl
-SELECT geo_id, geo_name, geo_latitude, geo_longitude, geo_country_code, geo_admin1_code, geo_admin2_code, geo_admin3_code, geo_admin4_code
+SELECT geo_id, geo_name, geo_latitude, geo_longitude, geo_country_code, geo_admin1_code, geo_admin2_code, geo_admin3_code, geo_admin4_code, geo_feature_class, geo_feature_code, geo_population
 FROM allCountries
 WHERE geo_id = %(placeId)s
 AND NOT EXISTS (
@@ -151,7 +151,8 @@ UNION ALL
 SELECT placeId FROM placeRef_tbl AS pr) AS QQ;
 
 INSERT INTO place_tbl
-SELECT geo_id, geo_name, geo_latitude, geo_longitude, geo_country_code, geo_admin1_code, geo_admin2_code, geo_admin3_code, geo_admin4_code FROM tmp_tbl as t
+SELECT geo_id, geo_name, geo_latitude, geo_longitude, geo_country_code, geo_admin1_code, geo_admin2_code, geo_admin3_code, geo_admin4_code, geo_feature_class, geo_feature_code, geo_population
+FROM tmp_tbl as t
 inner join allCountries AS c
   ON t.placeId = c.geo_id
 WHERE NOT EXISTS (
@@ -163,15 +164,19 @@ TRUNCATE TABLE tmp_tbl;
 """
     return cursor.execute(cmd)
 
-def main(verbose = False):
-    metadata = json.load(sys.stdin)
+def main(verbose = False, originalData = False):
     db = MySQLdb.connect(user="root", db="visualSummaries")
     cursor = db.cursor()
 
     doc_count = 0
-    for doc in metadata:
+    for line in sys.stdin:
+        if not line:
+            break
+        print line
+        doc = json.loads(line)
         docId = insert_doc(cursor, doc["document_url"], doc["title"],
-                                   doc["year"], doc["origin"])
+                           doc["year"], doc["origin"],
+                           1 if originalData else 0)
         if docId is not None:
             doc_count += 1
             for author in doc["authors"]:
