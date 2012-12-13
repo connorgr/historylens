@@ -52,6 +52,10 @@
 
     // Documents
 
+    function getDocuments() {
+    
+    }
+
     // Base functions
 
     function getData(minLat, maxLat, minLng, maxLng, regionLevel, minYear, maxYear, callback) {
