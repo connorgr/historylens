@@ -41,7 +41,8 @@ function drawDonut(d3Selection, data) {
       .attr("width", "100px")
       .append("xhtml:body")
       .append("p")
-      .text(function(d) { return d.placeName; });
+      .text(function(d) { return d.placeName; })
+      .style('font-size', '6px');
 
    // loc.append('text')
    //     .text(function(d) { return (d.placeName).replace(/\s/g, "\n"); })//'Hi, Hua!')
