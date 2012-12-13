@@ -20,33 +20,17 @@
                 var singleCount = parseInt(topicPairs[subKey]);
                 count += singleCount;
                 topics[i++].push({year: mainKey, count: singleCount});
+                if (!optionsLoaded) {
+                    if ($.inArray(subKey, options) < 0) { options.push(subKey); };
+                }
                 if (i >= 10) { break; }
             }
             summary.push({year: mainKey, count: count});
         }
-        updateTimeView(summary, topics);
-    }
-
-    function timeCountAggregator(data) {
-        var result = [];
-        for (var i = 0; i < 10; ++i) {
-            
-        }
-        for (var mainKey in data) {
-            var values = data[mainKey];
-            var count = 0;
-            for (var subKey in values) {
-                count += parseInt(values[subKey]);
-                if (!optionsLoaded) {
-                    if ($.inArray(subKey, options) < 0) { options.push(subKey); };
-                }
-            }
-            result[mainKey] = count;
-        }
         if (!optionsLoaded) {
             populateOptions();
-        }
-        return result;
+        }        
+        updateTimeView(summary, topics);
     }
 
 
