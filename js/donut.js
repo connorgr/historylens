@@ -44,7 +44,7 @@ function drawDonut(d3Selection, data) {
     loc.append("foreignObject")
       .attr("x", radius/3)//function(d) { return d._children ? -8 : -48; }) /*the position of the text (left to right)*/
       .attr("y", 30) /*the position of the text (Up and Down)*/
-      .attr("height", "100px")
+      .attr("height", "70px")
       .attr("width", "70px")
       .append("xhtml:body")
       .append("p")
