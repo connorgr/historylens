@@ -27,17 +27,25 @@ function drawDonut(d3Selection, data) {
 
   //loc.append('circle').attr('r', 100);
   loc.append('circle')
-         .attr('r', radius - radius/3)
-         .attr('transform', 'translate(' + radius + ', ' + radius + ')')
-         .style('fill', '#fff')
-         .style('stroke', '#dedede')
-         .style('stroke-width', 1);
+     .attr('r', radius - radius/3)
+     .attr('transform', 'translate(' + radius + ', ' + radius + ')')
+     .style('fill', '#fff')
+     .style('stroke', '#dedede')
+     .style('stroke-width', 1);
 
-   loc.append('text')
-       .text(function(d) { return (d.placeName).replace(/\s/g, "\n"); })//'Hi, Hua!')
-       .attr('class', 'donutCenterText')
-       .attr('text-anchor', 'middle')
-       .attr('transform', 'translate(' + radius + ', ' + radius + ')');
+    loc.append("foreignObject")
+      .attr("x", function(d) { return d._children ? -8 : -48; }) /*the position of the text (left to right)*/
+      .attr("y", 3) /*the position of the text (Up and Down)*/
+      .attr("width", "100px")
+      .append("xhtml:body")
+      .append("p")
+      .text(function(d) { return d.placeName; });
+
+   // loc.append('text')
+   //     .text(function(d) { return (d.placeName).replace(/\s/g, "\n"); })//'Hi, Hua!')
+   //     .attr('class', 'donutCenterText')
+   //     .attr('text-anchor', 'middle')
+   //     .attr('transform', 'translate(' + radius + ', ' + radius + ')');
 
   var g = loc.selectAll('.arc')
       .data(pie(data))
