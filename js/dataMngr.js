@@ -11,6 +11,7 @@
     }
 
     function countAggregator(data) {
+        console.log(optionsLoaded);
         var result = {};
         for (var mainKey in data) {
             var values = data[mainKey];
