@@ -22,11 +22,8 @@
         console.log(documents);
         var numDocs = documents.length;
         for (var i = 0; i < numDocs; ++i) {
-            var row = d3.select('#docList').append('tr');
-            row.append('td')
-                .data(numDocs[i])
-                .enter().append('a')                
-                .attr('href', function(d) {return d.url})
-                .attr('text', function(d) {return d.title});
+            var doc = documents[i];
+            $('#docList').append('<tr><td><a href=' + doc.url + '>' + doc.title
+                + '</a></td><td>' + doc.pubYear + '</td></tr>');
         }
     }
