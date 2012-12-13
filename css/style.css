@@ -96,9 +96,9 @@ p, text {
 }
 
 #areaTime {
-  background: #11CC55;
+  background: url('../images/paper-test.png'), repeat;
+  background-color: #EEE;
   display: block;
-  height: 110px;
   margin: 0;
   padding: 0;
   width: 1000px;
