@@ -15,7 +15,7 @@
     function topicSearchInput() {
         var topic = this.value;
         console.log(topic);
-        getDocuments(-90, 90, -180, 180, startYear, endYear, [topic]);
+        getDocuments(minLat, maxLat, minLng, maxLng, startYear, endYear, [topic]);
     }
 
     function populateDocList(documents) {

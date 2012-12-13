@@ -23,7 +23,7 @@
     var brushX = d3.scale.linear()
         .range([0, width]);
 
-    var colorPalette = d3.scale.category10().range();
+    var colorPalette = d3.scale.category20().range();
     var brush = d3.svg.brush().x(brushX).extent([0, 1])
         .on("brushstart", brushStart)
         .on("brush", brushMove)
@@ -86,7 +86,7 @@
                 .attr('class', 'yearLine');
 
         // Setup the overview        
-         timeOVBars = svgTimeOverview.selectAll()
+         timeOVBars = svgTimeOverview.selectAll('rect')
         .data(allTime)
         .enter().append("rect")
         .attr("class", "timeOVBar selected")
@@ -97,13 +97,6 @@
             d.x1 = d.x0 + ovBarWidth;
             return d.x0;
          });
-         
-        vizBrush = svgTimeOverview.append("g")
-                .attr("class", "brush")
-                .call(brush);        
-
-        vizBrush.selectAll("rect").attr("height", oHeight);
-        vizBrush.selectAll(".resize").append("path").attr("d", resizePath);
 
         getSummaryDataByTime(-90, 90, -180, 180, 1, 1810, 2010);
     }
@@ -163,13 +156,28 @@
             .y0(function(d) { return y(d.y0); })
             .y1(function(d) { return y(d.y0 + d.y); });
 
-        // Setup the detail view
+        // Render the overview
+        timeOverview = svgTimeOverview.selectAll('path')
+            .data(layer)
+            .enter().append('path')
+            .attr('d', vizDetail)
+            .style("fill", function(d, i) { return colorPalette[10]; });            
+
+        // Render the brush
+        vizBrush = svgTimeOverview.append("g")
+                .attr("class", "brush")
+                .call(brush);        
+        vizBrush.selectAll("rect").attr("height", oHeight);
+        vizBrush.selectAll(".resize").append("path").attr("d", resizePath);
+            
+        // Render the detail view
         svgTimeDetail.selectAll("path")
             .data(layer)
             .enter().append("path")
             .attr("d", vizDetail)
             .style("fill", function(d, i) { return colorPalette[i]; });
-        
+
+        // Render the sample lines
         sampleLines = svgTimeDetail.selectAll("line")
             .data(layer[0])
             .enter().append("line")
@@ -180,7 +188,7 @@
             .attr("id", function(d, i) { return "sampleLine-" + i; })
             .attr("class", "sampleLine focus");
 
-
+        // Render the counts labels
         svgTimeDetail.selectAll('text')
             .data(layer[0])
             .enter().append('text')
