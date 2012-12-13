@@ -12,6 +12,7 @@ p, text {
 .donutCenterText {
   fill: rgb(31, 37, 39);
   text-align: center;
+  width: 100px;
 }
 
 .link {
