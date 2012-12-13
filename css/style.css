@@ -37,6 +37,10 @@ p, text {
     stroke: black;
 }
 
+.line.vert {
+    stroke: black;
+}
+
 .timeOVBar {
   fill: #ccc;
   stroke: white;
