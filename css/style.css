@@ -83,7 +83,7 @@ p, text {
 }
 
 #areaSearch {
-  background: #EEE, url('../images/paper-test.png', repeat);
+  background: #EEE, url('../images/paper-test.png'), repeat;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
   display: block;
