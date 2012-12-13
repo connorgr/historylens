@@ -122,19 +122,20 @@
         return binnedValues;
     }
 
-    function updateTimeView(summary) {
+    function updateTimeView(summary, topics) {
 
         console.log(summary);
-
-        records = [];
+        console.log(topics);
+        
+/*        records = [];
         recordsAssociative = {};
         for (var key in summary) {
             var numKey = parseInt(key);
             records.push({year: numKey, count: parseInt(summary[key])});
             recordsAssociative[numKey] = parseInt(summary[key]);
-        }
+        } */
 
-        var binnedSummary = timeReduce([records]);
+        var binnedSummary = timeReduce([summary]);
         var layerData = groupsToLayers(binnedSummary);
 //        var layerData = groupsToLayers([binnedValue]);
         var layer = stack(layerData);
