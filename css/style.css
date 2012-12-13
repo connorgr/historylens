@@ -12,6 +12,7 @@ p, text {
 }
 
 .container {
+  box-shadow: 0px 0px 10px #000;
   margin: 0 auto;
   padding: 0;
   width: 1000px;
@@ -83,7 +84,9 @@ p, text {
 }
 
 #areaSearch {
-  background: #EEE, url('../images/paper-test.png'), repeat;
+  background: url('../images/paper-test.png'), repeat;
+  background-color: #EEE;
+  border-bottom: 1px dashed #CCC;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
   display: block;
@@ -94,9 +97,11 @@ p, text {
 }
 
 #areaTime {
-  background: #11CC55;
+  background: url('../images/paper-test.png'), repeat;
+  background-color: #EEE;
+  border-bottom: 1px dashed #CCC;
+  border-top: 1px dashed #CCC;
   display: block;
-  height: 110px;
   margin: 0;
   padding: 0;
   width: 1000px;
