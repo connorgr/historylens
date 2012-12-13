@@ -83,7 +83,9 @@ p, text {
 }
 
 #areaSearch {
-  background: #EEE, url('../images/paper-test.png'), repeat;
+  background: url('../images/paper-test.png'), repeat;
+  background-color: #EEE;
+  border-bottom: 1px dashed #CCC;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
   display: block;
