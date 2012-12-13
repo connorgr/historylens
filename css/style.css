@@ -21,7 +21,7 @@ p, text, td {
   display: inline-block;
   margin: 0 auto;
   padding: 0;
-  width: 1250px;
+  width: 1240px;
 }
 
 .donutCenterText {
@@ -94,6 +94,7 @@ p, text, td {
   display: block;
   float: left;
   height: 1000px;
+  margin-left: 20px;
   max-height: 1000px;
   min-height: 1000px;
 }
