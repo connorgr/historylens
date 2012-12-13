@@ -6,6 +6,10 @@
 //function mapViz (container) {
 
     var map;
+    var minLat = -90;
+    var maxLat = 90;
+    var minLng = -180;
+    var maxLng = 180;
     
     // Create the Google Map…
     function initMap() {
@@ -25,10 +29,10 @@
             var bounds = map.getBounds();
             var ne = bounds.getNorthEast();
             var sw = bounds.getSouthWest();
-            var minLat = sw.lat();
-            var maxLat = ne.lat();
-            var minLng = sw.lng();
-            var maxLng = ne.lng();
+            minLat = sw.lat();
+            maxLat = ne.lat();
+            minLng = sw.lng();
+            maxLng = ne.lng();
             if (this.zoom <= 6) {
                 getSummaryDataByTime(minLat, maxLat, minLng, maxLng, 1, 1810, 2010);
 //                activeLocations = countries;

@@ -158,7 +158,7 @@
         .range([dHeight, 0]);
 
         vizDetail = d3.svg.area()
-            .interpolate("basis")
+            .interpolate("cardinal")
             .x(function(d) { return x(d.x); })
             .y0(function(d) { return y(d.y0); })
             .y1(function(d) { return y(d.y0 + d.y); });
@@ -270,7 +270,7 @@
                 .domain([0, d3.max(layer, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); })])
                 .range([dHeight, 0]);
             vizDetail = d3.svg.area()
-                .interpolate("basis")
+                .interpolate("cardinal")
                 .x(function(d) { return x(d.x); })
                 .y0(function(d) { return y(d.y0); })
                 .y1(function(d) { return y(d.y0 + d.y); });
