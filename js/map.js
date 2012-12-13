@@ -62,7 +62,7 @@
       var layer = d3.select(this.getPanes().overlayLayer).append("div")
           .attr("class", "markers");
 
-      var mouseLayer = d3.select(this.getPanes().overlayMouseTarget)
+      var mouseLayer = d3.select(this.getPanes().floatPane)
           .append("div")
           .attr("class", "providers");
 
