@@ -35,10 +35,10 @@ function drawDonut(d3Selection, data) {
 
     loc.append("foreignObject")
       .attr('class', 'donutCenterText')
-      .attr("x", 20)//function(d) { return d._children ? -8 : -48; }) /*the position of the text (left to right)*/
-      .attr("y", 20) /*the position of the text (Up and Down)*/
+      .attr("x", radius/3)//function(d) { return d._children ? -8 : -48; }) /*the position of the text (left to right)*/
+      .attr("y", 30) /*the position of the text (Up and Down)*/
       .attr("height", "100px")
-      .attr("width", "100px")
+      .attr("width", 1.5*(radius - radius/3))
       .append("xhtml:body")
       .append("p")
       .text(function(d) { return d.placeName; })
