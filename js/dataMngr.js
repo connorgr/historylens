@@ -19,7 +19,7 @@
             for (var subKey in values) {
                 count += parseInt(values[subKey]);
                 if (!optionsLoaded) {
-                    if ($.inArray(subKey, options) < 0) { options.push(subKey); };
+                    if ($.inArray(subKey, options) < 0) { console.log(???); options.push(subKey); };
                 }
             }
             result[mainKey] = count;
