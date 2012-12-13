@@ -68,6 +68,13 @@
 
         vizBrush.selectAll("rect").attr("height", oHeight);
         vizBrush.selectAll(".resize").append("path").attr("d", resizePath);
+                
+        svgTimeDetail = d3.select('#areaTime').append("svg")
+                .attr("width", width + 40 + 'px')
+                .attr("height", dHeight + 20 + 'px')
+                .append("g")
+                .attr("width", width + 'px')
+                .attr("transform", "translate (20, 0)");
 
         svgYearLine = d3.select('#areaTime').append('svg')
                 .attr("width", width + 40 +  'px')
@@ -82,14 +89,6 @@
                 .attr('y1', 15)
                 .attr('y2', 15)
                 .attr('class', 'yearLine');
-
-                
-        svgTimeDetail = d3.select('#areaTime').append("svg")
-                .attr("width", width + 40 + 'px')
-                .attr("height", dHeight + 'px')
-                .append("g")
-                .attr("width", width + 'px')
-                .attr("transform", "translate (20, 0)");
 
         // Setup the overview        
          timeOVBars = svgTimeOverview.selectAll()
@@ -137,7 +136,7 @@
         var deltaY = numYear / numSample;
         var deltaW = width / numSample
         for (var i = 0; i < numSample; ++i) {
-            yearLineData.push({year: Math.round(minYear + deltaY / 2 + deltaY * i), x: deltaW / 2 + deltaW * i});
+            yearLineData.push({year: Math.round(minYear + deltaY / 2 + deltaY * i), x: deltaW * i});
         }
 
         svgYearLine.selectAll('text')
@@ -157,7 +156,7 @@
         .range([dHeight, 0]);
 
         vizDetail = d3.svg.area()
-//            .interpolate("basis")
+            .interpolate("basis")
             .x(function(d) { return x(d.x); })
             .y0(function(d) { return y(d.y0); })
             .y1(function(d) { return y(d.y0 + d.y); });
@@ -168,17 +167,6 @@
             .enter().append("path")
             .attr("d", vizDetail)
             .style("fill", function(d, i) { return colorPalette[i]; });
-
-         // Setup the lines at each sample point
-/*        sampleLinesData = [];
-        var delta = width / numSample;
-        for (var i = 0; i < numSample; ++i) {
-            var numLayer = layer.length;
-            for (var j = 0; j < numLayer; ++j) {
-                sampleLinesData.push({x1: i * delta, x2: i * delta, 
-                    y1: y(layer[j][i].y), y2: dHeight, count: layer[j][i].y});
-            }
-        }*/
         
         sampleLines = svgTimeDetail.selectAll("line")
             .data(layer[0])
@@ -277,16 +265,23 @@
                 .domain([0, d3.max(layer, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); })])
                 .range([dHeight, 0]);
             vizDetail = d3.svg.area()
-    //            .interpolate("basis")
+                .interpolate("basis")
                 .x(function(d) { return x(d.x); })
                 .y0(function(d) { return y(d.y0); })
                 .y1(function(d) { return y(d.y0 + d.y); });
         }
+
+        var yearLineData = [];
+        var deltaY = (endYear - startYear) / numSample;
+        var deltaW = width / numSample
+        for (var i = 0; i < numSample; ++i) {
+            yearLineData.push({year: Math.round(startYear + deltaY / 2 + deltaY * i), x: deltaW * i});
+        }        
         
-        layerTransition(layer);    
+        layerTransition(layer, yearLineData);    
     }
 
-    function layerTransition(newLayer) {
+    function layerTransition(newLayer, newYears) {
         svgTimeDetail.selectAll("path")
             .data(newLayer)
             .transition()
@@ -304,8 +299,13 @@
             .data(newLayer[0])
             .transition()
             .duration(0.1)
-            .text(function(d) { return d.y; })
-            .attr('transform', function(d) { return 'translate(' + x(d.x) + ', ' + y(d.y0 + d.y) + ')'; });
+            .text(function(d) { return d.y; });
+
+        svgYearLine.selectAll('text')
+            .data(newYears)
+            .transition()
+            .duration(0.1)
+            .text(function(d) { return d.year; });
     }
 
     function groupsToLayers(groups) {
