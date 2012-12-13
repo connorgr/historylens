@@ -247,7 +247,7 @@
             .attr("y2", 25)
             .attr('class', 'vertLine');
 
-        updateDetailView();
+//        updateDetailView();
     }
         
 
