@@ -20,7 +20,7 @@
         });
 
         google.maps.event.addListener(map, 'zoom_changed', mapOnZoom); 
-        getSummaryDataByLoc(-90, 90, -180, 180, 1, 1810, 2010);    
+        getSummaryDataByLoc(-90, 90, -180, 180, 1, 1850, 2010);    
     }
 
     function mapOnZoom() {
