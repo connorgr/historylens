@@ -60,7 +60,7 @@ function drawDonut(d3Selection, data) {
         .style('fill', function(d) { return donutColors(d.value); })
         .style('stroke-width', '10px');
 
-  google.maps.event.addListener(g, 'click', alert('test'));
+  google.maps.event.addListener(g, 'click', console.log('test'));
 }
 
 
