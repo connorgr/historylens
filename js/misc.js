@@ -22,6 +22,11 @@
         console.log(documents);
         var numDocs = documents.length;
         for (var i = 0; i < numDocs; ++i) {
-            d3.select('#docList').append('tr');
+            var row = d3.select('#docList').append('tr');
+            row.append('td')
+                .data(numDocs(i))
+                .enter().append('a')                
+                .attr('href', function(d) {return d.url})
+                .attr('text', function(d) {return d.title});
         }
     }
