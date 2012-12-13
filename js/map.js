@@ -83,9 +83,22 @@
             .each(transform)
             .attr("class", "markers");
 
-        var jsonData = null;
-
         drawDonut(marker, {'test': '1'});
+
+        mouseLayer.selectAll("svg")
+            .data(activeLocations, function(d) { return d.key; })
+            .exit().remove();
+
+        var mouseMarker = layer.selectAll("svg")
+            .data(activeLocations, function(d) { return d.key; })                
+            .each(transform) // update existing markers
+            .enter().append("svg:svg")
+            .each(transform)
+            .attr("class", "markers")
+            .on('mouseOver', console.log('testing mouseOver on donut'));
+
+        drawDonut(mouseMarker, {'test': '1'});
+
 
         function transform(d) {
           d = new google.maps.LatLng(d.lat, d.lng);
