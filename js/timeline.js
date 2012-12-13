@@ -287,8 +287,8 @@
             }
             */
             console.log(year);
-            console.log(records[year - minYear]);
-            binnedValue[index].value += records[year - minYear];
+            console.log(summaryRecords[year - minYear]);
+            binnedValue[index].value += summaryRecords[year - minYear].count;
         }
 
         layerData = groupsToLayers([binnedValue]);
