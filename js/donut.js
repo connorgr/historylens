@@ -28,6 +28,15 @@ function drawDonut(d3Selection, data) {
 
   //loc.append('circle').attr('r', 100);
   loc.append('circle')
+     .attr('r', radius + 3)
+     .attr('transform', 'translate(' + radius + ', ' + radius + ')')
+     .attr('x', -3)
+     .attr('y', -3)
+     .style('fill', '#fff')
+     .style('stroke', '#dedede')
+     .style('stroke-width', 1);
+
+  loc.append('circle')
      .attr('r', radius - radius/3)
      .attr('transform', 'translate(' + radius + ', ' + radius + ')')
      .style('fill', '#fff')
