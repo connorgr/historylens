@@ -72,7 +72,11 @@ p, text {
 }
 
 #areaDocList {
-  width: 200px;
+  background: #EEE;
+  float: right;
+  overflow: scroll;
+  padding: 0 10px;
+  width: 180px;
 }
 
 #areaLeft {
@@ -99,7 +103,7 @@ p, text {
   height: 50px;
   margin: 0;
   padding: 0;
-  width: 1000px;
+  width: inherit;
 }
 
 #areaTime {
