@@ -1,7 +1,7 @@
 
     var optionsLoaded = false;
     var options = [];
-    $('#topicSelect').change(topicSearchInput);
+    $('#topicSelect').change(function() {console.log("?????");});
 
 
     function populateOptions() {
