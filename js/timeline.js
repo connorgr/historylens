@@ -51,6 +51,7 @@
     var topicRecords;
     var svgYearLine;
     var yearStamps;
+    var sampleLineData;
 
     // Create the data for overview bars which contain all the years between 
     // the minYear and the maxYear
@@ -70,7 +71,7 @@
                 
         svgTimeDetail = d3.select('#areaTime').append("svg")
                 .attr("width", width + 40 + 'px')
-                .attr("height", dHeight + 20 + 'px')
+                .attr("height", dHeight + 40 + 'px')
                 .append("g")
                 .attr("width", width + 'px')
                 .attr("transform", "translate (20, 0)");
@@ -209,7 +210,7 @@
             .style("fill", function(d, i) { return colorPalette[i]; });
 
         // Construct the data for the sample lines;
-        var sampleLineData = [];
+        sampleLineData = [];
         for (var i = 0; i < topicLayer.length; ++i) {
             var topic = topicLayer[i];
             for (var j = 0; j < topic.length; ++j) {
@@ -227,15 +228,15 @@
             .attr("y1", function(d) { return topicY(d.y0 + d.y); })
             .attr("y2", function(d) { return topicY(d.y0); })
             .attr("id", function(d, i) { return "sampleLine-" + i; })
-//            .style('stroke', function(d) { return colorPalette[d.group].darker(); })
-            .attr("class", "sampleLine focus");
+            .style('stroke', function(d) { return colorPalette[d.group].darker(); });
+//            .attr("class", "sampleLine focus");
 
         // Render the counts labels
         svgTimeDetail.selectAll('text')
-            .data(layer[0])
+            .data(sampleLineData)
             .enter().append('text')
             .text(function(d) { return d.y; })
-            .attr('transform', function(d) { return 'translate(' + x(d.x) + ', ' + y(d.y0 + d.y) + ')'; });
+            .attr('transform', function(d) { return 'translate(' + x(d.x) + ', ' + topicY(d.y0 + d.y) + ')'; });
 
 
         svgYearLine.selectAll('.vertLine')
@@ -247,7 +248,7 @@
             .attr("y2", 25)
             .attr('class', 'vertLine');
 
-//        updateDetailView();
+        updateDetailView();
     }
         
 
@@ -357,8 +358,18 @@
         for (var i = 0; i < numSample; ++i) {
             yearLineData.push({year: Math.round(startYear + deltaY * i), x: i});
         }        
+
+        // Construct the data for the sample lines;
+        sampleLineData = [];
+        for (var i = 0; i < topicLayer.length; ++i) {
+            var topic = topicLayer[i];
+            for (var j = 0; j < topic.length; ++j) {
+                var datum = topic[j];
+                sampleLineData.push({x: datum.x, y0: datum.y0, y: datum.y, group: i});
+            }
+        }
         
-        layerTransition(layer, topicLayer, yearLineData);    
+        layerTransition(layer, topicLayer, yearLineData, sampleLineData);    
     }
 
     function layerTransition(newLayer, newTopicLayer, newYears) {
@@ -375,18 +386,18 @@
             .attr("d", vizDetail);
 
         svgTimeDetail.selectAll('line')
-            .data(newLayer[0])
+            .data(sampleLineData)
             .transition()
             .duration(0.1)
-            .attr("y1", function(d) { return y(d.y0 + d.y); })
-            .attr("y2", function(d) { return y(0); });
+            .attr("y1", function(d) { return topicY(d.y0 + d.y); })
+            .attr("y2", function(d) { return topicY(0); });
 
         svgTimeDetail.selectAll('text')
-            .data(newLayer[0])
+            .data(sampleLineData)
             .transition()
             .duration(0.1)
             .text(function(d) { return d.y; })
-            .attr('transform', function(d) { return 'translate(' + x(d.x) + ', ' + y(d.y0 + d.y) + ')'; });            
+            .attr('transform', function(d) { return 'translate(' + x(d.x) + ', ' + topicY(d.y0 + d.y) + ')'; });            
 
         svgYearLine.selectAll('text')
             .data(newYears)
