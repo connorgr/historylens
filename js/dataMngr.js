@@ -19,6 +19,7 @@
             for (var subKey in topicPairs) {
                 var singleCount = parseInt(topicPairs[subKey]);
                 count += singleCount;
+                console.log(i);
                 topics[i++].push({year: mainKey, count: singleCount});
             }
             summary.push({year: mainKey, count: count});
