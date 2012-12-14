@@ -65,7 +65,7 @@ function drawDonut(d3Selection, data) {
           topicColors[topic] = donutColorsList[i];
           i++;
         }
-        debugger;
+
         return pie(topicArray); })
       .enter()
       .append('path')
