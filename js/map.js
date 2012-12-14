@@ -66,11 +66,11 @@
 
     // Add the container when the overlay is added to the map.
     overlay.onAdd = function() {
-
+        d3.selectAll('.markers').remove();
+        
       // Draw each marker as a separate SVG element.
       // We could use a single SVG, but what size would it have?
       overlay.draw = function() {
-        d3.selectAll('.markers').remove();
       
         var layer = d3.select(this.getPanes().overlayLayer).append("div")
           .attr("class", "markers");
