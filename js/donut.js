@@ -52,12 +52,17 @@ function drawDonut(d3Selection, data) {
         .text(function(d) { return d.placeName; })
         .style('font-size', '10px');
 
-
+  var topicArray = [];
+  var topicColors = [];
   var g = loc.selectAll('.arc')
       .data(function(d) {
-        var topicArray = [];
         for(var entry in d.topics) {
           topicArray.push({num: d.topics[entry], category: entry}); 
+        }
+        var i = 0;
+        for(var topic in topicArray) {
+          topicColors[topic] = donutColorsList[i];
+          i++;
         }
         return pie(topicArray); })
       .enter()
@@ -65,7 +70,7 @@ function drawDonut(d3Selection, data) {
         .attr('d', arc)
         .attr('transform', 'translate(' + radius + ', ' + radius + ')')
         .attr('class', 'arc')
-        .style('fill', function(d) { debugger; return donutColors(d.value); })
+        .style('fill', function(d) { debugger; return topicColors[d.category] })//return donutColors(d.value); })
         .style('stroke-width', '10px');
 }
 
