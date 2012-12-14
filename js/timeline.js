@@ -385,7 +385,7 @@
             */
             binnedValue[index].value += summaryRecords[year - minYear].count;
 //            console.log(topicRecords);
-            for (var j = 0; j < 10; ++j) {s
+            for (var j = 0; j < 10; ++j) {
                 // TODO: this is a hack...needs fix using associative array
                 var currRec = topicRecords[j][year - minYear];
                 if (currRec !== undefined) {
