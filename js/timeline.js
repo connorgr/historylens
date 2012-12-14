@@ -45,7 +45,7 @@
     var numYear = maxYear - minYear;
     var timeOVBars;
     var sampleLines;
-    var ovBarWidth = width / numYear;;
+    var ovBarWidth = (width - padding) / numYear;;
     var recordsByTime;
     var vizDetail;
     var vizOverview;
@@ -165,7 +165,7 @@
         svgYearLine.selectAll('text')
             .data(yearLineData)
             .enter().append('text')
-            .attr('transform', function(d) { return 'translate(' + x(d.x) + ', 35)'; })
+            .attr('transform', function(d) { return 'translate(' + topicX(d.x) + ', 35)'; })
             .text(function(d) { return d.year; })
             .attr('dx', '-10px');
             
