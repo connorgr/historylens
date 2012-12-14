@@ -97,7 +97,13 @@
             .each(transform)
             .attr("class", "markers");
 
-        drawDonut(marker);
+          // Add a circle.
+          marker.append("svg:circle")
+              .attr("r", 4.5)
+              .attr("cx", padding)
+              .attr("cy", padding);
+
+//        drawDonut(marker);
 
         function transform(d) {
           d = new google.maps.LatLng(d.lat, d.lng);
