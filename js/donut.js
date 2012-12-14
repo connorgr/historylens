@@ -53,7 +53,7 @@ function drawDonut(d3Selection, data) {
         .style('font-size', '10px');
 
   var topicArray = [];
-  var topicColors = {};
+  var topicColors = {'start': 'null'};
   var g = loc.selectAll('.arc')
       .data(function(d) {
         for(var entry in d.topics) {
