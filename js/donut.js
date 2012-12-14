@@ -57,6 +57,8 @@ function drawDonut(d3Selection, data) {
   var g = loc.selectAll('.arc')
       .data(function(d) {
         var i = 0;
+        // TODO (connor) the topics might need to be sorted alphabetically to
+        //    assure that labeling is consistent with legend
         for(var topic in d.topics) {
           topicArray.push({num: d.topics[topic], category: topic});
           topicColors[topic] = donutColorsList[i];
