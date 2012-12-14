@@ -258,6 +258,7 @@
             .attr('class', 'vertLine');
 
         updateDetailView();
+        updateOverview(layer);
     }
         
 
@@ -290,6 +291,14 @@
 
     function brushEnd() {
         updateDetailView();
+    }
+
+    function updateOverview(newLayer) {
+        svgTimeOverview.selectAll('path')
+            .data(newLayer)
+            .transition()
+            .duration(1)
+            .attr("d", vizOverview);         
     }
 
     function updateDetailView() {
@@ -382,11 +391,6 @@
     }
 
     function layerTransition(newLayer, newTopicLayer, newYears) {
-/*        svgTimeOverview.selectAll('path')
-            .data(newLayer)
-            .transition()
-            .duration(1)
-            .attr("d", vizOverview); */
                 
         svgTimeDetail.selectAll("path")
             .data(newTopicLayer)
