@@ -52,6 +52,7 @@ function drawDonut(d3Selection, data) {
         .text(function(d) { return d.placeName; })
         .style('font-size', '10px');
 
+
   var g = loc.selectAll('.arc')
       .data(function(d) {
         var topicArray = [];
@@ -63,7 +64,7 @@ function drawDonut(d3Selection, data) {
       .append('path').attr('d', arc)
         .attr('transform', 'translate(' + radius + ', ' + radius + ')')
         .attr('class', 'arc')
-        .style('fill', function(d) { return donutColors(d.value); })
+        .style('fill', function(d) { debugger; return donutColors(d.value); })
         .style('stroke-width', '10px');
 }
 
