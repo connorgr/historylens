@@ -103,6 +103,8 @@
 
     // Bind our overlay to the map…
     overlay.setMap(map);
+    console.log(overlay);
+    overlay.draw();
   } 
 //}
 
