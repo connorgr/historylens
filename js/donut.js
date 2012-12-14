@@ -61,7 +61,7 @@ function drawDonut(d3Selection, data) {
         }
         var i = 0;
         // Might need to sort topic alphabetically for consistency.
-        for(var topic in topicArray) {
+        for(var topic in d.topics) {
           topicColors[topic] = donutColorsList[i];
           i++;
         }
