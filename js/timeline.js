@@ -169,7 +169,7 @@
             .enter().append('text')
             .attr('transform', function(d) { return 'translate(' + topicX(d.x) + ', 35)'; })
             .text(function(d) { return d.year; })
-            .attr('dx', '-10px');
+            .attr('dx', '-20px');
             
         console.log("layer");
         console.log(topicLayer);
@@ -242,7 +242,8 @@
             .data(sampleLineData)
             .enter().append('text')
             .text(function(d) { return d.y; })
-            .attr('transform', function(d) { return 'translate(' + topicX(d.x) + ', ' + topicY(d.y0 + d.y) + ')'; });
+            .attr('transform', function(d) { return 'translate(' + topicX(d.x) + ', ' + topicY(d.y0 + d.y) + ')'; })
+            .attr('dx', '-15px');
 
 
         svgYearLine.selectAll('.vertLine')
