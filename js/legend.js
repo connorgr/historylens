@@ -2,9 +2,9 @@ function initLegend() {
   console.log('Inside the making of legends.');
   console.log($('#areaLegend'));
 
-  $('#areaLegend').append('<p>Test</p>');
-
-  for(topic in options) {
+  var legendTopics = options;
+  legendTopics.sort();
+  for(topic in legendTopics) {
     $('#areaLegend').append('<p>' + options[topic] + '</p>');
   }
 
