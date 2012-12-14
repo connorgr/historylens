@@ -18,7 +18,10 @@
     
     var x = d3.scale.linear()
         .domain([0, numSample - 1])
-        .range([10, width-10]);
+        .range([10, width-padding]);
+    var topicX = d3.scale.linear()
+        .domain([0, numSample - 1])
+        .range([10, width]);
     var y;
     var topicY;
 
@@ -185,7 +188,7 @@
 
         vizDetail = d3.svg.area()
             .interpolate("cardinal")
-            .x(function(d) { return x(d.x); })
+            .x(function(d) { return topicX(d.x); })
             .y0(function(d) { return topicY(d.y0); })
             .y1(function(d) { return topicY(d.y0 + d.y); });
 
@@ -224,8 +227,8 @@
         sampleLines = svgTimeDetail.selectAll("line")
             .data(sampleLineData)
             .enter().append("line")
-            .attr("x1", function(d) { return x(d.x); })
-            .attr("x2", function(d) { return x(d.x); })
+            .attr("x1", function(d) { return topicX(d.x); })
+            .attr("x2", function(d) { return topicX(d.x); })
             .attr("y1", function(d) { return topicY(d.y0 + d.y); })
             .attr("y2", function(d) { return topicY(d.y0); })
             .attr("id", function(d, i) { return "sampleLine-" + i; })
@@ -237,7 +240,7 @@
             .data(sampleLineData)
             .enter().append('text')
             .text(function(d) { return d.y; })
-            .attr('transform', function(d) { return 'translate(' + x(d.x) + ', ' + topicY(d.y0 + d.y) + ')'; });
+            .attr('transform', function(d) { return 'translate(' + topicX(d.x) + ', ' + topicY(d.y0 + d.y) + ')'; });
 
 
         svgYearLine.selectAll('.vertLine')
@@ -349,7 +352,7 @@
                 
             vizDetail = d3.svg.area()
                 .interpolate("cardinal")
-                .x(function(d) { return x(d.x); })
+                .x(function(d) { return topicX(d.x); })
                 .y0(function(d) { return topicY(d.y0); })
                 .y1(function(d) { return topicY(d.y0 + d.y); });
         }
