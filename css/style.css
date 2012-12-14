@@ -2,13 +2,26 @@ body {
   background: url('../images/bg-leather3.png') repeat fixed;
 }
 
-p, text, td {
+p, text, td, h1, h2, h3, h4, h5 {
   font-family: sans-serif;
+}
+
+p, text, td {
   font-size: 14px;
 }
 
 .arc {
   stroke-width: 100px;
+}
+
+.brush rect.extent {
+  fill: steelblue;
+  fill-opacity: .125;
+}
+
+.brush .resize path {
+  fill: #eee;
+  stroke: #666;
 }
 
 .container {
@@ -31,6 +44,10 @@ p, text, td {
   text-align: center;
 }
 
+.labels {
+  font-size: 11px;
+}
+
 .link {
   stroke: #AAA;
   stroke-width: 2px;
@@ -38,10 +55,6 @@ p, text, td {
 
 .node {
 
-}
-
-.labels {
-  font-size: 11px;
 }
 
 .sampleLine {
@@ -53,14 +66,6 @@ p, text, td {
     opacity: 1;
 }
 
-.yearLine {
-    stroke: black;
-}
-
-.vertLine {
-    stroke: black;
-}
-
 .timeOVBar {
   fill: #ccc;
   stroke: white;
@@ -70,15 +75,18 @@ p, text, td {
   fill: steelblue;
 }
 
-.brush rect.extent {
-  fill: steelblue;
-  fill-opacity: .125;
+.titleText {
+  font-size: 18px;
 }
 
-.brush .resize path {
-  fill: #eee;
-  stroke: #666;
+.vertLine {
+    stroke: black;
 }
+
+.yearLine {
+    stroke: black;
+}
+
 
 #areaDocList {
   background: #EEE;
@@ -115,7 +123,7 @@ p, text, td {
 #areaSearch {
   border-bottom: 1px dashed #CCC;
   display: block;
-  height: 50px;
+  height: 75px;
   margin: 0;
   padding: 0 20px;
   width: inherit;
