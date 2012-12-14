@@ -108,6 +108,7 @@
         function transform(d) {
           console.log(d);
           d = new google.maps.LatLng(d.lat, d.lng);
+          console.log(projection);
           d = projection.fromLatLngToDivPixel(d);
           console.log(d);
           return d3.select(this)
