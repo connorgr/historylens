@@ -156,6 +156,7 @@ p, text, td {
 }
 
 #areaTop {
+  background: url('../images/bg-redleather.png'), repeat;
   border-bottom: 1px dashed #CCC;
   display: block;
   height: 50px;
