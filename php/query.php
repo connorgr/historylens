@@ -270,7 +270,6 @@ function bigQuery($jsonString) {
 
 header('Content-Type: application/json');
 $q = $_GET["q"];
-$q = "{\"min_year\":1900}";
 echo bigQuery($q);
 
 mysql_close($connection);
