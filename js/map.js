@@ -103,10 +103,14 @@
         var bounds = map.getBounds();
         var ne = bounds.getNorthEast();
         var sw = bounds.getSouthWest();
-        minLat = sw.lat();
-        maxLat = ne.lat();
-        minLng = sw.lng();
-        maxLng = ne.lng();
+        lat1 = sw.lat();
+        lat2 = ne.lat();
+        lng1 = sw.lng();
+        lng2 = ne.lng();
+        minLat = Math.min([lat1, lat2]);
+        maxLat = Math.max([lat1, lat2]);
+        minLng = Math.min([lng1, lng2]);
+        maxLng = Math.max([lng1, lng2]);
 
         getSummaryDataByTime(minLat, maxLat, minLng, maxLng, regionLevel, minYear, maxYear);
 
