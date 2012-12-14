@@ -10,7 +10,8 @@
     var maxLat = 90;
     var minLng = -180;
     var maxLng = 180;
-    
+    var overlay = new google.maps.OverlayView();
+        
     // Create the Google Map…
     function initMap() {
         map = new google.maps.Map(d3.select("#areaMap").node(), {
@@ -35,11 +36,9 @@
       maxLng = ne.lng();
       if (this.zoom <= 6) {
         getSummaryDataByBoth(minLat, maxLat, minLng, maxLng, 1, 1850, 2010);
-//                activeLocations = countries;
       }
       else if (this.zoom > 6) {
         getSummaryDataByBoth(minLat, maxLat, minLng, maxLng, 3, 1850, 2010);
-//                activeLocations = cities;
 //                getSummaryDataByLoc();
       }
     }
@@ -57,8 +56,6 @@
 
 
   function updateMapView(summary) {
-    var overlay = new google.maps.OverlayView();
-
     var activeLocations = summary;
 
     // Add the container when the overlay is added to the map.
