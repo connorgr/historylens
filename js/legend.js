@@ -4,10 +4,11 @@ function initLegend() {
 
   var topicKeys = options,
       legendTopics = [];
+  var i = -1;
   for(topic in options) {
     var name = options[topic];
     var color = globalColorList[topic];
-    legendTopics[topicKeys[topic]] = legendTopics.length;
+    legendTopics[topicKeys[topic]] = i++;
   }
   console.log('LEGEND TOPICS:');
   console.log(legendTopics);
