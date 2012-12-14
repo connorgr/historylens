@@ -57,11 +57,12 @@ function drawDonut(d3Selection, data) {
       .data(function(d) {
         var topicArray = [];
         for(var entry in d.topics) {
-          topicArray.push({num: d.topics[entry]}); 
+          topicArray.push({num: d.topics[entry], category: entry}); 
         }
         return pie(topicArray); })
       .enter()
-      .append('path').attr('d', arc)
+      .append('path')
+        .attr('d', arc)
         .attr('transform', 'translate(' + radius + ', ' + radius + ')')
         .attr('class', 'arc')
         .style('fill', function(d) { debugger; return donutColors(d.value); })
