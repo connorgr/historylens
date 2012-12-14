@@ -78,7 +78,7 @@
 
     // Add the container when the overlay is added to the map.
     overlay.onAdd = function() {
-        d3.selectAll('.markers').remove();
+//        d3.selectAll('.markers').remove();
         var layer = d3.select(this.getPanes().overlayLayer).append("div")
           .attr("class", "markers");
         
@@ -95,7 +95,7 @@
             .exit().remove();
 
         marker = layer.selectAll("svg")
-            .data(activeLocations, function(d) { return d.lat + '-' + d.lng; })                
+            .data(activeLocations, function(d) { return d.lat + '-' + d.lng; })
             .each(transform) // update existing markers
             .enter().append("svg:svg")
             .each(transform)
