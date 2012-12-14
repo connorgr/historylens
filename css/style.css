@@ -52,7 +52,7 @@ p, text, td {
   display: inline-block;
   height: 30px;
   overflow: hidden;
-  width: 200px;
+  width: 150px;
 }
 .legendItem p {
   display: inline-block;
@@ -139,7 +139,7 @@ p, text, td {
 #areaLegend h1 {
   display: inline-block;
   font-size: 24px;
-  margin: 0px;
+  margin: 0 0 10px 0;
 }
 
 #areaMap {
