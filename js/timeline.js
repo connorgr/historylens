@@ -94,8 +94,8 @@
         svgYearLine.append('line')
                 .attr("x1", 0)
                 .attr("x2", width - padding)
-                .attr('y1', 15)
-                .attr('y2', 15)
+                .attr('y1', 0)
+                .attr('y2', 0)
                 .attr('class', 'yearLine');
 
         // Setup the overview        
@@ -255,8 +255,8 @@
             .enter().append('line')
             .attr("x1", function(d) { return topicX(d.x); })
             .attr("x2", function(d) { return topicX(d.x); })
-            .attr("y1", 15)
-            .attr("y2", 25)
+            .attr("y1", 0)
+            .attr("y2", 15)
             .attr('class', 'vertLine');
 
         updateDetailView();
