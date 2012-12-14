@@ -14,6 +14,9 @@
     var overlay;
     var marker;
     var activeLocations;
+    var countries;
+    var regions;
+    var cities;
     var firstLoad = true;
         
     // Create the Google Map…
@@ -27,6 +30,8 @@
         google.maps.event.addListener(map, 'zoom_changed', mapOnZoom); 
         overlay = new google.maps.OverlayView();
         getSummaryDataByLoc(-90, 90, -180, 180, 1, 1850, 2010);
+        getSummaryDataByLoc(-90, 90, -180, 180, 2, 1850, 2010);
+        getSummaryDataByLoc(-90, 90, -180, 180, 3, 1850, 2010);
     }
 
     function mapOnZoom() {
@@ -39,21 +44,18 @@
       maxLat = ne.lat();
       minLng = sw.lng();
       maxLng = ne.lng();
-      getSummaryDataByBoth(minLat, maxLat, minLng, maxLng, 1, 1850, 2010);      
-      /*
+//      getSummaryDataByBoth(minLat, maxLat, minLng, maxLng, 1, 1850, 2010);      
+      
       if (this.zoom <= 4) {
-        regionLevel = 1;
-        getSummaryDataByBoth(minLat, maxLat, minLng, maxLng, 1, 1850, 2010);
+        activeLocations = countries;
       }
       else if (this.zoom == 5) {
-        regionLevel = 2;
-        getSummaryDataByBoth(minLat, maxLat, minLng, maxLng, 2, 1850, 2010);      
+        activeLocations = regions;
       }
       else if (this.zoom > 6) {
-        regionLevel = 3;
-        getSummaryDataByBoth(minLat, maxLat, minLng, maxLng, 3, 1850, 2010);
+        activeLocations = cities;
 //                getSummaryDataByLoc();
-      } */
+      } 
     }
 
 
@@ -89,13 +91,13 @@
         var projection = this.getProjection(),
             padding = 50;
         
-/*        layer.selectAll("svg")
+        layer.selectAll("svg")
             .data(activeLocations, function(d) { return d.lat + '-' + d.lng; })
-            .exit().remove(); */
+            .exit().remove(); 
 
         marker = layer.selectAll("svg")
-//            .data(activeLocations, function(d) { return d.lat + '-' + d.lng; })
-            .data(activeLocations)
+            .data(activeLocations, function(d) { return d.lat + '-' + d.lng; })
+//            .data(activeLocations)
             .each(transform) // update existing markers
             .enter().append("svg:svg")
             .each(transform)
