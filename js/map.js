@@ -36,13 +36,6 @@
     function mapOnZoom() {
           // Need further improvement so that we can determine 
       // the set of countries / places to show
-      var bounds = map.getBounds();
-      var ne = bounds.getNorthEast();
-      var sw = bounds.getSouthWest();
-      minLat = sw.lat();
-      maxLat = ne.lat();
-      minLng = sw.lng();
-      maxLng = ne.lng();
       
       if (this.zoom <= 4) {
         regionLevel = 1;
@@ -106,6 +99,15 @@
             .attr("class", "markers");
 
         drawDonut(marker);
+            
+        var bounds = map.getBounds();
+        var ne = bounds.getNorthEast();
+        var sw = bounds.getSouthWest();
+        minLat = sw.lat();
+        maxLat = ne.lat();
+        minLng = sw.lng();
+        maxLng = ne.lng();
+
         getSummaryDataByTime(minLat, maxLat, minLng, maxLng, regionLevel, minYear, maxYear);
 
         function transform(d) {
