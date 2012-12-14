@@ -123,9 +123,9 @@ p, text, td {
 
 #areaLegend {
   background-color: #EEE;
-  border-top: 1px dashed #CCC;
+  border: 1px solid #333;
   display: block;
-  margin: 0;
+  margin: 10px 0;
   padding: 0;
   width: 1000px;
 }
