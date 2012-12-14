@@ -71,12 +71,10 @@
       overlay.draw = function() {
         var projection = this.getProjection(),
             padding = 50;
-
-        layer.selectAll('svg').remove();
         
-        // layer.selectAll("svg")
-        //     .data(activeLocations, function(d) { return d.key; })
-        //     .exit().remove();
+        layer.selectAll("svg")
+            .data(activeLocations, function(d) { return d.key; })
+            .exit().remove();
 
         var marker = layer.selectAll("svg")
             .data(activeLocations, function(d) { return d.lat + d.lng; })                
