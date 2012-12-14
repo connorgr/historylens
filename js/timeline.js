@@ -21,7 +21,7 @@
         .range([0, width - 20]);
     var topicX = d3.scale.linear()
         .domain([0, numSample - 1])
-        .range([0, width]);
+        .range([0, width - 20]);
     var y;
     var topicY;
 

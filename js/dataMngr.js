@@ -121,7 +121,7 @@
         var filterJSON = JSON.stringify({min_latitude: minLat, max_latitude: maxLat, min_longitude: minLng, max_longitude: maxLng, min_year: minYear, max_year: maxYear, regionLevel: regionLevel});
         console.log(filterJSON);
         $.get("/vs/php/query.php",
-                {"q" : ""},
+                {"q" : filterJSON},
                 function(data) {
                     console.log(data);
                     callback(data);
