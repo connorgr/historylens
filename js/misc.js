@@ -1,4 +1,3 @@
-
     var optionsLoaded = false;
     var options = [];
 //    var useOrigData = 1;
@@ -11,6 +10,8 @@
         $('.chzn-select').chosen({allow_single_deselect: true});
         $('#topicSelect').change(topicSearchInput);
         optionsLoaded = true;
+
+        initLegend();
     }
 
     function topicSearchInput() {
