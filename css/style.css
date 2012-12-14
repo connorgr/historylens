@@ -55,7 +55,12 @@ p, text, td {
   width: 200px;
 }
 .legendItem p {
+  display: inline-block;
   margin: 0;
+}
+.legendItem svg {
+  border: 1px solid #CCC;
+  display: inline-block;
 }
 
 .link {
