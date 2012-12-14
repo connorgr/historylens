@@ -64,6 +64,10 @@
     function binByLoc(data) {
       var summary = locCountAggregator(data.map);
       updateLocData(summary);
+      if (firstLoad === true) {
+        updateMapView();
+        firstLoad = false;
+      }
 //      updateMapView(summary);
       //updateMapView(data.map);
     }

@@ -13,6 +13,8 @@
     var regionLevel = 1;
     var overlay;
     var marker;
+    var activeLocations;
+    var firstLoad = true;
         
     // Create the Google Map…
     function initMap() {
@@ -25,7 +27,7 @@
         google.maps.event.addListener(map, 'zoom_changed', mapOnZoom); 
         overlay = new google.maps.OverlayView();
         getSummaryDataByLoc(-90, 90, -180, 180, 1, 1850, 2010);
-        updateMapView();
+//        updateMapView();
     }
 
     function mapOnZoom() {
