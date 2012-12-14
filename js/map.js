@@ -56,8 +56,6 @@
         regionLevel = 3;
         activeLocations = cities;
       } 
-
-      getSummaryDataByTime(minLat, maxLat, minLng, maxLng, regionLevel, minYear, maxYear);
     }
 
 
@@ -108,6 +106,7 @@
             .attr("class", "markers");
 
         drawDonut(marker);
+        getSummaryDataByTime(minLat, maxLat, minLng, maxLng, regionLevel, minYear, maxYear);
 
         function transform(d) {
           d = new google.maps.LatLng(d.lat, d.lng);
