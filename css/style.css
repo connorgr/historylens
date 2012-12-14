@@ -2,13 +2,26 @@ body {
   background: url('../images/bg-leather3.png') repeat fixed;
 }
 
-p, text, td {
+p, text, td, h1, h2, h3, h4, h5 {
   font-family: sans-serif;
+}
+
+p, text, td {
   font-size: 14px;
 }
 
 .arc {
   stroke-width: 100px;
+}
+
+.brush rect.extent {
+  fill: steelblue;
+  fill-opacity: .125;
+}
+
+.brush .resize path {
+  fill: #eee;
+  stroke: #666;
 }
 
 .container {
@@ -31,6 +44,10 @@ p, text, td {
   text-align: center;
 }
 
+.labels {
+  font-size: 11px;
+}
+
 .link {
   stroke: #AAA;
   stroke-width: 2px;
@@ -38,10 +55,6 @@ p, text, td {
 
 .node {
 
-}
-
-.labels {
-  font-size: 11px;
 }
 
 .sampleLine {
@@ -53,14 +66,6 @@ p, text, td {
     opacity: 1;
 }
 
-.yearLine {
-    stroke: black;
-}
-
-.vertLine {
-    stroke: black;
-}
-
 .timeOVBar {
   fill: #ccc;
   stroke: white;
@@ -70,22 +75,24 @@ p, text, td {
   fill: steelblue;
 }
 
-.brush rect.extent {
-  fill: steelblue;
-  fill-opacity: .125;
+.titleText {
+  font-size: 18px;
 }
 
-.brush .resize path {
-  fill: #eee;
-  stroke: #666;
+.vertLine {
+    stroke: black;
 }
+
+.yearLine {
+    stroke: black;
+}
+
 
 #areaDocList {
   background: #EEE;
   box-shadow: inset 0 0 10px #000000;
   /*float: right;*/
   height: 1000px;
-  margin-left: 10px;
   max-height: 1000px;
   min-height: 1000px;
   overflow-x: hidden;
@@ -108,7 +115,7 @@ p, text, td {
   background: #0077DF;
   display: inherit;
   height: 600px;
-  margin: 0;
+  margin: 0 10px 0 0;
   padding: 0;
   width: 1000px;
 }
@@ -116,10 +123,9 @@ p, text, td {
 #areaSearch {
   border-bottom: 1px dashed #CCC;
   display: block;
-  height: 50px;
+  height: 75px;
   margin: 0;
-  padding: 0;
-  width: inherit;
+  padding: 0 20px;
 }
 
 #areaTime {
