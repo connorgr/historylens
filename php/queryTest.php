@@ -8,10 +8,7 @@ $database = "visualSummaries";
 
 $connection = mysql_connect("localhost", $username, $password);
 @mysql_select_db($database) or die("Unable to select database");
-mysql_query("SET CHARACTER SET utf8;");
 
-$maxDocId = mysql_fetch_row(mysql_query("SELECT MAX(docId) FROM doc_tbl"))[0];
-$sampleSize = 1000;
 
 /* Constructing SQL query strings */
 
@@ -31,10 +28,6 @@ function eqClause($column, $value) {
 	 return isset($value) ? array($column . " = " . $value) : array();
 }
 
-function inClause($column, $values) {
-	 return isset($values) ? array($column . " in (" . join(",", $values) . ")") : array();
-}
-
 function likeClause($column, $like) {
 	return isset($like) ? array($column . " like '%" . $like . "%'") : array();
 }
@@ -47,24 +40,16 @@ function orClause($clauses) {
 	return empty($clauses) ? array() : array("(" . join(" OR ", $clauses) . ")");
 }
 
-function sampleDocIds($count) {
-    global $maxDocId;
-    $samples = array();
-    for ($i = 0; $i < $count; $i++) {
-        array_push($samples, rand(0, $maxDocId));
-    }
-    return $samples;
-}
-
-function performQuery($table, $columns, $filter, $groupBy, $limit)
+function performQuery($table, $columns, $join, $filter, $groupBy, $limit)
 {
 	$select = "SELECT " . join(", ", $columns) . " FROM " . $table;
 	$where = empty($filter) ? "" : " WHERE " . $filter[0];
-    $where_sample =  $where . " AND " . inClause("docId", sampleDocIds($sampleSize));
 	$groupBy = empty($groupBy) ? "" : " GROUP BY " . join(", ", $groupBy);
-    #$orderBy = empty($orderBy) ? "" : " ORDER BY " . join(", ", $orderBy);
+	#$orderBy = empty($orderBy) ? "" : " ORDER BY " . join(", ", $orderBy);
 	$limit = empty($limit) ? "" : " LIMIT " . $limit;
-	$query = $select . $where . $groupBy . $limit . ";";
+	$query = $select . $join . $where . $groupBy . $limit . ";";
+	mysql_query("SET CHARACTER SET utf8;");
+	#echo "QUERY: " . $query;
 	return mysql_query($query);
 }
 
@@ -104,7 +89,7 @@ function makeFilter($json)
 	return andClause($filters);
 }
 
-function mapQuery($json)
+function mapQueryOLD($json)
 {
 	global $regionLevelMapping;
 
@@ -134,13 +119,66 @@ function mapQuery($json)
 	return $data_;
 }
 
+function mapQuery($json)
+{
+	global $regionLevelMapping;
+
+	$join = "";
+	$columns = array();
+	$groupBy = array();
+	$regionLevel = $regionLevelMapping[withDefault($json, "regionLevel", 1)];
+	switch(withDefault($json, "regionLevel", 1))
+	{
+	case 1:
+		$columns = array("COUNT(*)", "tagName", "regionName", "AVG(latitude)", "AVG(longitude)");
+		$join = " INNER JOIN country_tbl r on r.country_code = pt.country_code ";
+		$groupBy = array("pt.country_code", "pt.tagName");
+		break;
+	case 2:
+		$columns = array("COUNT(*)", "tagName", "regionName", "AVG(latitude)", "AVG(longitude)");
+		$join = " INNER JOIN region1_tbl r on r.region1 = pt.region1 ";
+		$groupBy = array("pt.country_code", "pt.region1", "pt.tagName");
+		break;
+	case 3:
+		$columns = array("COUNT(*)", "tagName", "regionName", "AVG(latitude)", "AVG(longitude)");
+		$join = " INNER JOIN region2_tbl r on r.region2 = pt.region2 ";
+		$groupBy = array("pt.country_code", "pt.region1", "pt.region2", "pt.tagName");
+		break;
+	default:
+		$columns = array("COUNT(*)", "tagName", "name", "AVG(latitude)", "AVG(longitude)");
+		$groupBy = array("placeId", "tagName");
+	}
+
+	
+	$filter = makeFilter($json);
+	#$orderBy = "COUNT(*) desc"
+	$result = performQuery("placeTag_vw pt", $columns, $join, $filter, $groupBy, false);
+
+	$row = false;
+	$data = array();
+	while ($row = mysql_fetch_array($result)) {
+		$count = $row[0];
+		$tagName = $row[1];
+		$placeName = $row[2];
+		if (!isset($data[$placeName])) {
+			$data[$placeName] = array("placeName" => $placeName, "lat" => $row[3], "long" => $row[4], "topics" => array());
+		}
+		$data[$placeName]["topics"][$tagName] = $count;
+	}
+	$data_ = array();
+	foreach ($data as $region => $doc) {
+		array_push($data_, $doc);
+	}
+	return $data_;
+}
+
 function timelineQuery($json)
 {
 	$columns = array("COUNT(*)", "pubYear", "tagName");
+	$join = "";
 	$filter = makeFilter($json);
 	$groupBy = array("pubYear", "tagName");
-	$result = performQuery("placeTag_vw", $columns, $filter, $groupBy, false);
-
+	$result = performQuery("placeTag_vw", $columns, $join, $filter, $groupBy, false);
 	$row = false;
 	$data = array();
 	while ($row = mysql_fetch_array($result)) {
@@ -158,9 +196,10 @@ function timelineQuery($json)
 function documentQuery($json)
 {
 	$columns = array("title", "pubYear", "url");
+	$join = "";
 	$filter = makeFilter($json);
 	$groupBy = array("docId");
-	$result = performQuery("allDocInfo_vw", $columns, $filter, $groupBy, 100);
+	$result = performQuery("allDocInfo_vw", $columns, $join, $filter, $groupBy, 100);
 
 	$row = false;
 	$data = array();
