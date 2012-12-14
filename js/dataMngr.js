@@ -57,7 +57,7 @@
 
     // Space
 
-    function getSummaryDataByLoc(minLat, maxLat, minLng, maxLng, regionLevel, minYear, maxYear) {
+    function getSummaryDataByLoc(minLat, maxLat, minLng, maxLng, regionLevel, minYear, maxYear, redraw) {
         console.log("Getting data from php...");
         var filterJSON = JSON.stringify({min_latitude: minLat, max_latitude: maxLat, min_longitude: minLng, max_longitude: maxLng, min_year: minYear, max_year: maxYear, regionLevel: regionLevel, original_data: 0});
         console.log(filterJSON);
@@ -65,7 +65,7 @@
                 {"q" : filterJSON},
                 function(data) {
                     console.log(data);
-                    binByLoc(data, regionLevel);
+                    binByLoc(data, regionLevel, redraw);
                 },
                 'json')
          .success(function(data) { console.log("success"); })
@@ -75,7 +75,7 @@
          });
     }
 
-    function binByLoc(data, regionLevel) {
+    function binByLoc(data, regionLevel, redraw) {
       var summary = locCountAggregator(data.map);
       if (regionLevel === 1) {
         countries = summary;
@@ -87,9 +87,12 @@
         cities = summary;
       }
 //      updateLocData(summary);
-      if (firstLoad === true) {
+      if (firstLoad) {
         updateMapView();
         firstLoad = false;
+      }
+      if (redraw) {
+        updateMapView();
       }
 //      updateMapView(summary);
       //updateMapView(data.map);

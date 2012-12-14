@@ -28,10 +28,9 @@
         });
 
         google.maps.event.addListener(map, 'zoom_changed', mapOnZoom); 
-        overlay = new google.maps.OverlayView();
-        getSummaryDataByLoc(-90, 90, -180, 180, 1, 1850, 2010);
-        getSummaryDataByLoc(-90, 90, -180, 180, 2, 1850, 2010);
-        getSummaryDataByLoc(-90, 90, -180, 180, 3, 1850, 2010);
+        getSummaryDataByLoc(-90, 90, -180, 180, 1, 1850, 2010, false);
+        getSummaryDataByLoc(-90, 90, -180, 180, 2, 1850, 2010, false);
+        getSummaryDataByLoc(-90, 90, -180, 180, 3, 1850, 2010, false);
     }
 
     function mapOnZoom() {
@@ -44,17 +43,18 @@
       maxLat = ne.lat();
       minLng = sw.lng();
       maxLng = ne.lng();
-//      getSummaryDataByBoth(minLat, maxLat, minLng, maxLng, 1, 1850, 2010);      
       
       if (this.zoom <= 4) {
+        regionLevel = 1;
         activeLocations = countries;
       }
-      else if (this.zoom == 5) {
+      else if (this.zoom === 5 || this.zoom === 6) {
+        regionLevel = 2;
         activeLocations = regions;
       }
       else if (this.zoom > 6) {
+        regionLevel = 3;
         activeLocations = cities;
-//                getSummaryDataByLoc();
       } 
     }
 
@@ -75,8 +75,9 @@
 
 
   function updateMapView() {
-    console.log(map.getZoom());
     console.log("map update");
+    overlay = new google.maps.OverlayView();
+    d3.selectAll('.markers').remove();
 
     // Add the container when the overlay is added to the map.
     overlay.onAdd = function() {
@@ -117,8 +118,6 @@
 
     // Bind our overlay to the map…
     overlay.setMap(map);
-//    console.log(overlay);
-//    overlay.draw();
   } 
 //}
 
