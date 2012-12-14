@@ -36,9 +36,13 @@
       maxLat = ne.lat();
       minLng = sw.lng();
       maxLng = ne.lng();
-      if (this.zoom <= 6) {
+      if (this.zoom <= 4) {
         regionLevel = 1;
         getSummaryDataByBoth(minLat, maxLat, minLng, maxLng, 1, 1850, 2010);
+      }
+      else if (this.zoom == 5) {
+        regionLevel = 2;
+        getSummaryDataByBoth(minLat, maxLat, minLng, maxLng, 2, 1850, 2010);      
       }
       else if (this.zoom > 6) {
         regionLevel = 3;
@@ -61,6 +65,8 @@
 
   function updateMapView(summary) {
     console.log(map.getZoom());
+    console.log("map update");
+    console.log(summary);
     overlay = new google.maps.OverlayView();
     var activeLocations = summary;
 
