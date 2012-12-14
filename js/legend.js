@@ -5,3 +5,6 @@ d3.select('#areaLegend')
       .attr('height', '100px')
       .style('background-color', '#ff0000')
           .append('rect');
+
+
+$('#areaLegend').append('<p>Test</p>');
