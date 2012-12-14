@@ -150,11 +150,11 @@ p, text, td {
 }
 
 #areaRight {
+  display: inline-block;
   height: 1025px;
   width: 180px;
 }
 #areaRight h1 {
-  display: inline-block;
   font-size: 24px;
   margin: 0;
 }
