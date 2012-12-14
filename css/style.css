@@ -60,8 +60,9 @@ p, text, td {
   vertical-align: top;
 }
 .legendItem svg {
-  border: 1px solid #CCC;
+  border: 1px solid #666;
   display: inline-block;
+  margin-right: 5px;
 }
 
 .link {
