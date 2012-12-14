@@ -58,7 +58,7 @@ function drawDonut(d3Selection, data) {
       .data(function(d) {
         var i = 0;
         for(var topic in d.topics) {
-          topicArray.push({num: d.topics[topic], category: entry});
+          topicArray.push({num: d.topics[topic], category: topic});
           topicColors[topic] = donutColorsList[i];
           i++;
         }
