@@ -22,6 +22,7 @@
     function populateDocList(documents) {
         console.log(documents);
         var numDocs = documents.length;
+        $('#docList').empty();
         for (var i = 0; i < numDocs; ++i) {
             var doc = documents[i];
             $('#docList').append('<tr><td><a href=' + doc.url + '>' + doc.title
