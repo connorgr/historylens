@@ -248,8 +248,8 @@
         svgYearLine.selectAll('.vertLine')
             .data(layer[0])
             .enter().append('line')
-            .attr("x1", function(d) { return x(d.x); })
-            .attr("x2", function(d) { return x(d.x); })
+            .attr("x1", function(d) { return topicX(d.x); })
+            .attr("x2", function(d) { return topicX(d.x); })
             .attr("y1", 5)
             .attr("y2", 25)
             .attr('class', 'vertLine');
