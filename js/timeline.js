@@ -11,7 +11,7 @@
     
     var stack = d3.layout.stack().offset("zero");
     
-    var width = 1000;
+    var width = 1020;
     var oHeight = 50;
     var dHeight = 200;
     var padding = 20;
