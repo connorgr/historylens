@@ -11,7 +11,9 @@
     
     var stack = d3.layout.stack().offset("zero");
     
-    var width = 1020,
+    var width = 1000,
+        overviewWidth = width + 20,
+        ovBarWidth = (overviewWidth - padding) / numYear,
         oHeight = 50,
         dHeight = 200,
         padding = 20;
@@ -45,7 +47,6 @@
     var numYear = maxYear - minYear;
     var timeOVBars;
     var sampleLines;
-    var ovBarWidth = (width - padding) / numYear;;
     var recordsByTime;
     var vizDetail;
     var vizOverview;
@@ -69,11 +70,11 @@
 
     function initTimeline() {
         svgTimeOverview = d3.select('#areaTime').append("svg")
-                .attr("width", width +  'px')
+                .attr("width", overviewWidth +  'px')
                 .attr("height", oHeight + 'px')
                 .style('margin-left', '-10px')
                 .append("g")
-                .attr("width", width - padding  + 'px')
+                .attr("width", overviewWidth - padding  + 'px')
                 .attr("transform", "translate (10, 0)");
                 
         svgTimeDetail = d3.select('#areaTime').append("svg")
