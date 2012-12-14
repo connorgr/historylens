@@ -39,6 +39,7 @@
       maxLat = ne.lat();
       minLng = sw.lng();
       maxLng = ne.lng();
+      getSummaryDataByBoth(minLat, maxLat, minLng, maxLng, 1, 1850, 2010);      
       /*
       if (this.zoom <= 4) {
         regionLevel = 1;
@@ -83,6 +84,7 @@
       // Draw each marker as a separate SVG element.
       // We could use a single SVG, but what size would it have?
       overlay.draw = function() {
+        console.log("draw");
 
         var projection = this.getProjection(),
             padding = 50;
