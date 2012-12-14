@@ -87,7 +87,7 @@
         svgYearLine = d3.select('#areaTime').append('svg')
                 .attr("width", width +  'px')
                 .attr('height', '50px')
-                .style('margin-top', '-50px')
+                .style('margin-top', '-60px')
                 .append('g')
                 .attr("width", width - padding + 'px')
                 .attr("transform", "translate (10, 0)");
