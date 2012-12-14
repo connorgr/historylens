@@ -11,8 +11,7 @@
     
     var stack = d3.layout.stack().offset("zero");
     
-    var width = 1000,
-        overviewWidth = width + 20;
+    var width = 1020,
         oHeight = 50,
         dHeight = 200,
         padding = 20;
@@ -70,11 +69,11 @@
 
     function initTimeline() {
         svgTimeOverview = d3.select('#areaTime').append("svg")
-                .attr("width", overviewWidth +  'px')
+                .attr("width", width +  'px')
                 .attr("height", oHeight + 'px')
                 .style('margin-left', '-10px')
                 .append("g")
-                .attr("width", overviewWidth  + 'px')
+                .attr("width", width - padding  + 'px')
                 .attr("transform", "translate (10, 0)");
                 
         svgTimeDetail = d3.select('#areaTime').append("svg")
