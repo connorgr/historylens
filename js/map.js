@@ -73,7 +73,7 @@
             padding = 50;
         
         layer.selectAll("svg")
-            .data(activeLocations, function(d) { return d.key; })
+            .data(activeLocations, function(d) { return d.lat + d.lng; })
             .exit().remove();
 
         var marker = layer.selectAll("svg")
