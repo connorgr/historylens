@@ -12,11 +12,11 @@
     var stack = d3.layout.stack().offset("zero");
     
     var width = 1000,
-        overviewWidth = width + 20,
+        padding = 20,
+        overviewWidth = width + padding,
         ovBarWidth = (overviewWidth - padding) / numYear,
         oHeight = 50,
-        dHeight = 200,
-        padding = 20;
+        dHeight = 200;
     
     var x = d3.scale.linear()
         .domain([0, numSample - 1])
