@@ -75,30 +75,33 @@
          });
     }
 
-    function binByLoc(data, regionLevel, redraw) {
+    function binByLoc(data, rLevel, redraw) {
       var summary = locCountAggregator(data.map);
-      if (regionLevel === 1) {
+      if (rLevel === 1) {
         countries = summary;
-        activeLocations = countries;
       }
-      else if (regionLevel === 2) {
+      else if (rLevel === 2) {
         regions = summary;
-        activeLocations = regions;
       }
       else {
         cities = summary;
-        activeLocations = regions;
       }
-//      updateLocData(summary);
       if (firstLoad) {
         updateMapView();
         firstLoad = false;
       }
+      if (regionLevel === 1) {
+        activeLocations = countries;      
+      }
+      else if (regionLevel === 2) {
+        activeLocations = regions;      
+      }
+      else {
+        activeLocations = cities;      
+      }
       if (redraw) {
         updateMapView();
       }
-//      updateMapView(summary);
-      //updateMapView(data.map);
     }
 
     function locCountAggregator(data) {
