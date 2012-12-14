@@ -79,7 +79,7 @@
         //     .exit().remove();
 
         var marker = layer.selectAll("svg")
-            .data(activeLocations, function(d) { return d.key; })                
+            .data(activeLocations, function(d) { return d.lat + d.lng; })                
             .each(transform) // update existing markers
             .enter().append("svg:svg")
             .each(transform)
