@@ -384,7 +384,10 @@
             }
             */
             binnedValue[index].value += summaryRecords[year - minYear].count;
+            console.log(topicRecords);
             for (var j = 0; j < 10; ++j) {
+                console.log(year);
+                console.log(minYear);
                 binnedTopicValues[j][index].value += topicRecords[j][year - minYear].count;
             }
         }
