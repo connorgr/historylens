@@ -156,7 +156,6 @@ p, text, td {
 }
 
 #areaTop {
-  background: url('../images/bg-redleather.png'), repeat;
   border-bottom: 1px dashed #CCC;
   display: block;
   height: 50px;
@@ -165,8 +164,10 @@ p, text, td {
 }
 #areaTop h1 {
   font-family: 'Oleo Script Swash Caps', cursive;
-  font-size: 55px;
+  font-size: 45px;
   margin: 0;
+  padding: 0 10px;
+  text-align: center;
 }
 
 #areaTime {
