@@ -29,8 +29,14 @@
         }
         if (!optionsLoaded) {
             populateOptions();
-        }        
-        updateTimeView(summary, topics);
+        }
+        if (timeFirstLoad) {
+            initTimeView(summary, topics);
+            timeFirstLoad = false;
+        }
+        else {
+            updateTimeView(summary, topics);
+        }
     }
 
 

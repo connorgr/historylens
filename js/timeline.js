@@ -8,6 +8,7 @@
     var numTopic = 1; // number of layers
     var numSample = 20; // number of samples per layer
     var absoluteScale = false;
+    var timeFirstLoad = true;
     
     var stack = d3.layout.stack().offset("zero");
     
@@ -136,7 +137,7 @@
         return binnedValues;
     }
 
-    function updateTimeView(summary, topics) {
+    function initTimeView(summary, topics) {
 
         console.log(summary);
         console.log(topics);
@@ -263,6 +264,43 @@
         updateDetailView();
         updateOverview(layer);
     }
+
+    function updateTimeView(summary, topics) {
+
+        summaryRecords = summary;
+        topicRecords = topics;
+
+        var binnedSummary = timeReduce([summaryRecords]);
+        var layerData = groupsToLayers(binnedSummary);
+        var layer = stack(layerData);
+        var binnedTopics = timeReduce(topicRecords);
+        var topicLayerData = groupsToLayers(binnedTopics);
+        var topicLayer = stack(topicLayerData);
+
+/*        y = d3.scale.linear()
+        .domain([0, d3.max(layer, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); })])
+        .range([oHeight, 0]);
+        
+        topicY = d3.scale.linear()
+        .domain([0, d3.max(topicLayer, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); })])
+        .range([dHeight, 0]);
+
+        vizOverview = d3.svg.area()
+            .interpolate("cardinal")
+            .x(function(d) { return x(d.x); })
+            .y0(function(d) { return y(d.y0); })
+            .y1(function(d) { return y(d.y0 + d.y); });
+
+        vizDetail = d3.svg.area()
+            .interpolate("cardinal")
+            .x(function(d) { return topicX(d.x); })
+            .y0(function(d) { return topicY(d.y0); })
+            .y1(function(d) { return topicY(d.y0 + d.y); }); */
+
+        updateDetailView();
+        updateOverview(layer);
+    }
+
         
 
     function resizePath(d) {
