@@ -27,7 +27,6 @@
         google.maps.event.addListener(map, 'zoom_changed', mapOnZoom); 
         overlay = new google.maps.OverlayView();
         getSummaryDataByLoc(-90, 90, -180, 180, 1, 1850, 2010);
-//        updateMapView();
     }
 
     function mapOnZoom() {
@@ -74,20 +73,15 @@
   function updateMapView() {
     console.log(map.getZoom());
     console.log("map update");
-//    console.log(summary);
-//    overlay = new google.maps.OverlayView();
-//    var activeLocations = summary;
 
     // Add the container when the overlay is added to the map.
     overlay.onAdd = function() {
-//        d3.selectAll('.markers').remove();
         var layer = d3.select(this.getPanes().overlayLayer).append("div")
           .attr("class", "markers");
         
       // Draw each marker as a separate SVG element.
       // We could use a single SVG, but what size would it have?
       overlay.draw = function() {
-//        d3.selectAll('.markers').remove();             
 
         var projection = this.getProjection(),
             padding = 50;
@@ -106,11 +100,8 @@
         drawDonut(marker);
 
         function transform(d) {
-          console.log(d);
           d = new google.maps.LatLng(d.lat, d.lng);
-          console.log(projection);
           d = projection.fromLatLngToDivPixel(d);
-          console.log(d);
           return d3.select(this)
               .style("left", (d.x - padding) + "px")
               .style("top", (d.y - padding) + "px");
