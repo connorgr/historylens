@@ -157,7 +157,7 @@ function mapQuery($json)
 		$region = $row[1];
 		$tagName = $row[2];
 		if (!isset($data[$region])) {
-			$data[$region] = array("lat" => $row[4], "long" => $row[5], "topics" => array());
+			$data[$region] = array("lat" => $row[3], "long" => $row[4], "topics" => array());
 		}
 		$data[$region]["topics"][$tagName] = $count;
 	}
