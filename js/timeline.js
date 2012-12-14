@@ -41,7 +41,7 @@
     var numYear = maxYear - minYear;
     var timeOVBars;
     var sampleLines;
-    var ovBarWidth = width / numYear;;
+    var ovBarWidth = (width - 20) / numYear;;
     var recordsByTime;
     var vizDetail;
     var vizOverview;
