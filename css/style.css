@@ -22,6 +22,7 @@ p, text, td {
   margin: 0 auto;
   padding: 0;
   width: 1240px;
+  clear: both;
 }
 
 .donutCenterText {
