@@ -88,6 +88,7 @@
       }
 //      updateLocData(summary);
       if (firstLoad) {
+        activeLocations = countries;
         updateMapView();
         firstLoad = false;
       }
