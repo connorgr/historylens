@@ -63,6 +63,8 @@
     for (var i = minYear; i <= maxYear; ++i) {
         allTime.push({year: i});
     }
+    console.log(allTime.length);
+    console.log(numYear);
             
 
     function initTimeline() {
