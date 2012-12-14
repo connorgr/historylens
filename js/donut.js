@@ -69,7 +69,7 @@ function drawDonut(d3Selection, data) {
         .attr('d', arc)
         .attr('transform', 'translate(' + radius + ', ' + radius + ')')
         .attr('class', 'arc')
-        .style('fill', function(d) { debugger; return topicColors[d.data.category] })//return donutColors(d.value); })
+        .style('fill', function(d) { return topicColors[d.data.category] })//return donutColors(d.value); })
         .style('stroke-width', '10px');
 }
 
