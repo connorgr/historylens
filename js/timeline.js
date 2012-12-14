@@ -98,7 +98,7 @@
         .attr("width", width / numYear)
         .attr("height", oHeight)
         .attr("x", function(d, i) {
-            d.x0 = i * ovBarWidth;
+            d.x0 = i * ovBarWidth + 10;
             d.x1 = d.x0 + ovBarWidth;
             return d.x0;
          });
