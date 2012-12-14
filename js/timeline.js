@@ -333,9 +333,9 @@
     function brushEnd() {
         updateDetailView();
         console.log("getting new data");
-        getSummaryDataByLoc(minLat, maxLat, minLng, maxLng, 1, startYear, endYear, true);
-        getSummaryDataByLoc(minLat, maxLat, minLng, maxLng, 2, startYear, endYear, true);
-        getSummaryDataByLoc(minLat, maxLat, minLng, maxLng, 3, startYear, endYear, true);
+        getSummaryDataByLoc(minLat, maxLat, minLng, maxLng, regionLevel, startYear, endYear, true);
+//        getSummaryDataByLoc(minLat, maxLat, minLng, maxLng, 2, startYear, endYear, true);
+//        getSummaryDataByLoc(minLat, maxLat, minLng, maxLng, 3, startYear, endYear, true);
     }
 
     function updateOverview(newLayer) {
