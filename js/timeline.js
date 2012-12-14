@@ -17,7 +17,7 @@
     
     var x = d3.scale.linear()
         .domain([0, numSample - 1])
-        .range([0, width]);
+        .range([10, width-10]);
     var y;
     var topicY;
 
