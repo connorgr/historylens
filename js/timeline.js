@@ -11,10 +11,10 @@
     
     var stack = d3.layout.stack().offset("zero");
     
-    var width = 1000;
-    var oHeight = 50;
-    var dHeight = 200;
-    var padding = 20;
+    var width = 1020,
+        oHeight = 50,
+        dHeight = 200,
+        padding = 20;
     
     var x = d3.scale.linear()
         .domain([0, numSample - 1])
