@@ -49,7 +49,7 @@ function performQuery($table, $columns, $join, $filter, $groupBy, $limit)
 	$limit = empty($limit) ? "" : " LIMIT " . $limit;
 	$query = $select . $join . $where . $groupBy . $limit . ";";
 	mysql_query("SET CHARACTER SET utf8;");
-	echo "QUERY: " . $query;
+	#echo "QUERY: " . $query;
 	return mysql_query($query);
 }
 
@@ -220,7 +220,7 @@ function bigQuery($jsonString) {
 
 header('Content-Type: application/json');
 $q = $_GET["q"];
-bigQuery($q);
+echo bigQuery($q);
 
 mysql_close($connection);
 
