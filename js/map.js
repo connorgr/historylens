@@ -57,6 +57,7 @@
 
 
   function updateMapView(summary) {
+    console.log(map.getZoom());
     var overlay = new google.maps.OverlayView();
 
     var activeLocations = summary;
