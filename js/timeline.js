@@ -277,13 +277,13 @@
         var topicLayerData = groupsToLayers(binnedTopics);
         var topicLayer = stack(topicLayerData);
 
-/*        y = d3.scale.linear()
+        y = d3.scale.linear()
         .domain([0, d3.max(layer, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); })])
         .range([oHeight, 0]);
         
-        topicY = d3.scale.linear()
+/*        topicY = d3.scale.linear()
         .domain([0, d3.max(topicLayer, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); })])
-        .range([dHeight, 0]);
+        .range([dHeight, 0]); */
 
         vizOverview = d3.svg.area()
             .interpolate("cardinal")
@@ -291,7 +291,7 @@
             .y0(function(d) { return y(d.y0); })
             .y1(function(d) { return y(d.y0 + d.y); });
 
-        vizDetail = d3.svg.area()
+/*        vizDetail = d3.svg.area()
             .interpolate("cardinal")
             .x(function(d) { return topicX(d.x); })
             .y0(function(d) { return topicY(d.y0); })
@@ -394,18 +394,18 @@
         layer = stack(layerData);
         topicLayer = stack(topicLayerData);
         if (!absoluteScale) {
-             y = d3.scale.linear()
+/*             y = d3.scale.linear()
                 .domain([0, d3.max(layer, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); })])
-                .range([oHeight, 0]);
+                .range([oHeight, 0]); */
              topicY = d3.scale.linear()
                 .domain([0, d3.max(topicLayer, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); })])
                 .range([dHeight, 0]);
                 
-            vizOverview = d3.svg.area()
+/*            vizOverview = d3.svg.area()
                 .interpolate("cardinal")
                 .x(function(d) { return x(d.x); })
                 .y0(function(d) { return y(d.y0); })
-                .y1(function(d) { return y(d.y0 + d.y); });
+                .y1(function(d) { return y(d.y0 + d.y); }); */
                 
             vizDetail = d3.svg.area()
                 .interpolate("cardinal")
@@ -433,7 +433,7 @@
         layerTransition(layer, topicLayer, yearLineData, sampleLineData);    
     }
 
-    function layerTransition(newLayer, newTopicLayer, newYears) {
+    function layerTransition(newLayer, newTopicLayer, newYears, sampleLineData) {
                 
         svgTimeDetail.selectAll("path")
             .data(newTopicLayer)
@@ -484,7 +484,7 @@
         return result;
     }
 
-    function sampleLineMouseOver(d, i) {
+/*    function sampleLineMouseOver(d, i) {
         console.log("mouseover");
         console.log(d);
         d3.select("#sampleLine-" + i).classed("focus", true);   
@@ -492,7 +492,7 @@
 
     function sampleLineMouseOut(d) {
         d3.select("#sampleLine-" + i).classed("focus", false);       
-    }
+    } */
 //}
 
 

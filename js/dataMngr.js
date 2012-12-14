@@ -8,7 +8,7 @@
     function binByTime(data) {
         var summary = [];
         var topics = [];
-        for (var i = 0; i < 10; ++i) {
+        for (var i = 0; i < 12; ++i) {
             topics[i] = [];
         }
         var timeline = data.timeline;
@@ -23,7 +23,7 @@
                 if (!optionsLoaded) {
                     if ($.inArray(subKey, options) < 0) { options.push(subKey); };
                 }
-                if (i >= 10) { break; }
+                if (i >= 12) { break; }
             }
             summary.push({year: mainKey, count: count});
         }
