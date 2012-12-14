@@ -4,6 +4,10 @@ function initLegend() {
 
   $('#areaLegend').append('<p>Test</p>');
 
+  for(topic in options) {
+    $('#areaLegend').append('<p>' + topic + '</p>');
+  }
+
   d3.select('#areaLegend')
     .append('svg')
       .attr('width', '1000px')
