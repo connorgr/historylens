@@ -118,7 +118,7 @@
 
     function getData(minLat, maxLat, minLng, maxLng, regionLevel, minYear, maxYear, callback) {
         console.log("Getting data from php...");
-        var filterJSON = JSON.stringify({min_latitude: minLat, max_latitude: maxLat, min_longitude: minLng, max_longitude: maxLng, min_year: minYear, max_year: maxYear, regionLevel: regionLevel});
+        var filterJSON = JSON.stringify({min_latitude: minLat, max_latitude: maxLat, min_longitude: minLng, max_longitude: maxLng, min_year: minYear, max_year: maxYear, regionLevel: regionLevel, original_data: 1});
         console.log(filterJSON);
         $.get("/vs/php/query.php",
                 {"q" : filterJSON},

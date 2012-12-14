@@ -61,7 +61,7 @@
 
   function updateMapView(summary) {
     console.log(map.getZoom());
-
+    overlay.setMap(null);
     var activeLocations = summary;
 
     // Add the container when the overlay is added to the map.
@@ -103,8 +103,8 @@
 
     // Bind our overlay to the map…
     overlay.setMap(map);
-    console.log(overlay);
-    overlay.draw();
+//    console.log(overlay);
+//    overlay.draw();
   } 
 //}
 

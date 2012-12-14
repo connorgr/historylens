@@ -1,6 +1,7 @@
 
     var optionsLoaded = false;
     var options = [];
+//    var useOrigData = 1;
 
     function populateOptions() {
         var numOptions = options.length;
