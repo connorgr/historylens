@@ -63,7 +63,7 @@ function sampleDocIds($count) {
 
 function performQuery($table, $columns, $join, $filter, $groupBy, $limit)
 {
-    global $sampleSize, $sampleResultCutoff;
+    global $maxDocId, $sampleSize, $sampleResultCutoff;
 	$select = "SELECT " . join(", ", $columns) . " FROM " . $table;
 	$where = empty($filter) ? "" : " WHERE " . $filter[0];
     $inClause = inClause("docId", sampleDocIds($sampleSize));
@@ -80,7 +80,8 @@ function performQuery($table, $columns, $join, $filter, $groupBy, $limit)
     $multiplier = 1;
     if ($filterResultsSize >= $sampleResultCutoff * $sampleSize) {
         $query = $select . $join . $whereSample . $groupBy . $limit . ";";
-        $multiplier = round($sampleSize / $filterResultsSize, 0);
+        $multiplier = $maxDocId / $filterResultsSize;
+        error_log("FILTERING with multiplier " . $multiplier);
     } else {
         $query = $select . $join . $where . $groupBy . $limit . ";";
     }
@@ -111,7 +112,7 @@ function makeFilter($json)
 {
 	$filters = array();
 	$filters = array_merge($filters,
-		eqClause("originalData", "0"),
+		eqClause("originalData", withDefault($json, "original_data", 0)),
 		authorFilter(withDefault($json, "authors", array())),
 		topicFilter(withDefault($json, "topics", array())),
 		minClause("latitude", withDefault($json, "min_latitude", NULL)),
@@ -139,7 +140,7 @@ function mapQueryOLD($json)
 	$row = false;
 	$data = array();
 	while ($row = mysql_fetch_array($result)) {
-		$count = $row[0] * $multiplier;
+		$count = round($row[0] * $multiplier, 0);
 		$region = $row[1];
 		$tagName = $row[2];
 		if (!isset($data[$region])) {
@@ -195,7 +196,7 @@ function mapQuery($json)
 	$row = false;
 	$data = array();
 	while ($row = mysql_fetch_array($result)) {
-		$count = $row[0] * $multiplier;
+		$count = round($row[0] * $multiplier, 0);
 		$tagName = $row[1];
 		$placeName = $row[2];
 		if (!isset($data[$placeName])) {
@@ -222,13 +223,15 @@ function timelineQuery($json)
 
 	$row = false;
 	$data = array();
+    $minPubYear = withDefault($json, "min_year", 1850);
+    $maxPubYear = withDefault($json, "max_year", 2012);
+    for ($i = $minPubYear; $i <= $maxPubYear; $i++) {
+        $data[$i] = array();
+    }
 	while ($row = mysql_fetch_array($result)) {
-		$count = $row[0] * $multiplier;
+		$count = round($row[0] * $multiplier, 0);
 		$pubYear = $row[1];
 		$tagName = $row[2];
-		if (!isset($data[$pubYear])) {
-			$data[$pubYear] = array();
-		}
 		$data[$pubYear][$tagName] = $count;
 	}
 	return $data;
@@ -241,7 +244,6 @@ function documentQuery($json)
 	$filter = makeFilter($json);
 	$groupBy = array("docId");
 	$tuple = performQuery("allDocInfo_vw", $columns, $join, $filter, $groupBy, 100);
-    $multiplier = $tuple[1];
     $result = $tuple[0];
 
 	$row = false;
