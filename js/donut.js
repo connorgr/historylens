@@ -53,7 +53,7 @@ function drawDonut(d3Selection) {
           topicColors[topic] = donutColorsList[i];
           i++;
         }
-
+        console.log(topicArray.length);
         return pie(topicArray); });
       g.enter()
       .append('path')
