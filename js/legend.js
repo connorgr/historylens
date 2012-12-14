@@ -8,5 +8,6 @@ d3.select('#areaLegend')
 
 
 $.ready(function () {
+  console.log($('#areaLegend'));
   $('#areaLegend').append('<p>Test</p>');
 });
