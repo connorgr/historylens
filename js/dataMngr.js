@@ -83,7 +83,7 @@
       else if (regionLevel === 2) {
         regions = summary;
       }
-      else if {
+      else {
         cities = summary;
       }
 //      updateLocData(summary);
