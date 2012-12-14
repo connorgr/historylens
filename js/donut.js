@@ -65,6 +65,7 @@ function drawDonut(d3Selection, data) {
           topicColors[topic] = donutColorsList[i];
           i++;
         }
+        debugger;
         return pie(topicArray); })
       .enter()
       .append('path')
@@ -73,7 +74,6 @@ function drawDonut(d3Selection, data) {
         .attr('class', 'arc')
         .style('fill', function(d) { debugger; return topicColors[d.data.category] })//return donutColors(d.value); })
         .style('stroke-width', '10px');
-  topicColors = null;
 }
 
 
