@@ -39,6 +39,7 @@
       maxLat = ne.lat();
       minLng = sw.lng();
       maxLng = ne.lng();
+      /*
       if (this.zoom <= 4) {
         regionLevel = 1;
         getSummaryDataByBoth(minLat, maxLat, minLng, maxLng, 1, 1850, 2010);
@@ -51,7 +52,7 @@
         regionLevel = 3;
         getSummaryDataByBoth(minLat, maxLat, minLng, maxLng, 3, 1850, 2010);
 //                getSummaryDataByLoc();
-      }
+      } */
     }
 
 
