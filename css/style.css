@@ -93,10 +93,6 @@ p, text, td {
   fill: steelblue;
 }
 
-.titleText {
-  font-size: 18px;
-}
-
 .vertLine {
     stroke: black;
 }
@@ -109,7 +105,7 @@ p, text, td {
 #areaDocList {
   background: #EEE;
   box-shadow: inset 0 0 10px #000000;
-  height: 970px;
+  height: 1000px;
   overflow-x: hidden;
   overflow-y: scroll;
   padding: 10px;
@@ -131,7 +127,7 @@ p, text, td {
   border: 1px solid #AAA;
   display: block;
   margin: 10px 0;
-  padding: 10px;
+  padding: 10px 10px 0 10px;
   width: 980px;
 }
 #areaLegend h1 {
@@ -159,12 +155,21 @@ p, text, td {
   margin: 0;
 }
 
-#areaSearch {
+#areaTop {
   border-bottom: 1px dashed #CCC;
   display: block;
-  height: 75px;
+  height: 50px;
   margin: 0;
-  padding: 0 20px;
+  padding: 10px 20px 30px 20px;
+}
+#areaTop h1 {
+  color: #333;
+  font-family: 'Oleo Script Swash Caps', cursive;
+  font-size: 45px;
+  margin: 0;
+  padding: 0 10px;
+  text-align: center;
+  text-shadow: #BBB 2px 2px 1px;
 }
 
 #areaTime {

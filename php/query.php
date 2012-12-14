@@ -85,27 +85,30 @@ function performQuery($table, $columns, $join, $filter, $groupBy, $limit)
     } else {
         $query = $select . $join . $where . $groupBy . $limit . ";";
     }
+    error_log("QUERY: " . $query);
     return array(mysql_query($query), $multiplier);
 }
 
 
 /* Our application-specific queries */
 
-$regionLevelMapping = array(1 => "country_code", 2 => "region1", 3 => "region2");
+$regionLevelMapping = array(1 => "country_code", 2 => "region1", 3 => "region2", 4 => "place");
 
 function authorFilter($authors) {
 	$singleAuthorFilter = function($author) {
 		return likeClause("authorName", $author);
 	};
 	$clauses = array_map($singleAuthorFilter, $authors);
-	return orClause($clauses);
+	$orClause = orClause($clauses);
+    return empty($orClause) ? $orClause : $orClause[0];
 }
 
 function topicFilter($topics) {
 	$singleTopicFilter = function($topic) {
 		return likeClause("tagName", $topic);
 	};
-	return orClause(array_map($singleTopicFilter, $topics));
+	$orClause = orClause(array_map($singleTopicFilter, $topics));
+    return empty($orClause) ? $orClause : $orClause[0];
 }
 
 function makeFilter($json)
@@ -124,38 +127,6 @@ function makeFilter($json)
 	return andClause($filters);
 }
 
-function mapQueryOLD($json)
-{
-	global $regionLevelMapping;
-
-	$regionLevel = $regionLevelMapping[withDefault($json, "regionLevel", 1)];
-	$columns = array("COUNT(*)", $regionLevel, "tagName", "name", "AVG(latitude)", "AVG(longitude)");
-	$filter = makeFilter($json);
-	$groupBy = array($regionLevel, "tagName");
-	#$orderBy = "COUNT(*) desc"
-	$tuple = performQuery("placeTag_vw", $columns, $filter, $groupBy, false);
-    $multiplier = $tuple[1];
-    $result = $tuple[0];
-
-	$row = false;
-	$data = array();
-	while ($row = mysql_fetch_array($result)) {
-		$count = round($row[0] * $multiplier, 0);
-		$region = $row[1];
-		$tagName = $row[2];
-		if (!isset($data[$region])) {
-			$data[$region] = array("placeName" => $row[3], "lat" => $row[4], "long" => $row[5], "topics" => array());
-		}
-		$data[$region]["topics"][$tagName] = $count;
-	}
-	$data_ = array();
-	foreach ($data as $region => $doc) {
-		$doc["region"] = $region;
-		array_push($data_, $doc);
-	}
-	return $data_;
-}
-
 function mapQuery($json)
 {
 	global $regionLevelMapping;
@@ -164,21 +135,21 @@ function mapQuery($json)
 	$columns = array();
 	$groupBy = array();
 	$regionLevel = $regionLevelMapping[withDefault($json, "regionLevel", 1)];
-	switch(withDefault($json, "regionLevel", 1))
+	switch($regionLevel)
 	{
-	case 1:
-		$columns = array("COUNT(*)", "tagName", "regionName", "AVG(latitude)", "AVG(longitude)");
-		$join = " INNER JOIN country_tbl r on r.country_code = pt.country_code ";
+	case "country_code":
+		$columns = array("COUNT(*)", "tagName", "c.regionName", "AVG(latitude)", "AVG(longitude)");
+		$join = " INNER JOIN country_tbl c on c.country_code = pt.country_code ";
 		$groupBy = array("pt.country_code", "pt.tagName");
 		break;
-	case 2:
-		$columns = array("COUNT(*)", "tagName", "regionName", "AVG(latitude)", "AVG(longitude)");
-		$join = " INNER JOIN region1_tbl r on r.region1 = pt.region1 ";
+	case "region1":
+		$columns = array("COUNT(*)", "tagName", "COALESCE(r1.regionName,c.regionName)", "AVG(latitude)", "AVG(longitude)");
+		$join = " INNER JOIN country_tbl c on c.country_code = pt.country_code LEFT JOIN region1_tbl r1 on r1.region1 = pt.region1 AND r1.country_code = pt.country_code ";
 		$groupBy = array("pt.country_code", "pt.region1", "pt.tagName");
 		break;
-	case 3:
-		$columns = array("COUNT(*)", "tagName", "regionName", "AVG(latitude)", "AVG(longitude)");
-		$join = " INNER JOIN region2_tbl r on r.region2 = pt.region2 ";
+	case "region2":
+		$columns = array("COUNT(*)", "tagName", "COALESCE(r2.regionName, r1.regionName, c.regionName)", "AVG(latitude)", "AVG(longitude)");
+		$join = " INNER JOIN country_tbl c on c.country_code = pt.country_code LEFT JOIN region1_tbl r1 on r1.region1 = pt.region1 AND r1.country_code = pt.country_code LEFT JOIN region2_tbl r2 on r2.region2 = pt.region2 and r2.region1 = pt.region1 and r2.country_code = pt.country_code ";
 		$groupBy = array("pt.country_code", "pt.region1", "pt.region2", "pt.tagName");
 		break;
 	default:
