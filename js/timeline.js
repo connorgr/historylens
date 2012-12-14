@@ -289,17 +289,17 @@
 
     function updateDetailView() {
         var extent = brush.extent();
-
+        var oWidth = width - padding;
         // Adjust the extent so that it always covers numSample * x year;
-        startYear = Math.ceil(extent[0] * width / ovBarWidth) + minYear;
-        endYear = Math.floor(extent[1] * width / ovBarWidth) - 1 + minYear;
+        startYear = Math.ceil(extent[0] * oWidth / ovBarWidth) + minYear;
+        endYear = Math.floor(extent[1] * oWidth / ovBarWidth) - 1 + minYear;
         var adjustedSpan = Math.round((endYear - startYear + 1) / numSample) * numSample;
-        extent[0] = Math.ceil(extent[0] * width / ovBarWidth) * ovBarWidth / width;
-        extent[1] = (extent[0] * width + adjustedSpan * ovBarWidth) / width;
+        extent[0] = Math.ceil(extent[0] * oWidth / ovBarWidth) * ovBarWidth / oWidth;
+        extent[1] = (extent[0] * oWidth + adjustedSpan * ovBarWidth) / oWidth;
         endYear = startYear + adjustedSpan - 1;
         svgTimeOverview.select(".brush").call(brush.extent(extent));
         timeOVBars.classed("selected", function(d) {
-            return d.x0 >= extent[0] * width && d.x1 <= extent[1] * width ;
+            return d.x0 >= extent[0] * oWidth && d.x1 <= extent[1] * oWidth ;
         });
 
         var binFactor = adjustedSpan / numSample; // number of years in each bin
