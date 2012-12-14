@@ -7,7 +7,7 @@ function initLegend() {
   for(topic in options) {
     var name = options[topic];
     var color = globalColorList[topic];
-    legendTopics[topic] = { name: color };
+    legendTopics[topic][name] = color;// = { name: color };
   }
   topicKeys.sort();
   for(topic in topicKeys) {
