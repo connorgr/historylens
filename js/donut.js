@@ -53,15 +53,12 @@ function drawDonut(d3Selection, data) {
         .style('font-size', '10px');
 
   var topicArray = [];
-  var topicColors = {'start': 'null'};
+  var topicColors = {};
   var g = loc.selectAll('.arc')
       .data(function(d) {
-        for(var entry in d.topics) {
-          topicArray.push({num: d.topics[entry], category: entry}); 
-        }
         var i = 0;
-        // Might need to sort topic alphabetically for consistency.
-        for(var topic in d.topics) {
+        for(var entry in d.topics) {
+          topicArray.push({num: d.topics[entry], category: entry});
           topicColors[topic] = donutColorsList[i];
           i++;
         }
