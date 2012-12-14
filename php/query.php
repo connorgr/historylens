@@ -158,15 +158,15 @@ function mapQuery($json)
 	$data = array();
 	while ($row = mysql_fetch_array($result)) {
 		$count = $row[0];
-		$tagName = $row[2];
-		if (!isset($data[$region])) {
-			$data[$region] = array("placeName" => $row[1], "lat" => $row[3], "long" => $row[4], "topics" => array());
+		$tagName = $row[1];
+		$placeName = $row[2];
+		if (!isset($data[$placeName])) {
+			$data[$placeName] = array("placeName" => $placeName, "lat" => $row[3], "long" => $row[4], "topics" => array());
 		}
-		$data[$region]["topics"][$tagName] = $count;
+		$data[$placeName]["topics"][$tagName] = $count;
 	}
 	$data_ = array();
 	foreach ($data as $region => $doc) {
-		$doc["region"] = $region;
 		array_push($data_, $doc);
 	}
 	return $data_;
