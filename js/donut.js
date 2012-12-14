@@ -54,8 +54,8 @@ function drawDonut(d3Selection) {
           i++;
         }
 
-        return pie(topicArray); })
-      .enter()
+        return pie(topicArray); });
+      g.enter()
       .append('path')
         .attr('d', arc)
         .attr('transform', 'translate(' + radius + ', ' + radius + ')')
@@ -128,7 +128,7 @@ function donutsViz (container) {
            .attr('class', 'node')
            .call(force.drag);
  node.append('text').text('Test.');
- drawTestDonut(node, this.svg); 
+ //drawTestDonut(node, this.svg); 
 
   force.on("tick", function() {
     link.attr("x1", function(d) { return d.source.x; })
@@ -139,114 +139,3 @@ function donutsViz (container) {
     node.attr("transform", function(d) {
       return "translate(" + d.x + "," + d.y + ")"; });
   }); 
-
- ///////////////////////////////////////////////////////////////////////////////
- // TEST FUNCTIONS
- function drawTestDonut(node, svg) {
-  var data = [{ num:'50' }, { num:'6' }, { num:'6' }, { num:'6' }, { num:'6' }, {num:'3'}, {num:'1'}, { num:'6' }, {num:'10'} ];
-   var radius = 50;
-   var color = d3.scale.ordinal().range(['#98abc5', '#8a89a6', '#7b6888',
-       '#6b486b', '#a05d56', '#d0743c', '#ff8c00']);
-   var arc = d3.svg.arc().outerRadius(radius).innerRadius(radius - radius/3);
-   var pie = d3.layout.pie()
-               .sort(null)
-               .value(function(d) {
-                 return d.num;
-               });
-
-   var g = node.selectAll('.arc').data(pie(data)).enter().append('g')
-              .attr('class', 'arc');
-   g.append('path').attr('d', arc)
-     .style('fill', function(d) { return color(d.value); });
-   g.append('text')
-     .attr('transform', function(d) { return 'translate('+arc.centroid(d)+')'})
-     .attr('dy', '.35em')
-     .attr('text-anchor', 'middle')
-     .text(function(d) { return d.num });
-
-   var dropShadow = svg.append('svg:defs')
-     .append('svg:filter')
-     .attr('id', 'dropShadow')
-       .append('svg:feGaussianBlur').attr('stdDeviation', 2.5)
-       .append('svg:feOffset').attr('result', 'offOut').attr('in','SourceAlpha')
-           .attr('dx', 20).attr('dy', 20)
-       .append('svg:feBlend').attr('in', 'SourceGraphic').attr('in2', 'blurOut')
-           .attr('mode', 'normal');
-
-   node.append('circle')
-     .attr('filter', 'url(#dropShadow)')
-     .attr('r', radius - radius/3)
-     .style('fill', '#fff')
-     .style('opacity', .8)
-     .style('stroke', '#ccc')
-     .style('stroke-width', 3);
-// NOTE: an optimization would use an svg filter to prevent having to
-//  render twice
-   node.append('circle')
-     .attr('r', radius - radius/3)
-     .style('fill', '#fff')
-     .style('stroke', '#dedede')
-     .style('stroke-width', 1);
-
-   node.append('text')
-     .text('Test Title')
-     .attr('class', 'donutCenterText')
-     .attr('text-anchor', 'middle');
- }
-
- 
- function drawTestDonutOrig (x, y, svg) {
-   var data = [{ num:'50' }, { num:'6' }, { num:'6' }, { num:'6' }, { num:'6' }, {num:'3'}, {num:'1'}, { num:'6' }, {num:'10'} ];
-   var radius = 50;
-   var color = d3.scale.ordinal().range(['#98abc5', '#8a89a6', '#7b6888',
-       '#6b486b', '#a05d56', '#d0743c', '#ff8c00']);
-   var arc = d3.svg.arc().outerRadius(radius).innerRadius(radius - radius/3);
-   var pie = d3.layout.pie()
-               .sort(null)
-               .value(function(d) {
-                 return d.num;
-               });
-   var testG = svg.append('g')
-                  .attr('transform','translate(' + x + ',' + y + ')');
-//                  .attr('transform','translate(' + radius*3 + ',' + radius+')');
-   var g = testG.selectAll('.arc').data(pie(data)).enter().append('g')
-              .attr('class', 'arc');
-   g.append('path').attr('d', arc)
-     .style('fill', function(d) { return color(d.value); });
-   g.append('text')
-     .attr('transform', function(d) { return 'translate('+arc.centroid(d)+')'})
-     .attr('dy', '.35em')
-     .attr('text-anchor', 'middle')
-     .text(function(d) { return d.num });
-
-   var dropShadow = svg.append('svg:defs')
-     .append('svg:filter')
-     .attr('id', 'dropShadow')
-       .append('svg:feGaussianBlur').attr('stdDeviation', 2.5)
-       .append('svg:feOffset').attr('result', 'offOut').attr('in','SourceAlpha')
-           .attr('dx', 20).attr('dy', 20)
-       .append('svg:feBlend').attr('in', 'SourceGraphic').attr('in2', 'blurOut')
-           .attr('mode', 'normal');
-
-   testG.append('circle')
-     .attr('filter', 'url(#dropShadow)')
-     .attr('r', radius - radius/3)
-     .style('fill', '#fff')
-     .style('opacity', .8)
-     .style('stroke', '#ccc')
-     .style('stroke-width', 3);
-// NOTE: an optimization would use an svg filter to prevent having to
-//  render twice
-   testG.append('circle')
-     .attr('r', radius - radius/3)
-     .style('fill', '#fff')
-     .style('stroke', '#dedede')
-     .style('stroke-width', 1);
-
-   testG.append('text')
-     .text('Test Title')
-     .attr('class', 'donutCenterText')
-     .attr('text-anchor', 'middle');
-   return testG;
- }
-}
