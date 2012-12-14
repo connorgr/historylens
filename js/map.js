@@ -106,8 +106,10 @@
         drawDonut(marker);
 
         function transform(d) {
+          console.log(d);
           d = new google.maps.LatLng(d.lat, d.lng);
           d = projection.fromLatLngToDivPixel(d);
+          console.log(d);
           return d3.select(this)
               .style("left", (d.x - padding) + "px")
               .style("top", (d.y - padding) + "px");
