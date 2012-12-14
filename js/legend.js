@@ -4,10 +4,8 @@ function initLegend() {
 
   var topicKeys = options,
       legendTopics = [];
-  var i = -1;
-  for(topic in options) {
-    var name = options[topic];
-    var color = globalColorList[topic];
+  var i = 0;
+  for(topic in topicKeys) {
     legendTopics[topicKeys[topic]] = i++;
   }
   console.log('LEGEND TOPICS:');
@@ -15,7 +13,9 @@ function initLegend() {
   topicKeys.sort();
   for(topic in topicKeys) {
     // There's a smarter way to do this.
-    $('#areaLegend').append('<div class="legendItem"><p>' + '||' + topicKeys[topic] + '</p></div>');
+    var curTopic = topicKeys[topic];
+    var curColor = globalColorList[legendTopics[curTopic]];
+    $('#areaLegend').append('<div class="legendItem"><p>' + curColor + '||' + curTopic + '</p></div>');
   }
 
   d3.select('#areaLegend')
