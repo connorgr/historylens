@@ -107,10 +107,10 @@
         lat2 = ne.lat();
         lng1 = sw.lng();
         lng2 = ne.lng();
-        minLat = Math.min([lat1, lat2]);
-        maxLat = Math.max([lat1, lat2]);
-        minLng = Math.min([lng1, lng2]);
-        maxLng = Math.max([lng1, lng2]);
+        minLat = Math.min(lat1, lat2);
+        maxLat = Math.max(lat1, lat2);
+        minLng = Math.min(lng1, lng2);
+        maxLng = Math.max(lng1, lng2);
 
         getSummaryDataByTime(minLat, maxLat, minLng, maxLng, regionLevel, minYear, maxYear);
 
