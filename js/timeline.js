@@ -218,7 +218,7 @@
             .data(topicLayer)
             .enter().append("path")
             .attr("d", vizDetail)
-            .style("fill", function(d, i) { return colorPalette[i]; });
+            .style("fill", function(d, i) { return globalColorList[i]; });
 
         // Construct the data for the sample lines;
         sampleLineData = [];

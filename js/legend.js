@@ -15,13 +15,6 @@ function initLegend() {
     // There's a smarter way to do this.
     var curTopic = topicKeys[topic];
     var curColor = globalColorList[legendTopics[curTopic]];
-    $('#areaLegend').append('<div class="legendItem"><svg width="15px" height="20px"><rect width="15px" height="15px" y="5px" style="fill:' + curColor + ';"></rect></svg><p>' + curColor + '||' + curTopic + '</p></div>');
+    $('#areaLegend').append('<div class="legendItem"><svg width="15px" height="15px"><rect width="15px" height="15px" style="fill:' + curColor + ';"></rect></svg><p>' + curTopic + '</p></div>');
   }
-
-  d3.select('#areaLegend')
-    .append('svg')
-      .attr('width', '1000px')
-      .attr('height', '100px')
-      .style('background-color', '#ff0000')
-          .append('rect');
 }
