@@ -40,6 +40,10 @@ p, text, td {
 
 }
 
+.labels {
+  font-size: 11px;
+}
+
 .sampleLine {
     stroke: blue;
     opacity: 0;
