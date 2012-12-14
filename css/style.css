@@ -48,6 +48,16 @@ p, text, td {
   font-size: 11px;
 }
 
+.legendItem {
+  display: inline-block;
+  height: 30px;
+  overflow: hidden;
+  width: 200px;
+}
+.legendItem p {
+  margin: 0;
+}
+
 .link {
   stroke: #AAA;
   stroke-width: 2px;
