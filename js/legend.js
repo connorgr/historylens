@@ -7,12 +7,14 @@ function initLegend() {
   for(topic in options) {
     var name = options[topic];
     var color = globalColorList[topic];
-    legendTopics[topic] = {};
-    legendTopics[topic][name] = color;// = { name: color };
+    legendTopics[topic] = legendTopics.length;
   }
+  console.log('LEGEND TOPICS:');
+  console.log(legendTopics);
   topicKeys.sort();
   for(topic in topicKeys) {
-    $('#areaLegend').append('<div class="legendItem"><p>' + legendTopics[topic][topicKeys[topic]] + '||' + topicKeys[topic] + '</p></div>');
+    // There's a smarter way to do this.
+    $('#areaLegend').append('<div class="legendItem"><p>' + globalColorsList[legendTopics[topic]] + '||' + topicKeys[topic] + '</p></div>');
   }
 
   d3.select('#areaLegend')
