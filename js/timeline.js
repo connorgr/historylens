@@ -11,7 +11,12 @@
     
     var stack = d3.layout.stack().offset("zero");
     
-    var width = 1000,
+    var minYear = 1850,
+        maxYear = 2010,
+        startYear = minYear,
+        endYear = maxYear,
+        numYear = maxYear - minYear,
+        width = 1000,
         padding = 20,
         overviewWidth = width + padding,
         ovBarWidth = (overviewWidth - padding) / numYear,
@@ -40,11 +45,6 @@
     var vizBrush;
     var svgTimeDetail;
 
-    var minYear = 1850;
-    var maxYear = 2010;
-    var startYear = minYear;
-    var endYear = maxYear;
-    var numYear = maxYear - minYear;
     var timeOVBars;
     var sampleLines;
     var recordsByTime;
