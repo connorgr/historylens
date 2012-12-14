@@ -41,10 +41,11 @@ function drawDonut(d3Selection) {
         .text(function(d) { return d.placeName; })
         .style('font-size', '10px');
 
-  var topicArray = [];
+  var topicArray;
   var topicColors = {};
   var g = loc.selectAll('.arc')
       .data(function(d) {
+        topicArray = [];
         var i = 0;
         // TODO (connor) the topics might need to be sorted alphabetically to
         //    assure that labeling is consistent with legend
