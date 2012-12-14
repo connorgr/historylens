@@ -163,11 +163,13 @@ p, text, td {
   padding: 10px 20px 30px 20px;
 }
 #areaTop h1 {
+  color: #333;
   font-family: 'Oleo Script Swash Caps', cursive;
   font-size: 45px;
   margin: 0;
   padding: 0 10px;
   text-align: center;
+  text-shadow: #BBB 2px 2px 1px;
 }
 
 #areaTime {
