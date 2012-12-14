@@ -24,7 +24,8 @@
 
         google.maps.event.addListener(map, 'zoom_changed', mapOnZoom); 
         overlay = new google.maps.OverlayView();
-        getSummaryDataByLoc(-90, 90, -180, 180, 1, 1850, 2010);    
+        getSummaryDataByLoc(-90, 90, -180, 180, 1, 1850, 2010);
+        updateMapView();
     }
 
     function mapOnZoom() {
@@ -68,12 +69,12 @@
   }
 
 
-  function updateMapView(summary) {
+  function updateMapView() {
     console.log(map.getZoom());
     console.log("map update");
-    console.log(summary);
+//    console.log(summary);
 //    overlay = new google.maps.OverlayView();
-    var activeLocations = summary;
+//    var activeLocations = summary;
 
     // Add the container when the overlay is added to the map.
     overlay.onAdd = function() {
