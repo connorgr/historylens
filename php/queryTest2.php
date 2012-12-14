@@ -126,22 +126,22 @@ function mapQuery($json)
 	switch(withDefault($json, "regionLevel", 1))
 	{
 	case 1:
-		$columns = array("COUNT(*)", "regionName", "tagName", "AVG(latitude)", "AVG(longitude)");
+		$columns = array("COUNT(*)", "regionName as placeName", "tagName", "AVG(latitude)", "AVG(longitude)");
 		$join = " INNER JOIN country_tbl r on r.country_code = pt.country_code ";
 		$groupBy = array("pt.country_code", "pt.tagName");
 		break;
 	case 2:
-		$columns = array("COUNT(*)", "regionName", "tagName", "AVG(latitude)", "AVG(longitude)");
+		$columns = array("COUNT(*)", "regionName as placeName", "tagName", "AVG(latitude)", "AVG(longitude)");
 		$join = " INNER JOIN region1_tbl r on r.region1 = pt.region1 ";
 		$groupBy = array("pt.country_code", "pt.region1", "pt.tagName");
 		break;
 	case 3:
-		$columns = array("COUNT(*)", "regionName", "tagName", "AVG(latitude)", "AVG(longitude)");
+		$columns = array("COUNT(*)", "regionName as placeName", "tagName", "AVG(latitude)", "AVG(longitude)");
 		$join = " INNER JOIN region2_tbl r on r.region2 = pt.region2 ";
 		$groupBy = array("pt.country_code", "pt.region1", "pt.region2", "pt.tagName");
 		break;
 	default:
-		$columns = array("COUNT(*)", "name as regionName", "tagName", "AVG(latitude)", "AVG(longitude)");
+		$columns = array("COUNT(*)", "name", "tagName", "AVG(latitude)", "AVG(longitude)");
 		$groupBy = array("placeId", "tagName");
 	}
 
