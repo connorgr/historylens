@@ -1,5 +1,6 @@
 
-
+var globalColorList = ['#8DD3C7', '#FFFFB3', '#BEBADA', '#FB8072', '#80B1D3',
+          '#FDB462', '#B3DE69', '#FCCDE5', '#D9D9D9', 'BC80BD'];
 /**
   * This function draws a donut visualization on an SVG canvas
   * d3Selection - a selection made in d3 to use to render the donut in
@@ -7,8 +8,7 @@
   */
 function drawDonut(d3Selection) {
   var radius = 50,
-      donutColorsList = ['#8DD3C7', '#FFFFB3', '#BEBADA', '#FB8072', '#80B1D3',
-          '#FDB462', '#B3DE69', '#FCCDE5', '#D9D9D9', 'BC80BD'],
+      donutColorsList = globalColorList,
       donutColors = d3.scale.ordinal().range(donutColorsList),
       arc = d3.svg.arc().outerRadius(radius - 3).innerRadius(radius - radius/3),
       pie = d3.layout.pie().sort(null).value(function(d) { return d.num; });
