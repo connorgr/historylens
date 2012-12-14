@@ -65,7 +65,7 @@
 
     function getSummaryDataByLoc(minLat, maxLat, minLng, maxLng, regionLevel, minYear, maxYear, redraw) {
         console.log("Getting data from php...");
-        var filterJSON = JSON.stringify({min_latitude: minLat, max_latitude: maxLat, min_longitude: minLng, max_longitude: maxLng, min_year: minYear, max_year: maxYear, regionLevel: regionLevel, original_data: 0});
+        var filterJSON = JSON.stringify({min_latitude: minLat, max_latitude: maxLat, min_longitude: minLng, max_longitude: maxLng, min_year: minYear, max_year: maxYear, regionLevel: regionLevel, original_data: useOrigData});
         console.log(filterJSON);
         $.get("/vs/php/query.php",
                 {"q" : filterJSON},
@@ -142,7 +142,7 @@
 
     function getDocuments(minLat, maxLat, minLng, maxLng, minyear, maxYear, topic) {
         console.log("Getting data from php...");
-        var filterJSON = JSON.stringify({min_latitude: minLat, max_latitude: maxLat, min_longitude: minLng, max_longitude: maxLng, min_year: minYear, max_year: maxYear, topics: topic, original_data: 0});
+        var filterJSON = JSON.stringify({min_latitude: minLat, max_latitude: maxLat, min_longitude: minLng, max_longitude: maxLng, min_year: minYear, max_year: maxYear, topics: topic, original_data: useOrigData});
         console.log(filterJSON);
         $.get("/vs/php/query.php",
                 {"q" : filterJSON},
@@ -162,7 +162,7 @@
 
     function getData(minLat, maxLat, minLng, maxLng, regionLevel, minYear, maxYear, callback) {
         console.log("Getting data from php...");
-        var filterJSON = JSON.stringify({min_latitude: minLat, max_latitude: maxLat, min_longitude: minLng, max_longitude: maxLng, min_year: minYear, max_year: maxYear, regionLevel: regionLevel, original_data: 0});
+        var filterJSON = JSON.stringify({min_latitude: minLat, max_latitude: maxLat, min_longitude: minLng, max_longitude: maxLng, min_year: minYear, max_year: maxYear, regionLevel: regionLevel, original_data: useOrigData});
         console.log(filterJSON);
         $.get("/vs/php/query.php",
                 {"q" : filterJSON},

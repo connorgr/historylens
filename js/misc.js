@@ -1,17 +1,23 @@
     var optionsLoaded = false;
     var options = [];
-//    var useOrigData = 1;
+    var useOrigData = 0;
 
     function populateOptions() {
         var numOptions = options.length;
         for (var i = 0; i < numOptions; ++i) {
             $('#topicSelect').append(new Option(options[i], options[i], false, false));
-        }
+        }        
         $('.chzn-select').chosen({allow_single_deselect: true});
         $('#topicSelect').change(topicSearchInput);
+        $('#dataSelect').change(dataInput)
         optionsLoaded = true;
 
         initLegend();
+    }
+
+    function dataInput() {
+        useOrigData = this.value;
+        console.log(useOrigData);
     }
 
     function topicSearchInput() {
