@@ -189,7 +189,7 @@ function timelineQuery($json)
 function documentQuery($json)
 {
 	$columns = array("title", "pubYear", "url");
-	$join = ""
+	$join = "";
 	$filter = makeFilter($json);
 	$groupBy = array("docId");
 	$result = performQuery("allDocInfo_vw", $columns, $join, $filter, $groupBy, 100);
