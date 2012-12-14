@@ -14,6 +14,7 @@
     var width = 1000;
     var oHeight = 50;
     var dHeight = 200;
+    var padding = 20;
     
     var x = d3.scale.linear()
         .domain([0, numSample - 1])
@@ -63,21 +64,21 @@
 
     function initTimeline() {
         svgTimeOverview = d3.select('#areaTime').append("svg")
-                .attr("width", width + 40 +  'px')
+                .attr("width", width +  'px')
                 .attr("height", oHeight + 'px')
                 .append("g")
-                .attr("width", width + 'px');
+                .attr("width", width - 20 + 'px');
 //                .attr("transform", "translate (10, 0)");
                 
         svgTimeDetail = d3.select('#areaTime').append("svg")
-                .attr("width", width + 40 + 'px')
+                .attr("width", width + 'px')
                 .attr("height", dHeight + 40 + 'px')
                 .append("g")
                 .attr("width", width + 'px');
 //                .attr("transform", "translate (10, 0)");
 
         svgYearLine = d3.select('#areaTime').append('svg')
-                .attr("width", width + 40 +  'px')
+                .attr("width", width +  'px')
                 .attr('height', '50px')
                 .append('g')
                 .attr("width", width + 'px');
@@ -95,10 +96,10 @@
         .data(allTime)
         .enter().append("rect")
         .attr("class", "timeOVBar selected")
-        .attr("width", width / numYear)
+        .attr("width", ovBarWidth)
         .attr("height", oHeight)
         .attr("x", function(d, i) {
-            d.x0 = i * ovBarWidth + 10;
+            d.x0 = i * ovBarWidth;
             d.x1 = d.x0 + ovBarWidth;
             return d.x0;
          });
