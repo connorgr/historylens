@@ -71,6 +71,7 @@
         svgTimeOverview = d3.select('#areaTime').append("svg")
                 .attr("width", width +  'px')
                 .attr("height", oHeight + 'px')
+                .style('margin-left', '-10px')
                 .append("g")
                 .attr("width", width - padding  + 'px')
                 .attr("transform", "translate (10, 0)");
