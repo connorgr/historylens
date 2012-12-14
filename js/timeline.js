@@ -72,22 +72,22 @@
                 .attr("width", width +  'px')
                 .attr("height", oHeight + 'px')
                 .append("g")
-                .attr("width", width - 20 + 'px')
+                .attr("width", width - padding  + 'px')
                 .attr("transform", "translate (10, 0)");
                 
         svgTimeDetail = d3.select('#areaTime').append("svg")
                 .attr("width", width + 'px')
                 .attr("height", dHeight + 40 + 'px')
                 .append("g")
-                .attr("width", width + 'px');
-//                .attr("transform", "translate (20, 0)");
+                .attr("width", width - padding + 'px')
+                .attr("transform", "translate (10, 0)");
 
         svgYearLine = d3.select('#areaTime').append('svg')
                 .attr("width", width +  'px')
                 .attr('height', '50px')
                 .append('g')
-                .attr("width", width + 'px');
-//                .attr("transform", "translate (20, 0)");
+                .attr("width", width - padding + 'px')
+                .attr("transform", "translate (10, 0)");
 
         svgYearLine.append('line')
                 .attr("x1", 0)
