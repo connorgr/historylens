@@ -10,7 +10,6 @@
     var maxLat = 90;
     var minLng = -180;
     var maxLng = 180;
-    var overlay = new google.maps.OverlayView();
         
     // Create the Google Map…
     function initMap() {
@@ -21,6 +20,7 @@
         });
 
         google.maps.event.addListener(map, 'zoom_changed', mapOnZoom); 
+        var overlay = new google.maps.OverlayView();
         getSummaryDataByLoc(-90, 90, -180, 180, 1, 1850, 2010);    
     }
 
