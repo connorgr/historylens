@@ -7,4 +7,6 @@ d3.select('#areaLegend')
           .append('rect');
 
 
-$('#areaLegend').append('<p>Test</p>');
+$.ready(function () {
+  $('#areaLegend').append('<p>Test</p>');
+});
