@@ -169,7 +169,7 @@
             .enter().append('text')
             .attr('transform', function(d) { return 'translate(' + topicX(d.x) + ', 35)'; })
             .text(function(d) { return d.year; })
-            .attr('dx', '-15px')
+            .attr('dx', '-13px')
             .attr('class', 'labels');
             
         console.log("layer");
