@@ -60,7 +60,7 @@
     // Create the data for overview bars which contain all the years between 
     // the minYear and the maxYear
     var allTime = [];
-    for (var i = minYear; i <= maxYear; ++i) {
+    for (var i = minYear; i < maxYear; ++i) {
         allTime.push({year: i});
     }
     console.log(allTime.length);
