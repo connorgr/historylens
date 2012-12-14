@@ -2,12 +2,13 @@ function initLegend() {
   console.log('Inside the making of legends.');
   console.log($('#areaLegend'));
 
+  var topicKeys = options;
   var legendTopics = [];
   for(topic in options) {
-    legendTopics[topic] = { name: options[topic], color: globalColorList[topic]};
+    legendTopics[topic] = { options[topic]: globalColorList[topic]};
   }
-  legendTopics.sort();
-  for(topic in legendTopics) {
+  topicKeys.sort();
+  for(topic in topicKeys) {
     $('#areaLegend').append('<div class="legendItem"><p>' + legendTopics[topic].color + '||' + legendTopics[topic].name + '</p></div>');
   }
 
