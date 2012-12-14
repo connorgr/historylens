@@ -93,10 +93,6 @@ p, text, td {
   fill: steelblue;
 }
 
-.titleText {
-  font-size: 18px;
-}
-
 .vertLine {
     stroke: black;
 }
@@ -162,9 +158,13 @@ p, text, td {
 #areaTop {
   border-bottom: 1px dashed #CCC;
   display: block;
-  height: 75px;
+  height: 50px;
   margin: 0;
-  padding: 0 20px;
+  padding: 20px;
+}
+#areaTop h1 {
+  font-family: 'Oleo Script Swash Caps', cursive;
+  font-size: 40px;
 }
 
 #areaTime {
