@@ -17,11 +17,4 @@ function initLegend() {
     var curColor = globalColorList[legendTopics[curTopic]];
     $('#areaLegend').append('<div class="legendItem"><svg width="15px" height="15px"><rect width="15px" height="15px" style="fill:' + curColor + ';"></rect></svg><p>' + curTopic + '</p></div>');
   }
-
-  d3.select('#areaLegend')
-    .append('svg')
-      .attr('width', '1000px')
-      .attr('height', '100px')
-      .style('background-color', '#ff0000')
-          .append('rect');
 }
