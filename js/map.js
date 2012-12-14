@@ -10,6 +10,7 @@
     var maxLat = 90;
     var minLng = -180;
     var maxLng = 180;
+    var regionLevel = 1;
     var overlay;
         
     // Create the Google Map…
@@ -36,9 +37,11 @@
       minLng = sw.lng();
       maxLng = ne.lng();
       if (this.zoom <= 6) {
+        regionLevel = 1;
         getSummaryDataByBoth(minLat, maxLat, minLng, maxLng, 1, 1850, 2010);
       }
       else if (this.zoom > 6) {
+        regionLevel = 3;
         getSummaryDataByBoth(minLat, maxLat, minLng, maxLng, 3, 1850, 2010);
 //                getSummaryDataByLoc();
       }

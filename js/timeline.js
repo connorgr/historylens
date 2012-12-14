@@ -291,6 +291,7 @@
 
     function brushEnd() {
         updateDetailView();
+        getSummaryDataByLoc(minLat, maxLat, minLng, maxLng, regionLevel, startYear, endYear);
     }
 
     function updateOverview(newLayer) {
