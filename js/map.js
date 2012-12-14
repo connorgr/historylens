@@ -86,9 +86,9 @@
         var projection = this.getProjection(),
             padding = 50;
         
-        layer.selectAll("svg")
+/*        layer.selectAll("svg")
             .data(activeLocations, function(d) { return d.lat + '-' + d.lng; })
-            .exit().remove();
+            .exit().remove(); */
 
         marker = layer.selectAll("svg")
             .data(activeLocations, function(d) { return d.lat + '-' + d.lng; })
@@ -96,12 +96,6 @@
             .enter().append("svg:svg")
             .each(transform)
             .attr("class", "markers");
-
-          // Add a circle.
-          marker.append("svg:circle")
-              .attr("r", 4.5)
-              .attr("cx", padding)
-              .attr("cy", padding);
 
 //        drawDonut(marker);
 
