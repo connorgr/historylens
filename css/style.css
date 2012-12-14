@@ -160,11 +160,12 @@ p, text, td {
   display: block;
   height: 50px;
   margin: 0;
-  padding: 20px;
+  padding: 10px 20px 30px 20px;
 }
 #areaTop h1 {
   font-family: 'Oleo Script Swash Caps', cursive;
-  font-size: 40px;
+  font-size: 55px;
+  margin: 0;
 }
 
 #areaTime {
