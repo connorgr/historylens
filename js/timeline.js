@@ -11,10 +11,11 @@
     
     var stack = d3.layout.stack().offset("zero");
     
-    var width = 1020;
-    var oHeight = 50;
-    var dHeight = 200;
-    var padding = 20;
+    var width = 1000,
+        overviewWidth = width + 20;
+        oHeight = 50,
+        dHeight = 200,
+        padding = 20;
     
     var x = d3.scale.linear()
         .domain([0, numSample - 1])
@@ -69,11 +70,11 @@
 
     function initTimeline() {
         svgTimeOverview = d3.select('#areaTime').append("svg")
-                .attr("width", width +  'px')
+                .attr("width", overviewWidth +  'px')
                 .attr("height", oHeight + 'px')
                 .style('margin-left', '-10px')
                 .append("g")
-                .attr("width", width - padding  + 'px')
+                .attr("width", overviewWidth  + 'px')
                 .attr("transform", "translate (10, 0)");
                 
         svgTimeDetail = d3.select('#areaTime').append("svg")
