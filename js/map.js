@@ -67,7 +67,7 @@
     console.log(map.getZoom());
     console.log("map update");
     console.log(summary);
-    overlay = new google.maps.OverlayView();
+//    overlay = new google.maps.OverlayView();
     var activeLocations = summary;
 
     // Add the container when the overlay is added to the map.
