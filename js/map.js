@@ -83,7 +83,7 @@
             .each(transform)
             .attr("class", "markers");
 
-        drawDonut(marker, {'test': '1'});
+        drawDonut(marker);
 
         function transform(d) {
           d = new google.maps.LatLng(d.lat, d.lng);
