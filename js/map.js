@@ -24,24 +24,24 @@
     }
 
     function mapOnZoom() {
-                // Need further improvement so that we can determine 
-            // the set of countries / places to show
-            var bounds = map.getBounds();
-            var ne = bounds.getNorthEast();
-            var sw = bounds.getSouthWest();
-            minLat = sw.lat();
-            maxLat = ne.lat();
-            minLng = sw.lng();
-            maxLng = ne.lng();
-            if (this.zoom <= 6) {
-                getSummaryDataByBoth(minLat, maxLat, minLng, maxLng, 1, 1850, 2010);
+          // Need further improvement so that we can determine 
+      // the set of countries / places to show
+      var bounds = map.getBounds();
+      var ne = bounds.getNorthEast();
+      var sw = bounds.getSouthWest();
+      minLat = sw.lat();
+      maxLat = ne.lat();
+      minLng = sw.lng();
+      maxLng = ne.lng();
+      if (this.zoom <= 6) {
+        getSummaryDataByBoth(minLat, maxLat, minLng, maxLng, 1, 1850, 2010);
 //                activeLocations = countries;
-            }
-            else if (this.zoom > 6) {
-                getSummaryDataByBoth(minLat, maxLat, minLng, maxLng, 3, 1850, 2010);
+      }
+      else if (this.zoom > 6) {
+        getSummaryDataByBoth(minLat, maxLat, minLng, maxLng, 3, 1850, 2010);
 //                activeLocations = cities;
 //                getSummaryDataByLoc();
-            }
+      }
     }
 
 
@@ -72,9 +72,11 @@
         var projection = this.getProjection(),
             padding = 50;
 
-        layer.selectAll("svg")
-            .data(activeLocations, function(d) { return d.key; })
-            .exit().remove();
+        layer.selectAll('svg').remove();
+        
+        // layer.selectAll("svg")
+        //     .data(activeLocations, function(d) { return d.key; })
+        //     .exit().remove();
 
         var marker = layer.selectAll("svg")
             .data(activeLocations, function(d) { return d.key; })                
