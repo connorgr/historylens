@@ -11,17 +11,13 @@
     
     var stack = d3.layout.stack().offset("zero");
     
-    var width = 1000;
+    var width = 960;
     var oHeight = 50;
     var dHeight = 200;
-    var padding = 20;
     
     var x = d3.scale.linear()
         .domain([0, numSample - 1])
-        .range([10, width-padding]);
-    var topicX = d3.scale.linear()
-        .domain([0, numSample - 1])
-        .range([10, width]);
+        .range([0, width]);
     var y;
     var topicY;
 
@@ -45,7 +41,7 @@
     var numYear = maxYear - minYear;
     var timeOVBars;
     var sampleLines;
-    var ovBarWidth = (width - 20) / numYear;;
+    var ovBarWidth = width / numYear;;
     var recordsByTime;
     var vizDetail;
     var vizOverview;
@@ -67,25 +63,25 @@
 
     function initTimeline() {
         svgTimeOverview = d3.select('#areaTime').append("svg")
-                .attr("width", width +  'px')
+                .attr("width", width + 40 +  'px')
                 .attr("height", oHeight + 'px')
                 .append("g")
-                .attr("width", width - 20 + 'px');
-//                .attr("transform", "translate (10, 0)");
+                .attr("width", width + 'px')
+                .attr("transform", "translate (20, 0)");
                 
         svgTimeDetail = d3.select('#areaTime').append("svg")
-                .attr("width", width + 'px')
+                .attr("width", width + 40 + 'px')
                 .attr("height", dHeight + 40 + 'px')
                 .append("g")
                 .attr("width", width + 'px')
-                .attr("transform", "translate (-10, 10)");
+                .attr("transform", "translate (20, 0)");
 
         svgYearLine = d3.select('#areaTime').append('svg')
-                .attr("width", width +  'px')
+                .attr("width", width + 40 +  'px')
                 .attr('height', '50px')
                 .append('g')
-                .attr("width", width + 'px');
-//                .attr("transform", "translate (10, 0)");
+                .attr("width", width + 'px')
+                .attr("transform", "translate (20, 0)");
 
         svgYearLine.append('line')
                 .attr("x1", 0)
@@ -99,7 +95,7 @@
         .data(allTime)
         .enter().append("rect")
         .attr("class", "timeOVBar selected")
-        .attr("width", ovBarWidth)
+        .attr("width", width / numYear)
         .attr("height", oHeight)
         .attr("x", function(d, i) {
             d.x0 = i * ovBarWidth;
@@ -165,7 +161,7 @@
         svgYearLine.selectAll('text')
             .data(yearLineData)
             .enter().append('text')
-            .attr('transform', function(d) { return 'translate(' + topicX(d.x) + ', 35)'; })
+            .attr('transform', function(d) { return 'translate(' + x(d.x) + ', 35)'; })
             .text(function(d) { return d.year; })
             .attr('dx', '-10px');
             
@@ -188,7 +184,7 @@
 
         vizDetail = d3.svg.area()
             .interpolate("cardinal")
-            .x(function(d) { return topicX(d.x); })
+            .x(function(d) { return x(d.x); })
             .y0(function(d) { return topicY(d.y0); })
             .y1(function(d) { return topicY(d.y0 + d.y); });
 
@@ -227,8 +223,8 @@
         sampleLines = svgTimeDetail.selectAll("line")
             .data(sampleLineData)
             .enter().append("line")
-            .attr("x1", function(d) { return topicX(d.x); })
-            .attr("x2", function(d) { return topicX(d.x); })
+            .attr("x1", function(d) { return x(d.x); })
+            .attr("x2", function(d) { return x(d.x); })
             .attr("y1", function(d) { return topicY(d.y0 + d.y); })
             .attr("y2", function(d) { return topicY(d.y0); })
             .attr("id", function(d, i) { return "sampleLine-" + i; })
@@ -240,7 +236,7 @@
             .data(sampleLineData)
             .enter().append('text')
             .text(function(d) { return d.y; })
-            .attr('transform', function(d) { return 'translate(' + topicX(d.x) + ', ' + topicY(d.y0 + d.y) + ')'; });
+            .attr('transform', function(d) { return 'translate(' + x(d.x) + ', ' + topicY(d.y0 + d.y) + ')'; });
 
 
         svgYearLine.selectAll('.vertLine')
@@ -252,7 +248,7 @@
             .attr("y2", 25)
             .attr('class', 'vertLine');
 
-        updateDetailView();
+//        updateDetailView();
     }
         
 
@@ -352,7 +348,7 @@
                 
             vizDetail = d3.svg.area()
                 .interpolate("cardinal")
-                .x(function(d) { return topicX(d.x); })
+                .x(function(d) { return x(d.x); })
                 .y0(function(d) { return topicY(d.y0); })
                 .y1(function(d) { return topicY(d.y0 + d.y); });
         }
