@@ -57,6 +57,7 @@ p, text, td {
 .legendItem p {
   display: inline-block;
   margin: 0;
+  vertical-align: top;
 }
 .legendItem svg {
   border: 1px solid #CCC;
