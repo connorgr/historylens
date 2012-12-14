@@ -2,21 +2,10 @@
 
 /**
   * This function draws a donut visualization on an SVG canvas
-  * locGroup {svg:g} - a location group to draw the donut in
-  * data {json} - the data that the donut will use
+  * d3Selection - a selection made in d3 to use to render the donut in
   *
   */
-function drawDonut(d3Selection, data) {
-  // if (typeof data === 'undefined') {
-  //   throw { 
-  //     name:        "JSON undefined", 
-  //     message:     "Undefined JSON Error. Undefined json passed to drawDonut."
-  //   } 
-  // } else if (data === null) {
-  //   data = { num: 1};
-  // }
-  data = [{ num:'50' }, { num:'6' }, { num:'6' }, { num:'6' }, { num:'6' }, {num:'3'}, {num:'1'}, { num:'6' }, {num:'10'} ];
-
+function drawDonut(d3Selection) {
   var radius = 50,
       donutColorsList = ['#8DD3C7', '#FFFFB3', '#BEBADA', '#FB8072', '#80B1D3',
           '#FDB462', '#B3DE69', '#FCCDE5', '#D9D9D9', 'BC80BD'],
