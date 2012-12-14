@@ -63,7 +63,8 @@
 
     function binByLoc(data) {
       var summary = locCountAggregator(data.map);
-      updateMapView(summary);
+      updateLocData(summary);
+//      updateMapView(summary);
       //updateMapView(data.map);
     }
 
@@ -91,7 +92,8 @@
 
     function binByBoth(data) {
         binByTime(data);
-        updateMapView(data.map);
+        updateLocData(data.map);
+//        updateMapView(data.map);
     }
 
     // Documents

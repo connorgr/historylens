@@ -12,6 +12,7 @@
     var maxLng = 180;
     var regionLevel = 1;
     var overlay;
+    var marker;
         
     // Create the Google Map…
     function initMap() {
@@ -62,6 +63,10 @@
     });
   }
 
+  function updateLocData(data) {
+    activeLocations = data;
+  }
+
 
   function updateMapView(summary) {
     console.log(map.getZoom());
@@ -88,7 +93,7 @@
             .data(activeLocations, function(d) { return d.lat + '-' + d.lng; })
             .exit().remove();
 
-        var marker = layer.selectAll("svg")
+        marker = layer.selectAll("svg")
             .data(activeLocations, function(d) { return d.lat + '-' + d.lng; })                
             .each(transform) // update existing markers
             .enter().append("svg:svg")
