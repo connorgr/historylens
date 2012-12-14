@@ -73,7 +73,8 @@
                 .attr("height", oHeight + 'px')
                 .append("g")
                 .attr("width", width - padding  + 'px')
-                .attr("transform", "translate (10, 0)");
+                .attr("transform", "translate (10, 0)")
+                .style('margin-left', '-10px');
                 
         svgTimeDetail = d3.select('#areaTime').append("svg")
                 .attr("width", width + 'px')
