@@ -8,6 +8,7 @@ d3.select('#areaLegend')
 
 
 $.ready(function () {
+  console.log('Inside the making of legends.');
   console.log($('#areaLegend'));
   $('#areaLegend').append('<p>Test</p>');
 });
