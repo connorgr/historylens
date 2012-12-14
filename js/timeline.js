@@ -256,7 +256,7 @@
             .attr("x1", function(d) { return topicX(d.x); })
             .attr("x2", function(d) { return topicX(d.x); })
             .attr("y1", 0)
-            .attr("y2", 15)
+            .attr("y2", 5)
             .attr('class', 'vertLine');
 
         updateDetailView();
