@@ -8,7 +8,10 @@ $database = "visualSummaries";
 
 $connection = mysql_connect("localhost", $username, $password);
 @mysql_select_db($database) or die("Unable to select database");
+mysql_query("SET CHARACTER SET utf8;");
 
+$maxDocId = mysql_fetch_row(mysql_query("SELECT MAX(docId) FROM doc_tbl"))[0];
+$sampleSize = 1000;
 
 /* Constructing SQL query strings */
 
@@ -24,6 +27,14 @@ function maxClause($column, $max) {
 	return isset($max) ? array($column . " <= " . $max) : array();
 }
 
+function eqClause($column, $value) {
+	 return isset($value) ? array($column . " = " . $value) : array();
+}
+
+function inClause($column, $values) {
+	 return isset($values) ? array($column . " in (" . join(",", $values) . ")") : array();
+}
+
 function likeClause($column, $like) {
 	return isset($like) ? array($column . " like '%" . $like . "%'") : array();
 }
@@ -36,16 +47,24 @@ function orClause($clauses) {
 	return empty($clauses) ? array() : array("(" . join(" OR ", $clauses) . ")");
 }
 
-function performQuery($columns, $filter, $groupBy, $limit)
+function sampleDocIds($count) {
+    global $maxDocId;
+    $samples = array();
+    for ($i = 0; $i < $count; $i++) {
+        array_push($samples, rand(0, $maxDocId));
+    }
+    return $samples;
+}
+
+function performQuery($table, $columns, $filter, $groupBy, $limit)
 {
-	$select = "SELECT " . join(", ", $columns) . " FROM allDocInfo_vw";
+	$select = "SELECT " . join(", ", $columns) . " FROM " . $table;
 	$where = empty($filter) ? "" : " WHERE " . $filter[0];
+    $where_sample =  $where . " AND " . inClause("docId", sampleDocIds($sampleSize));
 	$groupBy = empty($groupBy) ? "" : " GROUP BY " . join(", ", $groupBy);
-	#$orderBy = empty($orderBy) ? "" : " ORDER BY " . join(", ", $orderBy);
+    #$orderBy = empty($orderBy) ? "" : " ORDER BY " . join(", ", $orderBy);
 	$limit = empty($limit) ? "" : " LIMIT " . $limit;
 	$query = $select . $where . $groupBy . $limit . ";";
-	echo "Query: $query\n";
-	mysql_query("SET CHARACTER SET utf8;");
 	return mysql_query($query);
 }
 
@@ -73,6 +92,7 @@ function makeFilter($json)
 {
 	$filters = array();
 	$filters = array_merge($filters,
+		eqClause("originalData", "0"),
 		authorFilter(withDefault($json, "authors", array())),
 		topicFilter(withDefault($json, "topics", array())),
 		minClause("latitude", withDefault($json, "min_latitude", NULL)),
@@ -88,12 +108,12 @@ function mapQuery($json)
 {
 	global $regionLevelMapping;
 
-	$regionLevel = $regionLevelMapping[withDefault($json, "regionLevel", 2)];
+	$regionLevel = $regionLevelMapping[withDefault($json, "regionLevel", 1)];
 	$columns = array("COUNT(*)", $regionLevel, "tagName", "name", "AVG(latitude)", "AVG(longitude)");
 	$filter = makeFilter($json);
 	$groupBy = array($regionLevel, "tagName");
 	#$orderBy = "COUNT(*) desc"
-	$result = performQuery($columns, $filter, $groupBy, false);
+	$result = performQuery("placeTag_vw", $columns, $filter, $groupBy, false);
 
 	$row = false;
 	$data = array();
@@ -106,7 +126,12 @@ function mapQuery($json)
 		}
 		$data[$region]["topics"][$tagName] = $count;
 	}
-	return $data;
+	$data_ = array();
+	foreach ($data as $region => $doc) {
+		$doc["region"] = $region;
+		array_push($data_, $doc);
+	}
+	return $data_;
 }
 
 function timelineQuery($json)
@@ -114,7 +139,7 @@ function timelineQuery($json)
 	$columns = array("COUNT(*)", "pubYear", "tagName");
 	$filter = makeFilter($json);
 	$groupBy = array("pubYear", "tagName");
-	$result = performQuery($columns, $filter, $groupBy, false);
+	$result = performQuery("placeTag_vw", $columns, $filter, $groupBy, false);
 
 	$row = false;
 	$data = array();
@@ -135,7 +160,7 @@ function documentQuery($json)
 	$columns = array("title", "pubYear", "url");
 	$filter = makeFilter($json);
 	$groupBy = array("docId");
-	$result = performQuery($columns, $filter, $groupBy, 100);
+	$result = performQuery("allDocInfo_vw", $columns, $filter, $groupBy, 100);
 
 	$row = false;
 	$data = array();
@@ -152,9 +177,9 @@ function documentQuery($json)
 function bigQuery($jsonString) {
 	$json = json_decode($jsonString, true);
 	$results = array(
-		"map" => mapQuery($json));#,
-		#"timeline" => timelineQuery($json),
-		#"document" => documentQuery($json));
+		"map" => mapQuery($json),
+		"timeline" => timelineQuery($json),
+		"document" => documentQuery($json));
 	return json_encode($results);
 }
 
@@ -163,7 +188,7 @@ function bigQuery($jsonString) {
 
 header('Content-Type: application/json');
 $q = $_GET["q"];
-bigQuery($q);
+echo bigQuery($q);
 
 mysql_close($connection);
 

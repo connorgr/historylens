@@ -40,9 +40,9 @@ function orClause($clauses) {
 	return empty($clauses) ? array() : array("(" . join(" OR ", $clauses) . ")");
 }
 
-function performQuery($columns, $filter, $groupBy, $limit)
+function performQuery($table, $columns, $filter, $groupBy, $limit)
 {
-	$select = "SELECT " . join(", ", $columns) . " FROM allDocInfo_vw";
+	$select = "SELECT " . join(", ", $columns) . " FROM " . $table;
 	$where = empty($filter) ? "" : " WHERE " . $filter[0];
 	$groupBy = empty($groupBy) ? "" : " GROUP BY " . join(", ", $groupBy);
 	#$orderBy = empty($orderBy) ? "" : " ORDER BY " . join(", ", $orderBy);
@@ -97,7 +97,7 @@ function mapQuery($json)
 	$filter = makeFilter($json);
 	$groupBy = array($regionLevel, "tagName");
 	#$orderBy = "COUNT(*) desc"
-	$result = performQuery($columns, $filter, $groupBy, false);
+	$result = performQuery("placeTag_vw", $columns, $filter, $groupBy, false);
 
 	$row = false;
 	$data = array();
@@ -110,7 +110,12 @@ function mapQuery($json)
 		}
 		$data[$region]["topics"][$tagName] = $count;
 	}
-	return $data;
+	$data_ = array();
+	foreach ($data as $region => $doc) {
+		$doc["region"] = $region;
+		array_push($data_, $doc);
+	}
+	return $data_;
 }
 
 function timelineQuery($json)
@@ -118,7 +123,7 @@ function timelineQuery($json)
 	$columns = array("COUNT(*)", "pubYear", "tagName");
 	$filter = makeFilter($json);
 	$groupBy = array("pubYear", "tagName");
-	$result = performQuery($columns, $filter, $groupBy, false);
+	$result = performQuery("placeTag_vw", $columns, $filter, $groupBy, false);
 
 	$row = false;
 	$data = array();
@@ -139,7 +144,7 @@ function documentQuery($json)
 	$columns = array("title", "pubYear", "url");
 	$filter = makeFilter($json);
 	$groupBy = array("docId");
-	$result = performQuery($columns, $filter, $groupBy, 100);
+	$result = performQuery("allDocInfo_vw", $columns, $filter, $groupBy, 100);
 
 	$row = false;
 	$data = array();
