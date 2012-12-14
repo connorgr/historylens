@@ -5,7 +5,7 @@ function initLegend() {
   var legendTopics = options;
   legendTopics.sort();
   for(topic in legendTopics) {
-    $('#areaLegend').append('<p>' + options[topic] + '</p>');
+    $('#areaLegend').append('<div class="legendItem"><p>' + options[topic] + '</p></div>');
   }
 
   d3.select('#areaLegend')

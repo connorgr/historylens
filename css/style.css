@@ -48,6 +48,16 @@ p, text, td {
   font-size: 11px;
 }
 
+.legendItem {
+  display: inline-block;
+  height: 30px;
+  overflow: hidden;
+  width: 200px;
+}
+.legendItem p {
+  margin: 0;
+}
+
 .link {
   stroke: #AAA;
   stroke-width: 2px;
@@ -113,11 +123,11 @@ p, text, td {
 
 #areaLegend {
   background-color: #EEE;
-  border-top: 1px dashed #CCC;
+  border: 1px solid #AAA;
   display: block;
-  margin: 0;
-  padding: 0;
-  width: 1000px;
+  margin: 10px 0;
+  padding: 10px;
+  width: 980px;
 }
 
 #areaMap {
