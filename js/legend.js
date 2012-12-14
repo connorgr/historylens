@@ -15,7 +15,7 @@ function initLegend() {
     // There's a smarter way to do this.
     var curTopic = topicKeys[topic];
     var curColor = globalColorList[legendTopics[curTopic]];
-    $('#areaLegend').append('<div class="legendItem"><p>' + curColor + '||' + curTopic + '</p></div>');
+    $('#areaLegend').append('<div class="legendItem"><svg width="20px" height="20px"><rect width="20px" height="20px" style="fill:' + curColor + ';"></rect></svg><p>' + curColor + '||' + curTopic + '</p></div>');
   }
 
   d3.select('#areaLegend')
