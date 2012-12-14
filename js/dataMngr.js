@@ -98,7 +98,7 @@
 
     function getDocuments(minLat, maxLat, minLng, maxLng, minyear, maxYear, topic) {
         console.log("Getting data from php...");
-        var filterJSON = JSON.stringify({min_latitude: minLat, max_latitude: maxLat, min_longitude: minLng, max_longitude: maxLng, min_year: minYear, max_year: maxYear, topic: topic});
+        var filterJSON = JSON.stringify({min_latitude: minLat, max_latitude: maxLat, min_longitude: minLng, max_longitude: maxLng, min_year: minYear, max_year: maxYear, topics: topic});
         console.log(filterJSON);
         $.get("/vs/php/query.php",
                 {"q" : filterJSON},
