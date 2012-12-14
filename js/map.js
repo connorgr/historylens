@@ -56,6 +56,8 @@
         regionLevel = 3;
         activeLocations = cities;
       } 
+
+      getSummaryDataByTime(minLat, maxLat, minLng, maxLng, regionLevel, minYear, maxYear);
     }
 
 
