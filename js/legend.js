@@ -2,13 +2,16 @@ function initLegend() {
   console.log('Inside the making of legends.');
   console.log($('#areaLegend'));
 
-  var legendTopics = [];
+  var topicKeys = options,
+      legendTopics = [];
   for(topic in options) {
-    legendTopics[topic] = { name: options[topic], color: globalColorList[topic]};
+    var name = options[topic];
+    var color = globalColorList[topic];
+    legendTopics[topic] = { name: color };
   }
-  legendTopics.sort();
-  for(topic in legendTopics) {
-    $('#areaLegend').append('<div class="legendItem"><p>' + legendTopics[topic].color + '||' + '</p></div>');
+  topicKeys.sort();
+  for(topic in topicKeys) {
+    $('#areaLegend').append('<div class="legendItem"><p>' + legendTopics[topic].color + '||' + legendTopics[topic].name + '</p></div>');
   }
 
   d3.select('#areaLegend')
