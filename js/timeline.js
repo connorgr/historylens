@@ -91,7 +91,7 @@
 
         svgYearLine.append('line')
                 .attr("x1", 0)
-                .attr("x2", width)
+                .attr("x2", width - padding)
                 .attr('y1', 15)
                 .attr('y2', 15)
                 .attr('class', 'yearLine');
@@ -169,7 +169,7 @@
             .enter().append('text')
             .attr('transform', function(d) { return 'translate(' + topicX(d.x) + ', 35)'; })
             .text(function(d) { return d.year; })
-            .attr('dx', '-20px')
+            .attr('dx', '-15px')
             .attr('class', 'labels');
             
         console.log("layer");
@@ -244,7 +244,7 @@
             .enter().append('text')
             .text(function(d) { return d.y; })
             .attr('transform', function(d) { return 'translate(' + topicX(d.x) + ', ' + topicY(d.y0 + d.y) + ')'; })
-            .attr('dx', '-15px')
+            .attr('dx', '-10px')
             .attr('class', 'labels');
 
 
