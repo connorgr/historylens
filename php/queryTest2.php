@@ -128,17 +128,17 @@ function mapQuery($json)
 	case 1:
 		$columns = array("COUNT(*)", "regionName", "tagName", "AVG(latitude)", "AVG(longitude)");
 		$join = " INNER JOIN country_tbl r on r.country_code = pt.country_code ";
-		$groupBy = array("country_code", "tagName");
+		$groupBy = array("pt.country_code", "pt.tagName");
 		break;
 	case 2:
 		$columns = array("COUNT(*)", "regionName", "tagName", "AVG(latitude)", "AVG(longitude)");
 		$join = " INNER JOIN region1_tbl r on r.region1 = pt.region1 ";
-		$groupBy = array("country_code", "region1", "tagName");
+		$groupBy = array("pt.country_code", "pt.region1", "pt.tagName");
 		break;
 	case 3:
 		$columns = array("COUNT(*)", "regionName", "tagName", "AVG(latitude)", "AVG(longitude)");
 		$join = " INNER JOIN region2_tbl r on r.region2 = pt.region2 ";
-		$groupBy = array("country_code", "region1", "region2", "tagName");
+		$groupBy = array("pt.country_code", "pt.region1", "pt.region2", "pt.tagName");
 		break;
 	default:
 		$columns = array("COUNT(*)", "name as regionName", "tagName", "AVG(latitude)", "AVG(longitude)");
@@ -189,9 +189,10 @@ function timelineQuery($json)
 function documentQuery($json)
 {
 	$columns = array("title", "pubYear", "url");
+	$join = ""
 	$filter = makeFilter($json);
 	$groupBy = array("docId");
-	$result = performQuery($columns, $filter, $groupBy, 100);
+	$result = performQuery("allDocInfo_vw", $columns, $join, $filter, $groupBy, 100);
 
 	$row = false;
 	$data = array();
