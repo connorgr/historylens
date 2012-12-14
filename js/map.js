@@ -69,10 +69,11 @@
     });
   }
 
+/*
   function updateLocData(data) {
     activeLocations = data;
   }
-
+*/
 
   function updateMapView() {
     console.log("map update");

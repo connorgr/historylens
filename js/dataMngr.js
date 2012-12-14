@@ -79,16 +79,18 @@
       var summary = locCountAggregator(data.map);
       if (regionLevel === 1) {
         countries = summary;
+        activeLocations = countries;
       }
       else if (regionLevel === 2) {
         regions = summary;
+        activeLocations = regions;
       }
       else {
         cities = summary;
+        activeLocations = regions;
       }
 //      updateLocData(summary);
       if (firstLoad) {
-        activeLocations = countries;
         updateMapView();
         firstLoad = false;
       }
@@ -116,7 +118,7 @@
     }
 
     // Time & Space
-
+/*
     function getSummaryDataByBoth(minLat, maxLat, minLng, maxLng, regionLevel, minYear, maxYear) {
         getData(minLat, maxLat, minLng, maxLng, regionLevel, minYear, maxYear, binByBoth);        
     }
@@ -126,7 +128,7 @@
         updateLocData(data.map);
 //        updateMapView(data.map);
     }
-
+*/
     // Documents
 
     function getDocuments(minLat, maxLat, minLng, maxLng, minyear, maxYear, topic) {
