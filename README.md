@@ -15,14 +15,17 @@ History Lens is a web application that provides an environment to store, explore
 *Importing New Data*
 
 New documents can be imported into our database using the script import.py. It takes through stdin JSON of the following format,
-[ { "document_url" : string,
+```
+[ {
+    "document_url" : string,
     "origin" : number?, // geoname place id
     "authors" : [(string?, string?)] // (firstName, lastName)
     "topics" : [string]
     "year" : number?
-    "places_referenced" : { number : number } // (geoname place id, count)
+    "places_referenced" : { number? : number? } // (geoname place id, count)
     "title" : string?
 } ...]
+```
 
 *Installing the tool locally*
 - Clone our github repo
