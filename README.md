@@ -1,5 +1,6 @@
 **History Lens**
 History Lens is a web application that provides an environment to store, explore, and analyze historical information through visualization.
+More information here: https://sites.google.com/site/visualsummariesinscidb/report.
 
 *Notable Files and Folders*
 - map.html: html code for the map front end
